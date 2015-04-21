@@ -1,0 +1,15 @@
+---
+- name: create my user
+  user: 
+    name={{ usernm }}
+    groups=wheel
+    append=yes
+    shell=/bin/bash
+
+- name: add auth key
+  authorized_key:
+    user={{ item.name }}
+    key="{{ item.keykey }}"
+    state=present
+  with_items: ssh_users
+

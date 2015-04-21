@@ -1,0 +1,4 @@
+---
+- hosts: private
+  roles: 
+    - role: common_private
