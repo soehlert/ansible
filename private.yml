@@ -1,4 +1,7 @@
 ---
 - hosts: private
+  user: vagrant
+  sudo: True
+  sudo_user: root
   roles: 
     - role: common_private

@@ -1,0 +1,6 @@
+---
+usernm: "soehlert"
+
+ssh_users:
+  - name: "{{ usernm }}"
+    key: "{{ lookup('file', 'id_rsa.pub') }}"
