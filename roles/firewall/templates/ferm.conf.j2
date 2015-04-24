@@ -14,7 +14,7 @@ domain ip {
             interface lo ACCEPT;
 
             # respond to ping
-            protocol icmp icmpv6 ACCEPT;
+            protocol icmp ACCEPT;
 
             # remote administration only allowed from the admin network
             saddr {{ admin_network }}/{{ CIDR }} proto tcp dport ssh ACCEPT;
