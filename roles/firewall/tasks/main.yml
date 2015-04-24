@@ -1,0 +1,3 @@
+---
+- name: Set iptables to autostart on boot
+  command: chkconfig iptables on
