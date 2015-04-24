@@ -1,4 +1,10 @@
 ---
+- name: Make sure iptables is installed
+  yum: name=iptables state=installed
+
+- name: Make sure the firewall file is in the right spot
+  copy: src=iptables dest=/etc/sysconfig/iptables force=no
+
 - name: Set iptables to autostart on boot
   command: chkconfig iptables on
 
