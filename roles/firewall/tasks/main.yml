@@ -1,6 +1,9 @@
 ---
-- name: Make sure iptables is installed
-  yum: name=iptables state=installed
+- name: Make sure iptables and ferm installed
+  yum: name={{ item }} state=installed
+  with_items:
+    - iptables
+    - ferm
 
 - name: Make sure the firewall file is in the right spot
   copy: src=iptables dest=/etc/sysconfig/iptables force=no

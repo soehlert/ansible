@@ -21,12 +21,12 @@ domain ip {
 
             # Open incoming TCP ports
             {% if open_tcp_ports is defined %}
-            protocol tcp dport ({{ open_tcp_ports|join(' ') }}) ACCEPT;
+            saddr {{ admin_network }}/{{ CIDR }} protocol tcp dport ({{ open_tcp_ports|join(' ') }}) ACCEPT;
             {% endif %}
 
             # Open incoming UDP ports
             {% if open_udp_ports is defined %}
-            protocol udp dport ({{ open_udp_ports|join(' ') }}) ACCEPT;
+            saddr {{ admin_network }}/{{ CIDR }} protocol udp dport ({{ open_udp_ports|join(' ') }}) ACCEPT;
             {% endif %}
 
             jump LOGGING;
