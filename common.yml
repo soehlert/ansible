@@ -3,6 +3,10 @@
   user: vagrant
   sudo: true
   sudo_user: root
+  tasks:
+  - group:
+      name: admin
+      state: present
   roles:
     - user
 
@@ -10,9 +14,9 @@
   user: vagrant
   sudo: true
   sudo_user: root
-  roles:
-    - user
   tasks:
   - group:
       name: wheel
       state: present
+  roles:
+    - user
