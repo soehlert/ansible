@@ -8,3 +8,4 @@
     - user
     - sudoers
     - packages
+    - firewalld
