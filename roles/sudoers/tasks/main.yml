@@ -1,16 +1,2 @@
 ---
-- name: Copy sudoers file for safety
-  command: cp -f /etc/sudoers /etc/sudoers.tmp
-
-- name: Create sudoers file backup
-  command: cp -f /etc/sudoers /etc/sudoers.bak
-
-- name: Create admins group
-  group: name=wheel system=yes state=present
-
-- name: make sure we can sudo as admin group
-  lineinfile: dest=/etc/sudoers.tmp state=present regexp='^%wheel' line='%wheel ALL=(ALL) ALL'
-
-- name: Final sudoers file check
-  shell: visudo -q -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers
-
+- template: src=templates/sudoers dest=/etc/sudoers validate='visudo -cf %s'
