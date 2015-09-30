@@ -1,0 +1,4 @@
+---
+- name: install bind
+  hosts: nameservers
+  remote-user: root
