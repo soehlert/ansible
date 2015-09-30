@@ -1,4 +1,15 @@
 ---
-- name: add packages
-  package : state=present name={{ item }}
-    with_items: $packages
+- name: add sudo
+  package : name=sudo state=present
+
+- name: add firewalld
+  package : name=firewalld state=present
+
+- name: add vim
+  package : name=vim state=present
+
+- name: add git
+  package : name=git state=present
+
+- name: add wget
+  package : name=wget state=present
