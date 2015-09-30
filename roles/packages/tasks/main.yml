@@ -1,0 +1,5 @@
+---
+- name: add firewalld
+    package:
+      name=firewalld
+      state=present
