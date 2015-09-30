@@ -3,9 +3,4 @@
   package :
     state=present
     name={{ item }}
-    with_items:
-      - sudo
-      - firewalld
-      - vim
-      - wget
-      - git
+    with_items: $packages

@@ -1,0 +1,7 @@
+---
+- packages:
+    - {name: sudo}
+    - {name: firewalld}
+    - {name: vim}
+    - {name: wget}
+    - {name: git}
