@@ -1,22 +1,8 @@
 ---
-- hosts: centos
+- hosts: private
   user: vagrant
   sudo: true
   sudo_user: root
-  tasks:
-  - group:
-      name: admin
-      state: present
   roles:
-    - user
-
-- hosts: debian
-  user: vagrant
-  sudo: true
-  sudo_user: root
-  tasks:
-  - group:
-      name: wheel
-      state: present
-  roles:
+    - groups
     - user
