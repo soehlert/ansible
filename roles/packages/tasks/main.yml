@@ -1,5 +1,5 @@
 ---
 - name: add firewalld
-    package:
+    package :
       name=firewalld
       state=present
