@@ -5,7 +5,6 @@
     append=yes
     shell=/bin/bash
     groups=wheel
-    when: ansible_distribution == 'CentOS'
 
 - name: add auth key
   authorized_key:
