@@ -2,9 +2,10 @@
 - name: create my user
   user:
     name={{ usernm }}
-    groups=wheel
     append=yes
     shell=/bin/bash
+    groups=wheel
+    when: ansible_distribution == 'CentOS'
 
 - name: add auth key
   authorized_key:
