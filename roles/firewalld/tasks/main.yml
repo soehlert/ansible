@@ -4,3 +4,6 @@
 
 - name: start firewalld
   service : name=firewalld state=started
+
+- name: ssh from local net
+  firewalld : zone=public service=ssh permanent=yes source='192.168.1.0/24' state=enabled
