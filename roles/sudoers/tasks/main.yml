@@ -1,2 +1,6 @@
 ---
-- template: src=sudoers dest=/etc/sudoers validate='visudo -cf %s'
+- name: make sure sudo is install
+  package: name=sudo state=present
+- name: Add custom sudoers
+  copy: src=soehlert dest=/etc/sudoers.d/soehlert owner=root group=root mode=0440 validate='visudo -cf %s'
+
