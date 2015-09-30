@@ -1,2 +1,2 @@
 ---
-- template: src=templates/sudoers dest=/etc/sudoers validate='visudo -cf %s'
+- template: src=sudoers dest=/etc/sudoers validate='visudo -cf %s'
