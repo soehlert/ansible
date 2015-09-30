@@ -2,7 +2,7 @@
 - name: add packages
   package :
     state=present
-    name= {{ item }}
+    name={{ item }}
     with_items:
       - sudo
       - firewalld
