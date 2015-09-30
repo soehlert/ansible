@@ -1,0 +1,6 @@
+---
+- name: add firewalld
+  package : name=firewalld state=present
+
+- name: start firewalld
+  service : name=firewalld state=started

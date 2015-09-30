@@ -1,10 +1,4 @@
 ---
-- name: add sudo
-  package : name=sudo state=present
-
-- name: add firewalld
-  package : name=firewalld state=present
-
 - name: add vim
   package : name=vim state=present
 
