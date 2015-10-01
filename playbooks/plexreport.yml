@@ -4,4 +4,4 @@
   sudo: true
   sudo_user: root
   roles:
-    - plexreport
+    - plexReport
