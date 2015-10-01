@@ -1,6 +1,6 @@
 ---
 - name: add vim
-  package : name={{ vim }} state=present
+  package : name=vim state=present
 
 - name: add git
   package : name=git state=present
