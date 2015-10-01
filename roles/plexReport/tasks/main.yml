@@ -1,0 +1,12 @@
+---
+- name: install ruby
+  package: name=ruby state=present
+
+- name: install ruby-dev
+  package: name=ruby-dev state=present
+
+- name: Clone plexreport
+  git: repo=git@github.com:bstascavage/plexReport.git
+       dest=/home/soehlert/projects/plexreport
+       accept_hostkey=yes
+       recursive=no
