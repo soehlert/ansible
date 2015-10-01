@@ -1,0 +1,8 @@
+---
+- name: add packages for git
+  package : name={{ item }} state=present
+  with_items: 
+    - gnutls-bin
+    - liberror-perl
+    - rsync
+    - git
