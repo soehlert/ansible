@@ -12,6 +12,7 @@
   sudo_user: root
   roles:
     - packages
+    - git
     - firewalld
 
 - hosts: localhost
