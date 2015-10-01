@@ -1,0 +1,4 @@
+---
+- name: add sources.list
+  copy: src=sources.list dest=/etc/apt/sources.list owner=root group=root mode=644
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
