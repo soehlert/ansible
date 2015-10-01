@@ -6,6 +6,7 @@
   roles:
     - groups
     - user
+    - sources
     - sudoers
 
 - hosts: private
