@@ -1,0 +1,6 @@
+---
+vim: "vim"
+when: ansible_distribution == 'CentOS'
+
+vim: "vim-common"
+when: ansible_distribution == 'Debian'
