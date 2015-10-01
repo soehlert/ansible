@@ -4,9 +4,3 @@ when: ansible_distribution == 'CentOS'
 
 vim: "vim-common"
 when: ansible_distribution == 'Debian'
-
-git: "git"
-when: ansible_distrubtion == 'CentOS'
-
-git: "git-core"
-when: ansible_distribution == 'Debian'
