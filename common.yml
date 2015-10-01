@@ -1,11 +1,21 @@
 ---
 - hosts: private
-  user: vagrant
+  user: soehlert
   sudo: true
   sudo_user: root
   roles:
     - groups
     - user
+    - sudoers
+    - packages
+    - firewalld
+
+- hosts: localhost
+  user: soehlert
+  sudo: true
+  sudo_user: root
+  roles:
+    - groups
     - sudoers
     - packages
     - firewalld
