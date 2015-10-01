@@ -9,4 +9,4 @@ deb-src http://security.debian.org/ jessie/updates main contrib non-free
 
 #Third Parties Repos
 #Debian Backports
-http://backports.debian.org/debian-backports squeeze-backports main
+deb http://backports.debian.org/debian-backports squeeze-backports main
