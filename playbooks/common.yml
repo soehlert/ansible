@@ -1,11 +1,16 @@
 ---
 - hosts: private
   user: root
-  sudo: true
-  sudo_user: root
   roles:
     - groups
     - user
+    - sudoers
+
+- hosts: private
+  user: soehlert
+  sudo: true
+  sudo_user: root
+  roles:
     - sudoers
     - packages
     - firewalld
