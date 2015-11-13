@@ -9,6 +9,13 @@
     - sources
     - sudoers
 
+- hosts: centos
+  user: soehlert
+  become: true
+  become_user: root
+  roles:
+      - selinux
+
 - hosts: private
   user: soehlert
   become: true
@@ -16,6 +23,12 @@
   roles:
     - packages
     - git
+
+- hosts: centos7
+  user: soehlert
+  become: true
+  become_user: root
+  roles:
     - firewalld
 
 - hosts: localhost
