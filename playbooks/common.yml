@@ -6,6 +6,8 @@
   roles:
     - groups
     - user
+    - packages
+    - git
 
 - hosts: centos
   user: soehlert
@@ -19,8 +21,6 @@
   become: true
   become_user: root
   roles:
-    - packages
-    - git
     - sudoers
 
 - hosts: centos7

@@ -4,3 +4,6 @@
 
 - name: add wget
   package : name=wget state=present
+
+- name: add libselinux-python for selinux
+  package : name=libselinux-python state=present
