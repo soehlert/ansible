@@ -6,8 +6,6 @@
   roles:
     - groups
     - user
-    - sources
-    - sudoers
 
 - hosts: centos
   user: soehlert
@@ -23,6 +21,7 @@
   roles:
     - packages
     - git
+    - sudoers
 
 - hosts: centos7
   user: soehlert
@@ -30,6 +29,13 @@
   become_user: root
   roles:
     - firewalld
+
+- hosts: debian
+  user: deploy
+  become: true
+  become_user: root
+  roles:
+    - sources
 
 - hosts: localhost
   user: soehlert
