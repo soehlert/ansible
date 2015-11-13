@@ -14,7 +14,7 @@
   become: true
   become_user: root
   roles:
-      - selinux
+    - selinux
 
 - hosts: private
   user: soehlert
@@ -45,4 +45,3 @@
     - groups
     - sudoers
     - packages
-    - firewalld
