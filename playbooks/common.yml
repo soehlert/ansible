@@ -1,8 +1,8 @@
 ---
 - hosts: private
-  user: deploy
-  sudo: true
-  sudo_user: root
+  user: soehlert
+  become: true
+  become_user: root
   roles:
     - groups
     - user
@@ -11,8 +11,8 @@
 
 - hosts: private
   user: soehlert
-  sudo: true
-  sudo_user: root
+  become: true
+  become_user: root
   roles:
     - packages
     - git
@@ -20,8 +20,8 @@
 
 - hosts: localhost
   user: soehlert
-  sudo: true
-  sudo_user: root
+  become: true
+  become_user: root
   roles:
     - groups
     - sudoers
