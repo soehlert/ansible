@@ -23,5 +23,5 @@
     - coffee-script
 
 - name: Create my hoddlebot
-  shell: yo hubot --owner={{ hoddlebot_owner }} --name={{ hoddlebot_name }} --description={{ hoddlebot_description }} --adapter={{ hoddlebot_adapter }} --defaults
+  shell: cd {{hoddlebot_path }}; yo hubot --owner={{ hoddlebot_owner }} --name={{ hoddlebot_name }} --description={{ hoddlebot_description }} --adapter={{ hoddlebot_adapter }} --defaults
     creates={{ hoddlebot_path}}/bin/hubot
