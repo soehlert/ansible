@@ -6,7 +6,7 @@
     - pam-devel
 
 - name: Install Duo RPM Key
-  rpm_key: state=present key=https://www.duosecurity.com/RPM-GPG-KEY-DUO
+  rpm_key: state=present validate_certs=False key=https://www.duosecurity.com/RPM-GPG-KEY-DUO
 
 - name: Add Duo Repo
   copy: src=duosecurity.repo dest=/etc/yum.repos.d/duosecurity.repo
