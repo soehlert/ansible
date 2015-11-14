@@ -1,0 +1,23 @@
+---
+- name: Install Duo Prereqs
+  package: name={{ item }} state=present
+  with_items:
+    - openssl-devel
+    - pam-devel
+
+- name: Install Duo RPM Key
+  rpm_key: state=present key=https://www.duosecurity.com/RPM-GPG-KEY-DUO
+
+- name: Add Duo Repo
+  copy: src=duosecurity.repo dest=/etc/yum.repos.d/duosecurity.repo
+
+- name: Install Duo Unix SSH Integration
+  package: name=duo_unix state=present
+
+- name: Install Duo config
+  template: src=login_duo.conf.j2 dest=/etc/duo/login_duo.conf owner=sshd group=0 mode=0600
+
+- name: Enable duo security for remote logins
+  copy: src=sshd.conf dest=/etc/ssh/sshd_config
+  notify:
+  - restart sshd
