@@ -35,13 +35,5 @@
   become: true
   become_user: root
   roles:
+    - duo
     - sources
-
-- hosts: localhost
-  user: soehlert
-  become: true
-  become_user: root
-  roles:
-    - groups
-    - sudoers
-    - packages

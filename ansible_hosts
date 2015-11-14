@@ -6,3 +6,10 @@
 
 [centos6]
 127.0.0.1
+
+[centos7]
+
+[debian]
+
+[bastion]
+127.0.0.1
