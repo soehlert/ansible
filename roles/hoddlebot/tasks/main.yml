@@ -42,3 +42,5 @@
     cron_file=hoddlebot
     user={{ usernm }}
     special_time=reboot
+    state=present
+    job="/usr/local/bin/hoddlebot.sh"
