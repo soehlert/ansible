@@ -1,0 +1,25 @@
+---
+- name: Install Deps
+  package: name={{ item }} state=present
+  with_item:
+    - nodejs
+    - npm
+    - redis
+
+- name: Create Hoddlebot directory
+  file:
+    path={{ hoddlebot_path }}
+    state=directory
+    mode=0755
+
+- name: Install hubot
+  npm: name={{ item }}
+  with_item:
+    - yo
+    - generator-hubot
+    - hubot
+    - coffee-script
+
+- name: Create my hoddlebot
+  shell: yo hubot --owner={{ hoddlebot_owner }} --name={{ hoddlebot_name }} --description={{ hoddlebot_description }} --adapter={{ hoddlebot_adapter }} --defaults
+    creates={{ hoddlebot_path}}/bin/hubot
