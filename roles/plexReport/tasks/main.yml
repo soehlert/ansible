@@ -7,6 +7,6 @@
 
 - name: Clone plexreport
   git: repo=git@github.com:bstascavage/plexReport.git
-       dest=/home/soehlert/projects/plexreport
+       dest=/home/{{ usernm }}/projects/plexreport
        accept_hostkey=yes
        recursive=no

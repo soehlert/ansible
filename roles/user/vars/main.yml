@@ -1,6 +1,4 @@
 ---
-usernm: "soehlert"
-
 ssh_users:
   - name: "{{ usernm }}"
     key: "{{ lookup('file', '/home/{{ usernm }}/projects/ansible-secrets/id_rsa.pub') }}"

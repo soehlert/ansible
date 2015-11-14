@@ -1,6 +1,6 @@
 ---
 - hosts: private
-  user: soehlert
+  user: {{ usernm }}
   become: true
   become_user: root
   roles:
@@ -10,30 +10,15 @@
     - git
 
 - hosts: centos
-  user: soehlert
+  user: {{ usernm }}
   become: true
   become_user: root
   roles:
     - selinux
 
 - hosts: private
-  user: soehlert
+  user: {{ usernm }}
   become: true
   become_user: root
   roles:
     - sudoers
-
-- hosts: centos7
-  user: soehlert
-  become: true
-  become_user: root
-  roles:
-    - firewalld
-
-- hosts: debian
-  user: deploy
-  become: true
-  become_user: root
-  roles:
-    - duo
-    - sources
