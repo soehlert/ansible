@@ -14,7 +14,7 @@
 
 - name: Install hubot
   npm: name={{ item }}
-  with_item:
+  with_items:
     - yo
     - generator-hubot
     - hubot
