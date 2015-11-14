@@ -1,5 +1,7 @@
 #!/bin/bash
 
+touch {{ hoddlebot_pid }}
+
 while :
 do
   HUBOT_WUNDERGROUND_API_KEY= "{{ lookup('ini', 'wunderground_api_key section=hoddlebot file={{ ansible_secrets}}/hoddlebot.ini') }}"\
@@ -8,3 +10,5 @@ do
   {{ hoddlebot_path }}/bin/hubot --adapter slack
   sleep 5
 done
+
+rm {{ hoddlebot_pid }}
