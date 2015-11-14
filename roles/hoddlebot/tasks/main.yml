@@ -31,10 +31,10 @@
 - name: Install hoddlebot script
   template:
     src=hoddlebot.sh.j2
-    dest={{ hoddlebot_path }}/bin/hoddlebot.sh
+    dest=/usr/local/bin/hoddlebot.sh
     owner={{ usernm }}
     group={{ usernm }}
-    mode=0755
+    mode=0775
 
 - name: Set up cron job for hoddlebot
   cron:
