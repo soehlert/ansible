@@ -23,5 +23,7 @@
     - coffee-script
 
 - name: Create my hoddlebot
+  become: true
+  become_user: soehlert
   shell: cd {{hoddlebot_path }}; yo hubot --owner={{ hoddlebot_owner }} --name={{ hoddlebot_name }} --description={{ hoddlebot_description }} --adapter={{ hoddlebot_adapter }} --defaults
     creates={{ hoddlebot_path}}/bin/hubot
