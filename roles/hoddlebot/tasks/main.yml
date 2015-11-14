@@ -44,3 +44,7 @@
     special_time=reboot
     state=present
     job="/usr/local/bin/hoddlebot.sh"
+
+- name: Start hoddlebot
+  script: /usr/local/bin/hoddlebot.sh
+    creates={{ hoddlebot_pid }}
