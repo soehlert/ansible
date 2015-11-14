@@ -40,4 +40,5 @@
   cron:
     name="Autostart hoddlebot in case it dies"
     cron_file=hoddlebot
+    user={{ usernm }}
     special_time=reboot
