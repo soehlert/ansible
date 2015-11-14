@@ -30,8 +30,14 @@
 
 - name: Install hoddlebot script
   template:
-    src=/mytemplates/hoddlebot.sh.j2
+    src=hoddlebot.sh.j2
     dest={{ hoddlebot_path }}/bin/hoddlebot.sh
     owner={{ usernm }}
     group={{ usernm }}
     mode=0755
+
+- name: Set up cron job for hoddlebot
+  cron:
+    name="Autostart hoddlebot in case it dies"
+    cron_file=hoddlebot
+    special_time=reboot
