@@ -2,3 +2,5 @@ admin_network: 10.0.0.0
 CIDR: 24
 
 usernm: "soehlert"
+
+ansible_secrets: "/home/{{ usernm }}/projects/ansible-secrets"
