@@ -13,7 +13,7 @@
     mode=0755
 
 - name: Install hubot
-  npm: name={{ item }}
+  npm: name={{ item }} global=yes
   with_items:
     - yo
     - generator-hubot
