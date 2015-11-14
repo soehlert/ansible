@@ -27,3 +27,11 @@
   become_user: soehlert
   shell: cd {{hoddlebot_path }}; yo hubot --owner={{ hoddlebot_owner }} --name={{ hoddlebot_name }} --description={{ hoddlebot_description }} --adapter={{ hoddlebot_adapter }} --defaults
     creates={{ hoddlebot_path}}/bin/hubot
+
+- name: Install hoddlebot script
+  template:
+    src=/mytemplates/hoddlebot.sh.j2
+    dest={{ hoddlebot_path }}/bin/hoddlebot.sh
+    owner={{ usernm }}
+    group={{ usernm }}
+    mode=0755

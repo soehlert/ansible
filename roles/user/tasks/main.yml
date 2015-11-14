@@ -1,14 +1,14 @@
 ---
 - name: create my user
   user:
-    name={{ usernm }}
+    name="{{ usernm }}"
     append=yes
     shell=/bin/bash
-    groups=admin
+    groups=admin,wheel
 
 - name: add auth key
   authorized_key:
-    user={{ item.name }}
+    user="{{ item.name }}"
     key="{{ item.key }}"
     path='/home/{{ usernm }}/.ssh/authorized_keys'
     state=present

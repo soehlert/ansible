@@ -1,2 +1,6 @@
 ---
 hoddlebot_path: "/home/{{ usernm }}/hoddlebot"
+hoddlebot_owner: "Sam Oehlert somidsdcr21@gmail.com"
+hoddlebot_name: "Hoddlebot"
+hoddlebot_description: "Our lord and savior robit"
+hoddlebot_adapter: "slack"
