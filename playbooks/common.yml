@@ -1,6 +1,6 @@
 ---
 - hosts: private
-  user: {{ usernm }}
+  user: "{{ usernm }}"
   become: true
   become_user: root
   roles:
@@ -11,14 +11,14 @@
     - vmwaretools
 
 - hosts: centos
-  user: {{ usernm }}
+  user: "{{ usernm }}"
   become: true
   become_user: root
   roles:
     - selinux
 
 - hosts: private
-  user: {{ usernm }}
+  user: "{{ usernm }}"
   become: true
   become_user: root
   roles:
