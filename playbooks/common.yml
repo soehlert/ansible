@@ -8,6 +8,7 @@
     - user
     - packages
     - git
+    - vmwaretools
 
 - hosts: centos
   user: {{ usernm }}
