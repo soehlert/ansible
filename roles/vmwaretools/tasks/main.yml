@@ -1,0 +1,11 @@
+---
+# tasks file for vmwaretools
+
+- include: CentOS.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: Ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- include: Debian.yml
+  when: ansible_distribution == 'Debian'
