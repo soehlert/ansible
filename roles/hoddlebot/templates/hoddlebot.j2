@@ -7,7 +7,7 @@
 . /etc/init.d/functions
 
 status() {
-  if [ "$(ps -ef | grep hoddlebot | grep root | grep -v grep)" ];
+  if [ pgrep "hoddlebot" > /dev/null ];
   then
     printf "Hoddlebot is running\n"
     exit 0
@@ -18,7 +18,7 @@ status() {
 }
 
 start() {
-  if [ "$(ps -ef | grep hoddlebot | grep root | grep -v grep)" ];
+  if [ pgrep "hoddlebot" > /dev/null ];
   then
     printf "Hoddlebot is already running\n"
     exit 1
