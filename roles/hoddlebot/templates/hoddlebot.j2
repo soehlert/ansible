@@ -7,40 +7,35 @@
 . /etc/init.d/functions
 
 status() {
-  if [ -e {{ hoddlebot_pid }} ];
+  if [ "$(ps -ef | grep hoddlebot | grep root | grep -v grep)" ];
   then
-    echo -n "Hoddlebot is running\n"
+    printf "Hoddlebot is running\n"
     exit 0
   else
-    echo -n "Hoddlebot is not running\n"
+    printf "Hoddlebot is not running\n"
     exit 1
   fi
 }
 
 start() {
-  if [ ! -e {{ hoddlebot_log }} ];
+  if [ "$(ps -ef | grep hoddlebot | grep root | grep -v grep)" ];
   then
-    touch {{ hoddlebot_log }}
-  fi
-
-  if [ -e {{ hoddlebot_pid }} ];
-  then
-    echo -n "Hoddlebot is already running\n"
+    printf "Hoddlebot is already running\n"
     exit 1
   else
-    echo -n "Starting hoddlebot \n"
+    printf "Starting hoddlebot \n"
     cd {{ hoddlebot_path }}
     HUBOT_WUNDERGROUND_API_KEY="{{ lookup('ini', 'wunderground_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
     BREWERYDB_API_KEY="{{ lookup('ini', 'brewerydb_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
     HUBOT_SLACK_TOKEN="{{ lookup('ini', 'slack_token section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
-    {{ hoddlebot_path }}/bin/hubot --adapter {{ hoddlebot_adapter }} & > {{ hoddlebot_log }} 2>&1
+    {{ hoddlebot_path }}/bin/hubot --adapter {{ hoddlebot_adapter }} &
     echo $! > {{ hoddlebot_pid }}
     return 0
   fi
 }
 
 stop() {
-  echo -n "Shutting down hoddlebot \n"
+  printf "Shutting down hoddlebot \n"
   ps -ef | grep hoddlebot | grep root | grep -v grep | awk '{print $2}' | xargs kill
   rm -f {{ hoddlebot_pid }}
   return 0
