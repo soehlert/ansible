@@ -28,17 +28,13 @@
   shell: cd {{hoddlebot_path }}; yo hubot --owner={{ hoddlebot_owner }} --name={{ hoddlebot_name }} --description={{ hoddlebot_description }} --adapter={{ hoddlebot_adapter }} --defaults
     creates={{ hoddlebot_path}}/bin/hubot
 
-- name: Install hoddlebot script
+- name: Install hoddlebot init script
   template:
     src=hoddlebot.j2
     dest=/etc/init.d/hoddlebot
     mode=0775
 
-- name: Set up cron job for hoddlebot
-  cron:
-    name="Autostart hoddlebot in case it dies"
-    cron_file=hoddlebot
-    user={{ usernm }}
-    special_time=reboot
-    state=present
-    job="/usr/local/bin/hoddlebot.sh"
+- name: Start hoddlebot service
+  service:
+    name=hoddlebot
+    state=started
