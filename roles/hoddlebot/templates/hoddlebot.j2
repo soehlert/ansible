@@ -9,10 +9,10 @@
 status() {
   if [ -e {{ hoddlebot_pid }} ];
   then
-    echo -n "Hoddlebot is running"
+    echo -n "Hoddlebot is running\n"
     exit 0
   else
-    echo -n "Hoddlebot is not running"
+    echo -n "Hoddlebot is not running\n"
     exit 1
   fi
 }
@@ -25,10 +25,10 @@ start() {
 
   if [ -e {{ hoddlebot_pid }} ];
   then
-    echo -n "Hoddlebot is already running"
+    echo -n "Hoddlebot is already running\n"
     exit 1
   else
-    echo -n "Starting hoddlebot: "
+    echo -n "Starting hoddlebot \n"
     cd {{ hoddlebot_path }}
     HUBOT_WUNDERGROUND_API_KEY="{{ lookup('ini', 'wunderground_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
     BREWERYDB_API_KEY="{{ lookup('ini', 'brewerydb_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
@@ -40,7 +40,7 @@ start() {
 }
 
 stop() {
-  echo -n "Shutting down hoddlebot: "
+  echo -n "Shutting down hoddlebot \n"
   ps -ef | grep hoddlebot | grep root | grep -v grep | awk '{print $2}' | xargs kill
   rm -f {{ hoddlebot_pid }}
   return 0
@@ -61,7 +61,7 @@ case "$1" in
     start
     ;;
   *)
-    echo "Usage: hoddlebot {start|stop|restart}"
+    echo "Usage: hoddlebot {start|stop|restart|status}"
     exit 1
     ;;
 esac
