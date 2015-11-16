@@ -7,14 +7,27 @@
 . /etc/init.d/functions
 
 start() {
-  echo -n "Starting hoddlebot: "
-  cd {{ hoddlebot_path }}
-  HUBOT_WUNDERGROUND_API_KEY="{{ lookup('ini', 'wunderground_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
-  BREWERYDB_API_KEY="{{ lookup('ini', 'brewerydb_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
-  HUBOT_SLACK_TOKEN="{{ lookup('ini', 'slack_token section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
-  {{ hoddlebot_path }}/bin/hubot --adapter {{ hoddlebot_adapter }} &
-  echo $! > {{ hoddlebot_pid }}
-  return 0
+  if [ ! -f {{ hoddlebot_log }} ];
+  then
+    touch {{ hoddlebot_log }}
+  fi
+
+  hbot_pid="$(cat {{ hoddlebot_pid }} )"
+
+  if [ "$(hbot_pid)" ]
+  then
+    echo -n "Hoddlebot is already running"
+    exit 1
+  else
+    echo -n "Starting hoddlebot: "
+    cd {{ hoddlebot_path }}
+    HUBOT_WUNDERGROUND_API_KEY="{{ lookup('ini', 'wunderground_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
+    BREWERYDB_API_KEY="{{ lookup('ini', 'brewerydb_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
+    HUBOT_SLACK_TOKEN="{{ lookup('ini', 'slack_token section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
+    {{ hoddlebot_path }}/bin/hubot --adapter {{ hoddlebot_adapter }} & > {{ hoddlebot_log }} 2>&1
+    echo $! > {{ hoddlebot_pid }}
+    return 0
+  fi
 }
 
 stop() {
