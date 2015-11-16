@@ -31,7 +31,7 @@
 - name: Install hoddlebot script
   template:
     src=hoddlebot.j2
-    dest=/etc/init.d/hoddlebot.sh
+    dest=/etc/init.d/hoddlebot
     mode=0775
 
 - name: Set up cron job for hoddlebot
