@@ -7,8 +7,8 @@
     - duo
     - hoddlebot
     - backup-media
-    - { role: nfs_client, nfs_mount: '/media/freenas_media', nfs_server: '192.168.1.8', nfs_dir: '/mnt/tank/media', nfs_options: 'rw,sync' }
+    - { role: nfs_client, nfs_mount: '/media/synology/home_movies', nfs_server: '192.168.1.14', nfs_dir: '/volume1/home_movies', nfs_options: 'rw,sync' }
     - { role: nfs_client, nfs_mount: '/media/synology/movies', nfs_server: '192.168.1.14', nfs_dir: '/volume1/movies', nfs_options: 'rw,sync' }
     - { role: nfs_client, nfs_mount: '/media/synology/music', nfs_server: '192.168.1.14', nfs_dir: '/volume1/music', nfs_options: 'rw,sync' }
+    - { role: nfs_client, nfs_mount: '/media/freenas_media', nfs_server: '192.168.1.8', nfs_dir: '/mnt/tank/media', nfs_options: 'rw,sync' }
     - { role: nfs_client, nfs_mount: '/media/synology/tv', nfs_server: '192.168.1.14', nfs_dir: '/volume1/tv', nfs_options: 'rw,sync' }
-    - { role: nfs_client, nfs_mount: '/media/synology/home_movies', nfs_server: '192.168.1.14', nfs_dir: '/volume1/Home\ Movies', nfs_options: 'rw,sync' }
