@@ -3,9 +3,9 @@
 start() {
   echo -n "Starting hoddlebot: "
   cd {{ hoddlebot_path }}
-  HUBOT_WUNDERGROUND_API_KEY="{{ lookup('ini', 'wunderground_api_key section=hoddlebot file={{ ansible_secrets}}/hoddlebot.ini') }}" \
-  BREWERYDB_API_KEY="{{ lookup('ini', 'brewerydb_api_key section=hoddlebot file={{ ansible_secrets}}/hoddlebot.ini') }}" \
-  HUBOT_SLACK_TOKEN="{{ lookup('ini', 'slack_token section=hoddlebot file={{ ansible_secrets}}/hoddlebot.ini') }}" \
+  HUBOT_WUNDERGROUND_API_KEY="{{ lookup('ini', 'wunderground_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
+  BREWERYDB_API_KEY="{{ lookup('ini', 'brewerydb_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
+  HUBOT_SLACK_TOKEN="{{ lookup('ini', 'slack_token section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
   {{ hoddlebot_path }}/bin/hubot --adapter {{ hoddlebot_adapter }} &
   echo $! > {{ hoddlebot_pid }}
   return 0
