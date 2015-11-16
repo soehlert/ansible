@@ -17,13 +17,8 @@
 
 - name: Make the mount
   mount:
-    name={{ item.nfs_mount }}
-    src={{ item.nfs_server }}:/{{ item.nfs_dir }}
+    name={{ nfs_mount }}
+    src={{ nfs_server }}:/{{ nfs_dir }}
     fstype=nfs
     state=mounted
-    opts={{ item.nfs_options }}
-  with_items:
-    - { nfs_mount: '/media/freenas_media', nfs_server: '192.168.1.8', nfs_dir: '/mnt/tank/media', nfs_options: 'rw,sync' }
-    - { nfs_mount: '/media/movies', nfs_server: '192.168.1.14', nfs_dir: '/volume1/movies', nfs_options: 'rw,sync' }
-    - { nfs_mount: '/media/music', nfs_server: '192.168.1.14', nfs_dir: '/volume1/music', nfs_options: 'rw,sync' }
-    - { nfs_mount: '/media/tv', nfs_server: '192.168.1.14', nfs_dir: '/volume1/tv', nfs_options: 'rw,sync' }
+    opts={{ nfs_options }}
