@@ -1,7 +1,7 @@
 ---
 perms: 775
-lbase: '/media/synology'
-rbase: '/media/freenas_media'
+local_base: '/media/freenas_media'
+remote_base: '/media/synology'
 movies: 'movies'
 music: 'music'
 tv: 'tv'
