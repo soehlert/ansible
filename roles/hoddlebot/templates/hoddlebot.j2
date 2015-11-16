@@ -7,47 +7,41 @@
 . /etc/init.d/functions
 
 status() {
-  if [ -e {{ hoddlebot_pid }} ];
-    PID="$(cat {{ hoddlebot_pid }})"
-    if [ "$(ps -ef | grep $PID | grep -v grep)" > /dev/null ];
-    then
-      printf "Hoddlebot is running\n"
-      exit 0
-    else
-      printf "Hoddlebot is not running\n"
-      exit 0
-    fi
+  if ps -ef | grep "adapter slack" | grep -vE '(grep|status)' >/dev/null 2>&1;
+  then
+    printf "Hoddlebot is running\n"
+    exit 0
+  else
+    printf "Hoddlebot is not running\n"
+    exit 0
   fi
 }
 
 start() {
-  if [ -e {{ hoddlebot_pid }} ];
-    PID="$(cat {{ hoddlebot_pid }})"
-    if [ "$(ps -ef | grep $PID | grep -v grep)" > /dev/null ];
+  while true
+  do
+    if ps -ef | grep "adapter slack" | grep -vE '(grep|start)' >/dev/null 2>&1;
     then
-      printf "Hoddlebot is already running\n"
       exit 1
     else
       printf "Starting Hoddlebot\n"
-      cd {{ hoddlebot_path }}
-      until \
-      HUBOT_WUNDERGROUND_API_KEY="{{ lookup('ini', 'wunderground_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
-      BREWERYDB_API_KEY="{{ lookup('ini', 'brewerydb_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
-      HUBOT_SLACK_TOKEN="{{ lookup('ini', 'slack_token section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}" \
-      {{ hoddlebot_path }}/bin/hubot --adapter {{ hoddlebot_adapter }} & > /dev/null 2>&1 && echo $! > {{ hoddlebot_pid }}; do
-        logger "Hoddlebot died with exit code $?. Respawning.." >&2
-        sleep 5
-      done
+      cd /home/soehlert/hoddlebot || exit
+      HUBOT_WUNDERGROUND_API_KEY="d4172e2ccd4f4541" \
+      BREWERYDB_API_KEY="7101bbf7c29b4c0e3ac2cb4712b5611f" \
+      HUBOT_SLACK_TOKEN="xoxb-4768734453-9VEZNbIu7xrTlrO5V8SpAmWP" \
+      /home/soehlert/hoddlebot/bin/hubot --adapter slack & > /dev/null 2>&1
+      echo $! > /home/soehlert/hoddlebot/hoddlebot.pid
     fi
-  fi
+  done
+#  fi
 }
 
 stop() {
-  if [ -e {{ hoddlebot_pid }} ];
+  if [ -e /home/soehlert/hoddlebot/hoddlebot.pid ];
   then
     printf "Shutting down Hoddlebot\n"
-    rm -f {{ hoddlebot_pid }}
-    ps -ef | grep hoddlebot | grep root | grep -v grep | awk '{print $2}' | xargs kill > /dev/null 2>&1
+    rm -f /home/soehlert/hoddlebot/hoddlebot.pid
+    ps -ef | grep "adapter slack" | grep -vE '(grep|stop)' | awk '{print $2}' | xargs kill > /dev/null 2>&1
     return 0
   else
     printf "Hoddlebot is not running\n"
