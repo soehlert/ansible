@@ -1,8 +1,8 @@
 ---
-perms=775
-lbase=/media
-rbase=/media/freenas_media
-movies=movies
-music=music
-tv=tv
-homemovs=home_movies
+perms: 775
+lbase: /media
+rbase: /media/freenas_media
+movies: movies
+music: music
+tv: tv
+homemovs: home_movies
