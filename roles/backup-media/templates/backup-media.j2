@@ -1,0 +1,122 @@
+#!/bin/bash
+
+# Bash script to backup my local media folders to my remote folders
+# I use Plex, so the dirs here line up with the Plex Library type
+
+##################################################################################################
+# User defined variables --- Change these ---
+#
+# Who should own the files
+LUSER='{{ usernm }}'
+# What group should own the files
+LGROUP='{{ usernm }}'
+# Permissions you want on end folder
+PERMS='{{ perms }}'
+# The base of the path you're backing up from
+LBASE='{{ local_base }}'
+# The base of the path you're backing up to
+RBASE='{{ remote_base }}'
+# Movies from then to
+LMOVIES=$LBASE/{{ movies }}/
+RMOVIES=$RBASE/{{ movies }}/
+# Music from then to
+LMUSIC=$LBASE/{{ music }}/
+RMUSIC=$RBASE/{{ music }}/
+# TV from then to
+LTV=$LBASE/{{ tv }}/
+RTV=$RBASE/{{ tv }}/
+# Other videos (Plex works best with Home Videos Library for videos that are not on IMDB or TVDB)
+LHV=$LBASE/{{ homemovs }}/
+RHV=$RBASE/{{ homemovs }}/
+# ---These should work for most people ---
+# Date format
+DATE=$(date +%Y-%m-%d)
+# Rsync options
+Options=("--prune-empty-dirs --hard-links --human-readable --size-only --progress --recursive ")
+##################################################################################################
+
+##################################################################################################
+# Functions
+#
+# Set up help dialogue
+Usage()
+{
+     echo -e "\nBackup script
+===============================
+Usage: backup -[dn] [-h] -m media_type
+m: media type (movies|music|tv|homemov|other -manual-)
+d: turn on rsync delete option
+n: turn on rsync dryrun option
+h: print this usage guide
+\n"
+
+     exit 1
+}
+
+AdjustPerms()
+{
+  chown -R $LUSER:$LGROUP $1
+  chmod -R $PERMS $1
+}
+
+# Grab command line options
+while getopts ":m:dnh" opt;
+do
+        case $opt in
+                m)      media=$OPTARG
+                ;;
+                d)      Options+=("--delete ")
+                ;;
+                n)      Options+=("--dry-run ")
+                ;;
+                h)      Usage
+                ;;
+                \?)      echo "Invalid Option: -$OPTARG" >&2
+                         exit 1
+                ;;
+                :)     echo "Option -$OPTARG requires an argument." >&2
+                       exit 1
+                ;;
+     esac
+done
+##################################################################################################
+
+##################################################################################################
+# Where you want your logs to go
+LOG_BASE=''
+if [ -d "$LOG_BASE" ]
+then
+  Log="$LOG_BASE/$DATE-$media.log"
+else
+  mkdir $LOG_BASE
+  chown $LUSER:$LGROUP $LOG_BASE
+  Log="$LOG_BASE/$DATE-$media.log"
+fi
+##################################################################################################
+
+if [[ "$media" == "movies" ]]
+then
+  rsync ${Options[@]}--log-file=$Log $LMOVIES $RMOVIES
+  AdjustPerms $RMOVIES
+elif [[ "$media" == "homemov" ]]
+then
+  rsync ${Options[@]}--log-file=$Log $LHV $RHV
+  AdjustPerms $RHV
+elif [[ "$media" == "music" ]]
+then
+  rsync ${Options[@]}--log-file=$Log $LMUSIC $RMUSIC
+  AdjustPerms $RMUSIC
+elif [[ "$media" == "tv" ]]
+then
+  rsync ${Options[@]}--log-file=$Log $LTV $RTV
+  AdjustPerms $RTV
+elif [[ "$media" == "other" ]]
+then
+  echo -e "What would you like to backup? (Enter full path. Trailing slash matters)\n"
+  read src
+  echo -e "\nWhere would you like to back it up to? (Enter full path)\n"
+  read dest
+  rsync ${Options[@]}--log-file="$Log" "$src" "$dest"
+else
+  Usage
+fi

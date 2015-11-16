@@ -1,0 +1,8 @@
+---
+- name: Copy over backup script
+  template:
+    src=backup-media.j2
+    dest=/usr/local/bin/backup-media
+    owner=root
+    group=root
+    mode=0775
