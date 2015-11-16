@@ -29,7 +29,7 @@ start() {
       HUBOT_WUNDERGROUND_API_KEY="d4172e2ccd4f4541" \
       BREWERYDB_API_KEY="7101bbf7c29b4c0e3ac2cb4712b5611f" \
       HUBOT_SLACK_TOKEN="xoxb-4768734453-9VEZNbIu7xrTlrO5V8SpAmWP" \
-      /home/soehlert/hoddlebot/bin/hubot --adapter slack & > /dev/null 2>&1
+      /home/soehlert/hoddlebot/bin/hubot --adapter slack > /dev/null 2>&1 &
       echo $! > /home/soehlert/hoddlebot/hoddlebot.pid
     fi
   done
