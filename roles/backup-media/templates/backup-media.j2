@@ -28,6 +28,7 @@ RTV=$RBASE/{{ tv }}/
 # Other videos (Plex works best with Home Videos Library for videos that are not on IMDB or TVDB)
 LHV=$LBASE/{{ homemovs }}/
 RHV=$RBASE/{{ homemovs }}/
+LOG_BASE='{{ log_dir }}'
 # ---These should work for most people ---
 # Date format
 DATE=$(date +%Y-%m-%d)
@@ -83,7 +84,6 @@ done
 
 ##################################################################################################
 # Where you want your logs to go
-LOG_BASE=''
 if [ -d "$LOG_BASE" ]
 then
   Log="$LOG_BASE/$DATE-$media.log"
