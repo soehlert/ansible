@@ -1,7 +1,7 @@
 ---
 - name: Yum install prereqs
   package: name={{ item }}
-  with_item:
+  with_items:
     - python-devel
     - libffi-devel
 
