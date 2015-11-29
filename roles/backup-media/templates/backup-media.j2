@@ -97,19 +97,19 @@ fi
 if [[ "$media" == "movies" ]]
 then
   rsync ${Options[@]}--log-file=$Log $LMOVIES $RMOVIES
-  AdjustPerms $RMOVIES
+#  AdjustPerms $RMOVIES
 elif [[ "$media" == "homemov" ]]
 then
   rsync ${Options[@]}--log-file=$Log $LHV $RHV
-  AdjustPerms $RHV
+#  AdjustPerms $RHV
 elif [[ "$media" == "music" ]]
 then
   rsync ${Options[@]}--log-file=$Log $LMUSIC $RMUSIC
-  AdjustPerms $RMUSIC
+#  AdjustPerms $RMUSIC
 elif [[ "$media" == "tv" ]]
 then
   rsync ${Options[@]}--log-file=$Log $LTV $RTV
-  AdjustPerms $RTV
+#  AdjustPerms $RTV
 elif [[ "$media" == "other" ]]
 then
   echo -e "What would you like to backup? (Enter full path. Trailing slash matters)\n"
