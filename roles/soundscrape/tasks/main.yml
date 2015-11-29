@@ -1,0 +1,3 @@
+---
+- name: Install soundscrape
+  pip: name='soundscrape'
