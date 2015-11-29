@@ -1,6 +1,6 @@
 ---
 - name: Install Duo Prereqs
-  yum: name={{ item }} state=present
+  package: name={{ item }} state=present
   with_items:
     - openssl-devel
     - pam-devel
@@ -9,7 +9,7 @@
   copy: src=duosecurity.repo dest=/etc/yum.repos.d/duosecurity.repo
 
 - name: Install Duo Unix SSH Integration
-  yum: name=duo_unix state=present
+  package: name=duo_unix state=present
 
 - name: Install Duo config
   template: src=login_duo.conf.j2 dest=/etc/duo/login_duo.conf owner=sshd group=0 mode=0600

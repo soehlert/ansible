@@ -1,9 +1,6 @@
 ---
 - name: add vim
-  yum : name=vim state=present
+  package : name=vim state=present
 
 - name: add wget
-  yum : name=wget state=present
-
-- name: add libselinux-python for selinux
-  yum : name=libselinux-python state=present
+  package : name=wget state=present

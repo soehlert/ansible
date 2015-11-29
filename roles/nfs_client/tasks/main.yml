@@ -1,6 +1,6 @@
 ---
 - name: Install NFS client
-  yum:
+  package:
     name=nfs-utils
     state=present
 
