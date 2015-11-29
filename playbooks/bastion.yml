@@ -5,7 +5,6 @@
   become_user: root
   roles:
     - duo
-    - soundscrape
     - hoddlebot
     - backup-media
     - { role: nfs_client, nfs_mount: '/media/synology/home_movies', nfs_server: '192.168.1.14', nfs_dir: '/volume1/home_movies', nfs_options: 'rw,sync' }
