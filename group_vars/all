@@ -3,4 +3,4 @@ CIDR: 24
 
 usernm: "soehlert"
 
-ansible_secrets: "/home/{{ usernm }}/projects/ansible-secrets"
+ansible_secrets: "/home/soehlert/projects/ansible-secrets"
