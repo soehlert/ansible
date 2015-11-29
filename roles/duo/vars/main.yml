@@ -1,4 +1,4 @@
 ---
 duo_integration_key: DI842CE7ZK2N3A59VISD
-duo_secret_key: "{{ lookup('file', '{{ ansible-secrets }}/duo_secret_key') }}"
+duo_secret_key: "{{ lookup('file', '{{ ansible_secrets }}/duo_secret_key') }}"
 duo_api_hostname: api-d6320859.duosecurity.com
