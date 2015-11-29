@@ -8,8 +8,11 @@
 - name: Add Duo Repo
   copy: src=duosecurity.repo dest=/etc/yum.repos.d/duosecurity.repo
 
+- name: Add Duo Key File
+  copy: src=RPM-GPG-KEY-DUO dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
+
 - name: Add Duo RPM Key
-  rpm_key: state=present key='/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'
+  rpm_key: state=present key=/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: Install Duo Unix SSH Integration
