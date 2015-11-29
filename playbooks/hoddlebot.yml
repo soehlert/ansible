@@ -1,0 +1,7 @@
+---
+- hosts: hoddlebot
+  user: "{{ usernm }}"
+  become: true
+  become_user: root
+  roles:
+    - hoddlebot
