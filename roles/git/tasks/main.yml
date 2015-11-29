@@ -1,6 +1,6 @@
 ---
-- name: add packages for git
-  package : name={{ item }} state=present
+- name: add yums for git
+  yum : name={{ item }} state=present
   with_items:
     - rsync
     - git
