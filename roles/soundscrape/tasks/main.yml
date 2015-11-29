@@ -1,3 +1,12 @@
 ---
+- name: Yum install prereqs
+  package: name={{ item }}
+  with_item:
+    - python-devel
+    - libffi-devel
+
+- name: Install Python Crypto
+  pip: name='cryptography'
+
 - name: Install soundscrape
   pip: name='soundscrape'
