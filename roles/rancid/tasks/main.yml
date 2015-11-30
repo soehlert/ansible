@@ -22,7 +22,7 @@
 - name: Grab rancid-git from git
   git:
     repo=https://github.com/dotwaffle/rancid-git.git
-    dest="{{ rancid_git }}"
+    dest="{{ rancid_git_path }}"
     update=no
     accept_hostkey=yes
   register: rancid_git
@@ -30,7 +30,7 @@
 - name: Dirty hack, but need to avoid aclocal errors
   shell: autoreconf -fi
   args:
-    chdir: "{{ rancid_git }}"
+    chdir: "{{ rancid_git_path }}"
   when: rancid_git.changed
 
 - name: Build rancid-git
