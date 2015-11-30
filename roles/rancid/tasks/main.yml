@@ -35,11 +35,25 @@
 
 - name: Build rancid-git
   shell: "{{ item }}"
-  become: true
-  become_user: root
   args:
     chdir: "{{ rancid_git_path }}"
   with_items:
     - ./configure --prefix={{ rancid_path}} --localstatedir={{ rancid_path }}/var/rancid
     - make install
   when: rancid_git.changed
+
+- name: Install conf file
+  copy:
+    src=rancid.conf
+    dest={{ rancid_path }}/etc/rancid.conf
+    owner="{{ usernm }}"
+    group="{{ usernm }}"
+    mode=0644
+
+- name: Add cloginrc file
+  template:
+    src=cloginrc
+    dest=/home/{{ usernm }}/.cloginrc
+    owner="{{ usernm }}"
+    gropu="{{ usernm }}"
+    mode=0600

@@ -68,4 +68,4 @@
 
 add user 192.168.1.1          {{ border_user }}
 add userpassword 192.168.1.1  "{{ lookup('ini', 'border_user_pass section=border file={{ ansible_secrets }}/rancid.ini') }}"
-add passprompt 192.168.1.1    {{ admin }}@192.168.1.1's password:
+add passprompt 192.168.1.1    {{ border_user }}@192.168.1.1's password:

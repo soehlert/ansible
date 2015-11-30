@@ -1,3 +1,4 @@
 ---
 rancid_path: /home/{{ usernm }}/projects/rancid
 rancid_git_path: /home/{{ usernm }}/build/rancid
+border_user: {{ usernm }}
