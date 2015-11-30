@@ -20,8 +20,6 @@
     - m4
 
 - name: Grab rancid-git from git
-  become: true
-  become_user: root
   git:
     repo=https://github.com/dotwaffle/rancid-git.git
     dest="{{ rancid_git }}"
@@ -33,8 +31,6 @@
   shell: autoreconf -fi
   args:
     chdir: "{{ rancid_git }}"
-  become: true
-  become_user: root
   when: rancid_git.changed
 
 - name: Build rancid-git
