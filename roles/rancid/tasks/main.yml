@@ -9,7 +9,7 @@
 
 - name: Install Rancid-git from git
   git:
-    repo=git@github.com:dotwaffle/rancid-git.git
+    repo=https://github.com/dotwaffle/rancid-git.git
     dest=/home/{{ usernm }}/projects
     update=no
     accept_hostkey=yes
