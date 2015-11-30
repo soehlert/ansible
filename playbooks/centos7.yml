@@ -1,6 +1,6 @@
 ---
 hosts: centos7
-  user: {{ usernm }}
+  user: "{{ usernm }}"
   become: true
   become_user: root
   roles:
