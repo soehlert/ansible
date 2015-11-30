@@ -5,3 +5,4 @@ hosts: centos7
   become_user: root
   roles:
     - firewalld
+    - netman
