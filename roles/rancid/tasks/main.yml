@@ -7,6 +7,18 @@
     state=directory
     mode=0775
 
+- name: Install build deps
+  package: name="{{ item }}" state=present
+  become: true
+  become_user: root
+  with_items:
+    - gcc
+    - expect
+    - automake
+    - perl
+    - autoconf
+    - m4
+
 - name: Grab rancid-git from git
   become: true
   become_user: root
@@ -16,8 +28,18 @@
     update=no
     accept_hostkey=yes
 
+- name: Dirty hack, but need to avoid aclocal errors
+  shell: autoreconf -fi
+  args:
+    chdir: "{{ rancid_opt }}"
+  become: true
+  become_user: root
+  register: autoreconf
+
 - name: Build rancid-git
   shell: "{{ item }}"
+  become: true
+  become_user: root
   args:
     chdir: "{{ rancid_opt }}"
   with_items:
