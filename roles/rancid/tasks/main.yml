@@ -1,15 +1,26 @@
 ---
 - name: Make sure projects dir exists
   file:
-    path=/home/{{ usernm }}/projects
-    owner={{ usernm }}
-    group={{ usernm }}
+    path="{{ rancid_path }}"
+    owner="{{ usernm }}"
+    group="{{ usernm }}"
     state=directory
     mode=0775
 
-- name: Install Rancid-git from git
+- name: Grab rancid-git from git
+  become: true
+  become_user: root
   git:
     repo=https://github.com/dotwaffle/rancid-git.git
-    dest=/home/{{ usernm }}/projects
+    dest=/opt/rancid/
     update=no
     accept_hostkey=yes
+
+- name: Build rancid-git
+  shell: "{{ item }}"
+  args:
+    chdir: "{{ rancid_opt }}"
+  with_items:
+    - ./configure
+    - make install
+  register: rancid_built
