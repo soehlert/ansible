@@ -1,0 +1,15 @@
+---
+- name: Make sure projects dir exists
+  file:
+    path=/home/{{ soehlert }}/projects
+    owner={{ usernm }}
+    group={{ usernm }}
+    state=directory
+    mode=0775
+
+- name: Install Rancid-git from git
+  git:
+    repo=git@github.com:dotwaffle/rancid-git.git
+    dest=/home/{{ usernm }}/projects
+    update=no
+    accept_hostkey=yes

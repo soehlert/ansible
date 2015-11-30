@@ -1,0 +1,6 @@
+---
+- hosts: rancid
+  user: "{{ usernm }}"
+  roles:
+    - git
+    - rancid
