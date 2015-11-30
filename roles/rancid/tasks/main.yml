@@ -1,7 +1,7 @@
 ---
 - name: Make sure projects dir exists
   file:
-    path=/home/{{ soehlert }}/projects
+    path=/home/{{ usernm }}/projects
     owner={{ usernm }}
     group={{ usernm }}
     state=directory
