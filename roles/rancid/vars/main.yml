@@ -1,3 +1,3 @@
 ---
 rancid_path: /home/{{ usernm }}/projects/rancid
-rancid_opt: /opt/rancid
+rancid_git: /home/{{ usernm }}/build/rancid

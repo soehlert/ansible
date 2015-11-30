@@ -24,17 +24,18 @@
   become_user: root
   git:
     repo=https://github.com/dotwaffle/rancid-git.git
-    dest=/opt/rancid/
+    dest="{{ rancid_git }}"
     update=no
     accept_hostkey=yes
+  register: rancid_git
 
 - name: Dirty hack, but need to avoid aclocal errors
   shell: autoreconf -fi
   args:
-    chdir: "{{ rancid_opt }}"
+    chdir: "{{ rancid_git }}"
   become: true
   become_user: root
-  register: autoreconf
+  when: rancid_git.changed
 
 - name: Build rancid-git
   shell: "{{ item }}"
@@ -43,6 +44,6 @@
   args:
     chdir: "{{ rancid_opt }}"
   with_items:
-    - ./configure
+    - ./configure --prefix={{ rancid_path}} --localstatedir={{ rancid_path }}/var/rancid
     - make install
-  register: rancid_built
+  when: rancid_git.changed
