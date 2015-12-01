@@ -1,0 +1,2 @@
+---
+drinkbot_dir: /home/{{ usernm }}/drinkbot

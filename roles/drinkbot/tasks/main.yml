@@ -2,10 +2,21 @@
 - name: Install deps
   package: name=nodejs state=installed
 
+- name: Create drinkbot dir
+  file:
+    path={{ drinkbot_dir }}
+    state=directory
+    owner={{ usernm }}
+    group={{ usernm }}
+    mode=0755
+
+- name: Grab drinkbot from git
+  git:
+    repo=https://github.com/bechurch/DrinkBot.git
+    dest="{{ drinkbot_dir }}"
+    update=no
+    accept_hostkey=yes
+  register: drinkbot_git
+
 - name: Install forever (to run Node.js app)
   npm: name=forever global=yes state=latest
-
-- name: Check list of Node.js apps running
-  command: forever list
-  register: forever_list
-  changed_when: false
