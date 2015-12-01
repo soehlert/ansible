@@ -33,9 +33,11 @@
     src=hoddlebot.j2
     dest=/etc/init.d/hoddlebot
     mode=0775
+  register: hoddlebot_init
+  notify: restart hoddlebot
 
 - name: Start hoddlebot service
   service:
     name=hoddlebot
-    state=started
+    state=start
     enabled=yes
