@@ -33,6 +33,7 @@ start() {
       HUBOT_SOUNDCLOUD_CLIENT_ID="{{ lookup('ini', 'soundcloud_client_id section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}"\
       GOOGLE_API_KEY="{{ lookup('ini', 'google_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}"\
       HUBOT_GOOGLE_API="{{ lookup('ini', 'google_api_key section=hoddlebot file={{ ansible_secrets }}/hoddlebot.ini') }}"\
+      ADDB_API_KEY="{{ lookup('ini', 'addb_api_key section=hoddlebot file={{ ansible-secrets }}/hoddlebot.ini') }}"\
       {{ hoddlebot_path }}/bin/hubot --adapter {{ hoddlebot_adapter }} > /dev/null 2>&1 &
       echo $! > {{ hoddlebot_pid }}
     fi
