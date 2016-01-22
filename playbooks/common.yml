@@ -1,4 +1,11 @@
 ---
+- hosts: centos
+  user: "{{ usernm }}"
+  become: true
+  become_user: root
+  roles:
+    - selinux
+
 - hosts: private
   user: "{{ usernm }}"
   become: true
@@ -8,14 +15,6 @@
     - user
     - packages
     - git
-    - vmwaretools
-
-- hosts: centos
-  user: "{{ usernm }}"
-  become: true
-  become_user: root
-  roles:
-    - selinux
 
 - hosts: private
   user: "{{ usernm }}"
