@@ -1,0 +1,9 @@
+defaults:
+  - vim
+  - git
+  - wget
+  - screen
+
+pip_media:
+  - soundscrape
+  - moviemon
