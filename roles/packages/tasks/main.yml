@@ -1,10 +1,15 @@
 ---
 - name: add default packages
-  package :
+  package:
     name: "{{ item }}"
     state: present
   with_items:
     - "{{ defaults }}"
+
+- name: need pandoc for soundscrape
+  package:
+    name: pandoc
+    state: present
 
 - name: add media packages
   pip:
