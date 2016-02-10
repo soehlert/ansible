@@ -1,6 +1,9 @@
 ---
 - name: add libselinux-python for selinux
-  package : name=libselinux-python state=present
+  package:
+    name: libselinux-python
+    state: present
 
 - name: disable selinux
-  selinux: state=disabled
+  selinux: 
+    state: disabled
