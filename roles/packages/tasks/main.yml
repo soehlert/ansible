@@ -1,6 +1,14 @@
 ---
-- name: add vim
-  package : name=vim state=present
+- name: add default packages
+  package :
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ defaults }}"
 
-- name: add wget
-  package : name=wget state=present
+- name: add media packages
+  pip:
+    name: "{{ item }}"
+  when: "'media' in group_names"
+  with_items:
+    - "{{ pip_media }}"
