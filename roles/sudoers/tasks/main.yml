@@ -1,6 +1,14 @@
 ---
 - name: add sudo
-  package : name=sudo state=present
+  package: 
+    name: sudo 
+    state: present
 
 - name: Add custom sudoers
-  copy: src={{ usernm }} dest=/etc/sudoers.d/{{ usernm }} owner=root group=root mode=0440 validate='/usr/sbin/visudo -cf %s'
+  copy: 
+    src: "{{ usernm }}"
+    dest: /etc/sudoers.d/{{ usernm }} 
+    owner: root
+    group: root
+    mode: 0440
+    validate: '/usr/sbin/visudo -cf %s'
