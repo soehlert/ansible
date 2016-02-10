@@ -1,6 +1,10 @@
 ---
 - name: Turn off network manager
-  service: name=NetworkManager state=stopped
+  service: 
+    name: NetworkManager
+    state: stopped
 
 - name: Turn it off permanently
-  service: name=NetworkManager enabled=no
+  service:
+    name: NetworkManager
+    enabled: no
