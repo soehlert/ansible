@@ -6,5 +6,4 @@ defaults:
   - stow
 
 pip_media:
-  - soundscrape
   - moviemon
