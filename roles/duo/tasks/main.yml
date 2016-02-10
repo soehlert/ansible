@@ -1,29 +1,49 @@
 ---
 - block: 
-  - name: Install Duo Prereqs
-    package: name={{ item }} state=present
-    with_items:
-      - openssl-devel
-      - pam-devel
+    - name: Install Duo Prereqs
+      package: 
+        name: "{{ item }}" 
+        state: present
+      with_items:
+        - openssl-devel
+        - pam-devel
 
-  - name: Add Duo Repo
-    copy: src=duosecurity.repo dest=/etc/yum.repos.d/duosecurity.repo
+    - name: Add Duo Repo
+      copy: 
+        src: duosecurity.repo
+        dest: /etc/yum.repos.d/duosecurity.repo
 
-  - name: Add Duo Key File
-    copy: src=RPM-GPG-KEY-DUO dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
+    - name: Add Duo Key File
+      copy: 
+        src: RPM-GPG-KEY-DUO
+        dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
 
-  - name: Add Duo RPM Key
-    rpm_key: state=present key=/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
+    - name: Add Duo RPM Key
+      rpm_key: 
+        state: present
+        key: /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
     
-when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+  rescue:
+    - debug: msg='This module currently only supports CentOS and RHEL'
 
 - name: Install Duo Unix SSH Integration
-  package: name=duo_unix state=present
+  package: 
+    name: duo_unix
+    state: present
 
 - name: Install Duo config
-  template: src=login_duo.conf.j2 dest=/etc/duo/login_duo.conf owner=sshd group=0 mode=0600
+  template: 
+    src: login_duo.conf.j2
+    dest: /etc/duo/login_duo.conf
+    owner: sshd 
+    group: root
+    mode: 0600
 
 - name: Enable duo security for remote logins
-  copy: src=sshd.conf dest=/etc/ssh/sshd_config
+  copy: 
+    src: sshd.conf
+    dest: /etc/ssh/sshd_config
   notify:
   - restart sshd
