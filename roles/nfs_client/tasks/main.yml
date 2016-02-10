@@ -1,24 +1,24 @@
 ---
 - name: Install NFS client
   package:
-    name=nfs-utils
-    state=present
+    name: nfs-utils
+    state: present
 
 - name: Turn on NFS client
   service:
-    name=rpcbind
-    state=started
-    enabled=yes
+    name: rpcbind
+    state: started
+    enabled: yes
 
 - name: Ensure mount dir exists
   file:
-    path={{ nfs_mount }}
-    state=directory
+    path: "{{ nfs_mount }}"
+    state: directory
 
 - name: Make the mount
   mount:
-    name={{ nfs_mount }}
-    src={{ nfs_server }}:/{{ nfs_dir }}
-    fstype=nfs
-    state=mounted
-    opts={{ nfs_options }}
+    name: "{{ nfs_mount }}"
+    src: "{{ nfs_server }}:/{{ nfs_dir }}"
+    fstype: nfs
+    state: mounted
+    opts: "{{ nfs_options }}"
