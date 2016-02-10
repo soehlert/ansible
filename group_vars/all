@@ -1,3 +1,4 @@
 usernm: "soehlert"
+groupnm: "soehlert"
 projects_dir: "/home/{{ usernm }}/projects"
 ansible_secrets: "{{ projects_dir }}/ansible-secrets"
