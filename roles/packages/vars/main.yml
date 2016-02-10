@@ -3,6 +3,7 @@ defaults:
   - git
   - wget
   - screen
+  - stow
 
 pip_media:
   - soundscrape
