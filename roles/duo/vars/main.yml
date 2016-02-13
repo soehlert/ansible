@@ -1,4 +1,4 @@
 ---
-duo_integration_key: "{{ lookup('ini', integration section=duo file='{{ ansible_secrets }}/duo') }}"
-duo_secret_key: "{{ lookup('ini', secret section=duo '{{ ansible_secrets }}/duo') }}"
-duo_api_hostname: "{{ lookup('ini', api section=duo file='{{ ansible_secrets }}/duo') }}"
+duo_integration_key: "{{ lookup('ini', 'integration section=duo file={{ ansible_secrets }}/duo') }}"
+duo_secret_key: "{{ lookup('ini', 'secret section=duo file={{ ansible_secrets }}/duo') }}"
+duo_api_hostname: "{{ lookup('ini', 'api section=duo file={{ ansible_secrets }}/duo') }}"
