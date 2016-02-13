@@ -1,48 +1,54 @@
 ---
-- block: 
+- block:
     - name: Install Duo Prereqs
-      package: 
-        name: "{{ item }}" 
+      package:
+        name: "{{ item }}"
         state: present
       with_items:
         - openssl-devel
         - pam-devel
 
     - name: Add Duo Repo
-      copy: 
+      copy:
         src: duosecurity.repo
         dest: /etc/yum.repos.d/duosecurity.repo
 
     - name: Add Duo Key File
-      copy: 
+      copy:
         src: RPM-GPG-KEY-DUO
         dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
 
     - name: Add Duo RPM Key
-      rpm_key: 
+      rpm_key:
         state: present
         key: /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
-    
+
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
   rescue:
     - debug: msg='This module currently only supports CentOS and RHEL'
 
 - name: Install Duo Unix SSH Integration
-  package: 
+  package:
     name: duo_unix
     state: present
 
+- name: Check for Duo config
+  stat:
+    path: /etc/duo/login_duo.conf
+    register: duo_config
+
 - name: Install Duo config
-  template: 
+  template:
     src: login_duo.conf.j2
     dest: /etc/duo/login_duo.conf
-    owner: sshd 
+    owner: sshd
     group: root
     mode: 0600
+  when: duo_config.stat.exists == False
 
 - name: Enable duo security for remote logins
-  copy: 
+  copy:
     src: sshd.conf
     dest: /etc/ssh/sshd_config
   notify:
