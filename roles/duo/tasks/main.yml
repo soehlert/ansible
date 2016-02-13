@@ -36,7 +36,7 @@
 - name: Check for Duo config
   stat:
     path: /etc/duo/login_duo.conf
-    register: duo_config
+  register: duo_config
 
 - name: Install Duo config
   template:
