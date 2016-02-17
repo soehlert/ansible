@@ -24,6 +24,8 @@
         key: /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
 
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  tags:
+    - pre
 
   rescue:
     - debug: msg='This module currently only supports CentOS and RHEL'
@@ -37,6 +39,8 @@
   stat:
     path: /etc/duo/login_duo.conf
   register: duo_config
+  tags:
+    - config
 
 - name: Install Duo config
   template:
@@ -46,10 +50,14 @@
     group: root
     mode: 0600
   when: duo_config.stat.exists == False
+  tags:
+    - config
 
 - name: Enable duo security for remote logins
   copy:
     src: sshd.conf
     dest: /etc/ssh/sshd_config
+  tags:
+    - config
   notify:
   - restart sshd
