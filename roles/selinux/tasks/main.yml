@@ -1,9 +1,12 @@
 ---
-- name: add libselinux-python for selinux
-  package:
-    name: libselinux-python
-    state: present
+- block:
+    - name: add libselinux-python for selinux
+      package:
+        name: libselinux-python
+        state: present
 
-- name: disable selinux
-  selinux: 
-    state: disabled
+    - name: disable selinux
+      selinux:
+        state: disabled
+
+  when: ansible_distribution == 'CentOS'
