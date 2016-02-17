@@ -3,17 +3,23 @@
   package:
     name: nfs-utils
     state: present
+  tags:
+    - install
 
 - name: Turn on NFS client
   service:
     name: rpcbind
     state: started
     enabled: yes
+  tags:
+    - install
 
 - name: Ensure mount dir exists
   file:
     path: "{{ nfs_mount }}"
     state: directory
+  tags:
+    - directory
 
 - name: Make the mount
   mount:
@@ -22,3 +28,5 @@
     fstype: nfs
     state: mounted
     opts: "{{ nfs_options }}"
+  tags:
+    - directory
