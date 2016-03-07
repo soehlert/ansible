@@ -1,5 +1,0 @@
----
-- name: restart hoddlebot
-  service:
-    name=hoddlebot
-    status=restarted
