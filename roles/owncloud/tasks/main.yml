@@ -36,4 +36,4 @@
 
 - name: Grant clouddb perms to clouddb user
   mysql_user:
-    
+
