@@ -1,4 +1,15 @@
 ---
+- name: Install mariadb
+  package:
+    name: mariadb-server
+    state: present
+
+- name: Enable and start httpd and mariadb
+  service:
+    name: mariadb
+    enabled: yes
+    state: started
+
 # 'localhost' needs to be the last item for idempotency, see
 # http://ansible.cc/docs/modules.html#mysql-user
 - name: update mysql root password for all root accounts
