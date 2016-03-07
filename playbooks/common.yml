@@ -1,24 +1,12 @@
 ---
-- hosts: centos
+- hosts: private
   user: "{{ usernm }}"
   become: true
   become_user: root
   roles:
     - selinux
-
-- hosts: private
-  user: "{{ usernm }}"
-  become: true
-  become_user: root
-  roles:
     - groups
     - user
     - packages
     - git
-
-- hosts: private
-  user: "{{ usernm }}"
-  become: true
-  become_user: root
-  roles:
     - sudoers
