@@ -1,0 +1,39 @@
+---
+- name: Install repo file
+  copy:
+    src: owncloud.repo
+    dest: /etc/yum.repos.d/owncloud.repo
+    owner: root
+    group: root
+    mode: 644
+
+- name: Install prereqs
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - php-mysql
+    - php-pecl-apc
+    - owncloud
+
+- name: Fix permissions on owncloud for apache
+  file:
+    path: /var/www/html/owncloud
+    state: directory
+    owner: apache
+    group: apache
+
+- name: Enable and start httpd and mariadb
+  service:
+    name: httpd
+    enabled: yes
+    state: started
+
+- name: Add clouddb database
+  mysql_db:
+    name: clouddb
+    state: present
+
+- name: Grant clouddb perms to clouddb user
+  mysql_user:
+    

@@ -1,0 +1,2 @@
+---
+mysql_root_password: key: "{{ lookup('file', '{{ ansible_secrets }}/mysqlroot') }}"
