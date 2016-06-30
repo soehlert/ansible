@@ -36,4 +36,9 @@
 
 - name: Grant clouddb perms to clouddb user
   mysql_user:
-
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    name: clouddbuser
+    password: "{{ clouddbuser_password }}"
+    priv: clouddb.*:ALL
+    state: present
