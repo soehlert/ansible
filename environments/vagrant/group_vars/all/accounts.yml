@@ -1,0 +1,18 @@
+---
+create_local_users: true
+create_users:
+  - user: soehlert
+    comment: 'Sam Oehlert'
+    pass: 'testpasswordforvagrant'
+    generate_keys: false
+    shell: '/bin/bash'
+    state: present
+    sudo: true
+    system_account: false
+
+enable_manage_ssh_keys: true
+manage_ssh_keys:
+  - remote_user: soehlert
+    state: present
+    keys:
+      - files/ansible.pub

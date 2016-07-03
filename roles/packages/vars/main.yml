@@ -1,9 +1,11 @@
 defaults:
-  - vim
   - git
-  - wget
   - screen
   - stow
+  - sudo
+  - tree
+  - wget
+  - vim
 
 pip_media:
   - moviemon

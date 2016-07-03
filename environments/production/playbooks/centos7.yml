@@ -1,0 +1,8 @@
+---
+- hosts: centos7
+  user: "{{ usernm }}"
+  become: true
+  become_user: root
+  roles:
+    - firewalld
+    - netman

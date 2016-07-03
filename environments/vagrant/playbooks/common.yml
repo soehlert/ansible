@@ -1,0 +1,8 @@
+---
+- hosts: all
+  user: vagrant
+  become: true
+  become_user: root
+  roles:
+    - users
+    - packages
