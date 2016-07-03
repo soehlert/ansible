@@ -12,9 +12,9 @@
     append: yes
   with_items: '{{ create_users }}'
 
-- name: user | add custom sudoers
-  copy:
-    src: "{{ item.user }}"
+- name: user | add sudoers file
+  template:
+    src: sudoers
     dest: /etc/sudoers.d/{{ item.user }}
     owner: root
     group: root
