@@ -1,8 +1,18 @@
 ---
-- name: add yums for git
-  package: 
+- name: add git
+  package:
     name: "{{ item }}"
     state: present
+  when: ansible_distribution == "RedHat"
   with_items:
     - rsync
     - git
+
+- name: add git
+  package:
+    name: "{{ item }}"
+    state: present
+  when: ansible_distribution == "Debian"
+  with_items:
+    - rsync
+    - git-core

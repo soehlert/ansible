@@ -1,0 +1,13 @@
+---
+firewalld_source_zone:
+  - source: 192.168.1.0/24
+    zone: home
+    state: enabled
+
+firewalld_allow_service:
+  - service: ssh
+    zone: home
+
+firewalld_remove_service:
+  - service: http
+    zone: home

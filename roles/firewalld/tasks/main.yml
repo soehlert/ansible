@@ -1,18 +1,56 @@
 ---
-- name: add firewalld
-  package: 
+- name: security | add firewalld
+  package:
     name: firewalld
     state: present
 
-- name: start firewalld
-  service: 
+- name: security | start firewalld
+  service:
     name: firewalld
     state: started
+    enabled: yes
 
-- name: ssh from local net
-  firewalld: 
-    zone: public
-    service: ssh
-    permanent: yes
-    source: '192.168.1.0/24' 
-    state: enabled
+- name: security | add source and/or zone
+  firewalld:
+    source: "{{ item.source }}"
+    zone: "{{ item.zone }}"
+    state: "{{ item.state }}"
+  with_items: "{{ firewalld_source_zone }}"
+  notify: restart_firewalld
+
+- name: security | add firewalld rules for services
+  firewalld:
+    service: "{{ item.service }}"
+    zone: "{{ item.zone | default ('public') }}"
+    permanent: "{{ item.permanent | default (True) }}"
+    immediate: "{{ item.immediate | default (True) }}"
+    state: "{{ item.state | default ('enabled') }}"
+    source: "{{ item.source | default (omit) }}"
+  with_items: "{{ firewalld_allow_service }}"
+  notify: restart_firewalld
+
+- name: security | add firewalld rules for ports
+  firewalld:
+    port: "{{ item.port }}"
+    zone: "{{ item.zone | default ('public') }}"
+    permanent: "{{ item.permanent | default (True) }}"
+    immediate: "{{ item.immediate | default (True) }}"
+    state: "{{ item.state | default ('enabled') }}"
+    source: "{{ item.source | default (omit) }}"
+  with_items: "{{ firewalld_allow_port }}"
+  notify: restart_firewalld
+
+- name: security | remove firewalld rule by service
+  command: firewall-cmd --zone="{{ item.zone }}" --remove-service="{{ item.service }}" --permanent
+  with_items: "{{ firewalld_remove_service }}"
+  notify: restart_firewalld
+
+- name: security | remove firewalld rule by port
+  command: firewall-cmd --zone="{{ item.zone }}" --remove-port="{{ item.port }}" --permanent
+  with_items: "{{ firewalld_remove_port }}"
+  notify: restart_firewalld
+
+- name: security | remove firewalld zone source
+  command: firewall-cmd --remove-source="{{ item.source }}" --zone="{{ item.zone }}" --permanent
+  with_items: "{{ firewalld_remove_source }}"
+  notify: restart_firewalld

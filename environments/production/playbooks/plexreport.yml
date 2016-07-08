@@ -1,7 +1,0 @@
----
-- hosts: plexreport
-  user: {{ usernm }}
-  sudo: true
-  sudo_user: root
-  roles:
-    - plexReport

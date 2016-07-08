@@ -5,6 +5,15 @@
     state: present
   tags:
     - install
+  when: ansible_distribution == 'CentOS'
+
+- name: Install NFS client
+  package:
+    name: nfs-common
+    state: present
+  tags:
+    - install
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Turn on NFS client
   service:

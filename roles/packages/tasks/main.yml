@@ -1,12 +1,19 @@
 ---
-- name: add default packages
+- name: packages | add epel if centos
+  package:
+    name: epel-release
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: packages | add default packages
   package:
     name: "{{ item }}"
     state: present
+    update_cache: yes
   with_items:
     - "{{ defaults }}"
 
-- name: add media packages
+- name: packages | add pip packages
   pip:
     name: "{{ item }}"
   when: "'media' in group_names"

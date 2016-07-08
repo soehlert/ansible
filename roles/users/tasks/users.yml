@@ -2,7 +2,6 @@
 - name: user | managing user account(s)
   user:
     name: "{{ item.user }}"
-    password: "{{ item.pass }}"
     shell: "{{ item.shell|default (omit) }}"
     comment: "{{ item.comment|default (omit) }}"
     generate_ssh_key: "{{ item.generate_keys|default (omit) }}"

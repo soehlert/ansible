@@ -1,12 +1,10 @@
 ---
-- hosts: private
-  user: "{{ usernm }}"
+- hosts: all
+  user: soehlert
   become: true
   become_user: root
   roles:
-    - selinux
-    - groups
-    - user
+    - users
     - packages
-    - git
-    - sudoers
+    - { role: iptables, when: "ansible_os_family == 'Debian'" }
+    - { role: firewalld, when: "ansible_os_family == 'RedHat'" }

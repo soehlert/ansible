@@ -1,0 +1,11 @@
+---
+#
+# Default is a empty list!
+#
+firewalld_source_zone: []
+firewalld_allow_service: []
+firewalld_allow_port: []
+firewalld_remove_service: []
+# in the style of 22/tcp
+firewalld_remove_port: []
+firewalld_remove_source: []

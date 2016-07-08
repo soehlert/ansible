@@ -3,7 +3,6 @@ create_local_users: true
 create_users:
   - user: soehlert
     comment: 'Sam Oehlert'
-    pass: ''
     generate_keys: false
     shell: '/bin/bash'
     state: present
