@@ -2,5 +2,5 @@
 - hosts: rancid
   user: "{{ usernm }}"
   roles:
-    - git
-    - rancid
+    - { role: 'git', tags: 'git' }
+    - { role: 'rancid', tags: 'rancid' }

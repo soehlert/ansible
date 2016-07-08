@@ -4,5 +4,5 @@
   become: true
   become_user: root
   roles:
-    - git
-    - atomic
+    - { role: 'git', tags: 'git' }
+    - { role: 'atomic', tags: 'atomic' }
