@@ -75,3 +75,9 @@
     group: root
     mode: 0644
   when: ( cron.stat.exists == False )
+
+- name: Open ports
+  iptables_raw:
+    name: atomic_ports
+    state: {{ atomic_ports | ternary('present', 'absent') }}
+    rules: '-A INPUT -p tcp -m multiport --dports {{ atomic_ports|join(',') }} -j ACCEPT'
