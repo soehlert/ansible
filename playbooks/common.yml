@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  user: soehlert
+  user: "{{ usernm }}"
   become: true
   become_user: root
   roles:
