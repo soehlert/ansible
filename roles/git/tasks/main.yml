@@ -3,7 +3,7 @@
   package:
     name: "{{ item }}"
     state: present
-  when: ansible_distribution == "RedHat"
+  when: ansible_os_family == "RedHat"
   with_items:
     - rsync
     - git
@@ -12,7 +12,7 @@
   package:
     name: "{{ item }}"
     state: present
-  when: ansible_distribution == "Debian"
+  when: ansible_os_family == "Debian"
   with_items:
     - rsync
     - git-core

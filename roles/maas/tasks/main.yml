@@ -1,0 +1,9 @@
+---
+- name: maas | add apt-repository
+  apt_repository:
+    repo: 'ppa:maas/stable'
+
+- name: maas | install maas
+  package:
+    name: maas
+    state: present
