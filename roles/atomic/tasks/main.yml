@@ -10,6 +10,17 @@
     dest: /opt/AtoMiC-ToolKit
   when: ( atomic.stat.exists == False )
 
+- name: vpn | grab vpn installer
+  get_url:
+    url: "https://download.expressvpn.xyz/clients/linux/{{ vpn_deb }}"
+    dest: "/tmp/{{ vpn_deb }}"
+    mode: 0755
+
+- name: vpn | install vpn
+  package:
+    name: "{{ vpn_deb }}"
+    state: present
+
 - name: stat | vpncheck
   stat:
     path: /usr/local/bin/checker
@@ -29,11 +40,11 @@
     path: /etc/cron.d/vpncheck
   register: cron
 
-- name: extra | cron
-  copy:
-    src: cronfile
-    dest: /etc/cron.d/vpncheck
-    owner: root
-    group: root
-    mode: 0644
-  when: ( cron.stat.exists == False )
+  #- name: extra | cron
+  #copy:
+    #src: cronfile
+    #dest: /etc/cron.d/vpncheck
+    #owner: root
+    #group: root
+    #mode: 0644
+    #  when: ( cron.stat.exists == False )
