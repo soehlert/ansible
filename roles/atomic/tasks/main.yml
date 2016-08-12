@@ -10,43 +10,16 @@
     dest: /opt/AtoMiC-ToolKit
   when: ( atomic.stat.exists == False )
 
-- name: prereqs | install vpn stuff
+- name: vpn | grab vpn installer
+  get_url:
+    url: "https://download.expressvpn.xyz/clients/linux/{{ vpn_deb }}"
+    dest: "/tmp/{{ vpn_deb }}"
+    mode: 0755
+
+- name: vpn | install vpn
   package:
-    name: "{{ item }}"
+    name: "{{ vpn_deb }}"
     state: present
-  with_items:
-    - network-manager-openvpn
-    - network-manager
-    - network-manager-gnome
-    - network-manager-openvpn-gnome
-
-- name: stat | installer
-  stat:
-    path: /opt/install_ubuntu.sh
-  register: installer
-
-- name: install | copy installer
-  copy:
-    src: install_ubuntu.sh
-    dest: /opt/install_ubuntu.sh
-    owner: root
-    group: root
-    mode: 0755
-  when: ( installer.stat.exists == False )
-
-- name: stat | network manager
-  stat:
-    path: /etc/NetworkManager/NetworkManager.conf
-  register: netman
-
-- name: pre | network manager
-  copy:
-    src: NetworkManager.conf
-    dest: /etc/NetworkManager/NetworkManager.conf
-    owner: root
-    group: root
-    mode: 0755
-  when: ( netman.stat.exists == False )
 
 - name: stat | vpncheck
   stat:
@@ -67,11 +40,11 @@
     path: /etc/cron.d/vpncheck
   register: cron
 
-- name: extra | cron
-  copy:
-    src: cronfile
-    dest: /etc/cron.d/vpncheck
-    owner: root
-    group: root
-    mode: 0644
-  when: ( cron.stat.exists == False )
+  #- name: extra | cron
+  #copy:
+    #src: cronfile
+    #dest: /etc/cron.d/vpncheck
+    #owner: root
+    #group: root
+    #mode: 0644
+    #  when: ( cron.stat.exists == False )
