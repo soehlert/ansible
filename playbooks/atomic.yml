@@ -6,7 +6,3 @@
   roles:
     - git
     - atomic
-    - { role: nfs_client, nfs_mount: '/new', nfs_server: '192.168.1.8', nfs_dir: '/mnt/tank/new', nfs_options: 'rw,sync' }
-    - { role: nfs_client, nfs_mount: '/mnt/tv', nfs_server: '192.168.1.8', nfs_dir: '/mnt/tank/media/tv', nfs_options: 'rw,sync' }
-    - { role: nfs_client, nfs_mount: '/mnt/music', nfs_server: '192.168.1.8', nfs_dir: '/mnt/tank/media/music', nfs_options: 'rw,sync' }
-    - { role: nfs_client, nfs_mount: '/mnt/movies', nfs_server: '192.168.1.8', nfs_dir: '/mnt/tank/media/movies', nfs_options: 'rw,sync' }
