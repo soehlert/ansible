@@ -1,0 +1,7 @@
+---
+- hosts: debian
+  user: deploy
+  become: true
+  become_user: root
+  roles:
+    - sources

@@ -10,44 +10,6 @@
     dest: /opt/AtoMiC-ToolKit
   when: ( atomic.stat.exists == False )
 
-- name: prereqs | install vpn stuff
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - network-manager-openvpn
-    - network-manager
-    - network-manager-gnome
-    - network-manager-openvpn-gnome
-
-- name: stat | installer
-  stat:
-    path: /opt/install_ubuntu.sh
-  register: installer
-
-- name: install | copy installer
-  copy:
-    src: install_ubuntu.sh
-    dest: /opt/install_ubuntu.sh
-    owner: root
-    group: root
-    mode: 0755
-  when: ( installer.stat.exists == False )
-
-- name: stat | network manager
-  stat:
-    path: /etc/NetworkManager/NetworkManager.conf
-  register: netman
-
-- name: pre | network manager
-  copy:
-    src: NetworkManager.conf
-    dest: /etc/NetworkManager/NetworkManager.conf
-    owner: root
-    group: root
-    mode: 0755
-  when: ( netman.stat.exists == False )
-
 - name: stat | vpncheck
   stat:
     path: /usr/local/bin/checker

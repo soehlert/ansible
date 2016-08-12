@@ -1,0 +1,17 @@
+[centos]
+192.168.1.24
+
+[ubuntu]
+seedbox
+
+[bastion]
+192.168.1.24
+
+[atomic]
+seedbox
+
+[adblock]
+192.168.1.22
+
+[proxmox]
+192.168.1.20
