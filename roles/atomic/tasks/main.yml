@@ -18,7 +18,7 @@
 
 - name: vpn | install vpn
   package:
-    name: "{{ vpn_deb }}"
+    name: "/tmp/{{ vpn_deb }}"
     state: present
 
 - name: stat | vpncheck
