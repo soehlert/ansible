@@ -10,16 +10,15 @@
     dest: /opt/AtoMiC-ToolKit
   when: ( atomic.stat.exists == False )
 
-- name: vpn | grab vpn installer
-  get_url:
-    url: "https://download.expressvpn.xyz/clients/linux/{{ vpn_deb }}"
-    dest: "/tmp/{{ vpn_deb }}"
-    mode: 0755
+  #- name: vpn | grab vpn installer
+  #get_url:
+    #  url: "https://download.expressvpn.xyz/clients/linux/{{ vpn_deb }}"
+    #dest: "/tmp/{{ vpn_deb }}"
+    #mode: 0755
 
 - name: vpn | install vpn
-  package:
-    name: "/tmp/{{ vpn_deb }}"
-    state: present
+  apt:
+    deb: "https://download.expressvpn.xyz/clients/linux/{{ vpn_deb }}"
 
 - name: stat | vpncheck
   stat:
