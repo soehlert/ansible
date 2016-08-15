@@ -1,6 +1,6 @@
 ---
 - name: apt | add apt repo
-  apt_repo:
+  apt_repository:
     repo: 'ppa:deluge-team/ppa'
 
 - name: apt | add package
