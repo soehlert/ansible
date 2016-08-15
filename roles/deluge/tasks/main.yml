@@ -35,13 +35,7 @@
     owner: root
     group: root
     mode: 0644
-
-    #- name: systemd | enable and start deluged
-    #systemd:
-      #name: deluged
-      #enable: yes
-      #state: started
-      #daemon-reload: yes
+  register: deluged_service
 
 - name: systemd | create deluge-web service file
   template:
@@ -50,10 +44,17 @@
     owner: root
     group: root
     mode: 0644
+  register: delugeweb_service
 
-    #- name: systemd | enable and start deluge-web
-    #systemd:
-      #name: deluge-web
-      #enable: yes
-      #state: started
-      #daemon-reload: yes
+- name: systemd | daemon-reload
+  command: systemctl daemon-reload
+  when: deluged_service.changed or delugeweb_service.changed
+
+  #- name: systemd | enable and start deluge*
+  #systemd:
+    #  name: "{{ item }}"
+    #enable: yes
+    #state: started
+    #with_items:
+      #- deluged
+      #- deluge-web
