@@ -1,2 +1,3 @@
 ---
-# handlers file for deluge
+- name: daemon-reload
+  command: systemctl daemon-reload

@@ -35,7 +35,7 @@
     owner: root
     group: root
     mode: 0644
-  register: deluged_service
+  notify: daemon-reload
 
 - name: systemd | create deluge-web service file
   template:
@@ -44,11 +44,7 @@
     owner: root
     group: root
     mode: 0644
-  register: delugeweb_service
-
-- name: systemd | daemon-reload
-  command: systemctl daemon-reload
-  when: deluged_service.changed or delugeweb_service.changed
+  notify: daemon-reload
 
   #- name: systemd | enable and start deluge*
   #systemd:
