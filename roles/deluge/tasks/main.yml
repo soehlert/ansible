@@ -22,7 +22,7 @@
 
 - name: logging | create logrotate conf
   template:
-    src: tempaltes/logrotate.conf
+    src: templates/logrotate.conf
     dest: /etc/logrotate.d/deluge
     owner: root
     group: root
@@ -36,12 +36,12 @@
     group: root
     mode: 0644
 
-- name: systemd | enable and start deluged
-  systemd:
-    name: deluged
-    enable: yes
-    state: started
-    daemon-reload: yes
+    #- name: systemd | enable and start deluged
+    #systemd:
+      #name: deluged
+      #enable: yes
+      #state: started
+      #daemon-reload: yes
 
 - name: systemd | create deluge-web service file
   template:
@@ -51,9 +51,9 @@
     group: root
     mode: 0644
 
-- name: systemd | enable and start deluge-web
-  systemd:
-    name: deluge-web
-    enable: yes
-    state: started
-    daemon-reload: yes
+    #- name: systemd | enable and start deluge-web
+    #systemd:
+      #name: deluge-web
+      #enable: yes
+      #state: started
+      #daemon-reload: yes
