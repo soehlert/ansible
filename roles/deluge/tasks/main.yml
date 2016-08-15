@@ -1,0 +1,59 @@
+---
+- name: apt | add apt repo
+  apt_repo:
+    repo: 'ppa:deluge-team/ppa'
+
+- name: apt | add package
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - deluge
+    - deluged
+    - deluge-web
+
+- name: logging | create logging directory
+  file:
+    path: /var/log/deluge
+    state: directory
+    owner: "{{ deluge_user }}"
+    group: "{{ deluge_user }}"
+    mode: 0750
+
+- name: logging | create logrotate conf
+  template:
+    src: tempaltes/logrotate.conf
+    dest: /etc/logrotate.d/deluge
+    owner: root
+    group: root
+    mode: 0644
+
+- name: systemd | create deluged service file
+  template:
+    src: templates/deluged.service
+    dest: /etc/systemd/system/deluged.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: systemd | enable and start deluged
+  systemd:
+    name: deluged
+    enable: yes
+    state: started
+    daemon-reload: yes
+
+- name: systemd | create deluge-web service file
+  template:
+    src: templates/deluge-web.service
+    dest: /etc/systemd/system/deluge-web.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: systemd | enable and start deluge-web
+  systemd:
+    name: deluge-web
+    enable: yes
+    state: started
+    daemon-reload: yes
