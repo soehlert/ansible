@@ -46,11 +46,12 @@
     mode: 0644
   notify: daemon-reload
 
-  #- name: systemd | enable and start deluge*
-  #systemd:
-    #  name: "{{ item }}"
-    #enable: yes
-    #state: started
-    #with_items:
-      #- deluged
-      #- deluge-web
+# systemd module not available until ansible 2.2
+#- name: systemd | enable and start deluge*
+#  systemd:
+#    name: "{{ item }}"
+#    enable: yes
+#    state: started
+#  with_items:
+#    - deluged
+#    - deluge-web
