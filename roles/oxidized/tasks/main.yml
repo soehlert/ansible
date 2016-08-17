@@ -1,0 +1,49 @@
+---
+- name: packages | install prereqs
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ruby
+    - ruby-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - pkg-config
+    - cmake
+    - libssh2-1-dev
+
+- name: packages | install oxidized
+  gem:
+    name: oxidized
+    state: present
+
+- name: packages | install webui if you want
+  gem:
+    name: "{{ item }}"
+    state: present
+  when: oxidized_web
+  with_items:
+    - oxidized-script
+    - oxidized-web
+
+- name: user | add oxidized user
+  user:
+    name: "{{ oxidized_user }}"
+    comment: "Oxidized User"
+    home: "{{ oxidized_home }}"
+
+- name: config | add config dir
+  file:
+    path: "{{ oxidized_home }}/.config/oxidized"
+    state: directory
+    owner: "{{ oxidized_user }}"
+    group: "{{ oxidized_user }}"
+    mode: 0750
+
+- name: config | add oxidized config
+  template:
+    src: templates/config
+    dest: "{{ oxidized_home }}/.config/oxidized/config"
+    owner: "{{ oxidized_user }}"
+    group: "{{ oxidized_uesr }}"
+    mode: 0750
