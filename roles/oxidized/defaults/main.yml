@@ -1,2 +1,5 @@
 ---
-oxidized_main: true
+oxidized_web: true
+oxidized_user: oxidized
+oxidized_home: /home/oxidized
+oxidized_save: /var/lib/oxidized

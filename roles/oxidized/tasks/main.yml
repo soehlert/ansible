@@ -47,3 +47,11 @@
     owner: "{{ oxidized_user }}"
     group: "{{ oxidized_uesr }}"
     mode: 0750
+
+- name: config | create directory for oxidized to save configs to
+  file:
+    path: "{{ oxidized_save }}"
+    state: directory
+    owner: "{{ oxidized_user }}"
+    group: "{{ oxidized_user }}"
+    mode: 0750
