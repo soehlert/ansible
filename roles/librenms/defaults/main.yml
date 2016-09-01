@@ -1,0 +1,26 @@
+---
+librenms_packages:
+		- fping
+		- graphviz
+		- imagemagick
+		- mariadb-client
+		- mariadb-server
+		- mtr-tiny
+		- nginx-full
+		- nmap
+		- php7.0-cli
+		- php7.0-curl
+		- php7.0-fpm
+		- php7.0-gd
+		- php-net-ipv4
+		- php-net-ipv6
+		- php7.0-json
+		- php7.0-mcrypt
+		- php7.0-mysql
+		- php7.0-snmp
+		- php-pear
+		- python-mysqldb
+		- rrdtool
+		- snmp
+		- snmpd
+		- whois
