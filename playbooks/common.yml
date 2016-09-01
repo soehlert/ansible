@@ -3,6 +3,7 @@
   user: "{{ usernm }}"
   become: true
   become_user: root
+  gather_facts: no
   pre_tasks:
     - name: 'install python2'
       raw: sudo apt-get -y install python-simplejson
