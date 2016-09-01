@@ -1,0 +1,3 @@
+---
+# set to false if you don't need an nfs share mounted to use deluge
+deluge_nfs: true
