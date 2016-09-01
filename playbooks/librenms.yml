@@ -1,0 +1,6 @@
+---
+- hosts: librenms
+  user: "{{ usernm }}"
+  roles:
+    - { role: 'git', tags: 'git' }
+    - { role: 'librenms', tags: 'librenms' }
