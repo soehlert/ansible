@@ -1,0 +1,130 @@
+---
+- name: setup | include os-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: setup | include redhat specific things 
+  include: setup-redhat.yml
+  when: ansible_os_family == "RedHat"
+
+- name: user | create librenms user
+  user:
+    name: "{{ librenms_user }}"
+    home: "{{ librenms_home }}"
+    groups: "{{ librenms_user_groups }}"
+    system: yes
+    createhome: no
+    state: present
+
+- name: pre | install prereqs
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    "{{ librenms_packages }}"
+
+- name: check if librenms path exists
+  stat:
+    path: "{{ librenms_path }}"
+  register: librenms_stat
+
+- name: Checkout librenms
+  git: >-
+    dest={{ librenms_path }}
+    repo={{ librenms_git_url }}
+  when: not librenms_stat.stat.exists
+
+- name: set permissions on librenms path
+  when: not librenms_stat.stat.exists
+  file: >-
+    path={{ librenms_path }}
+    state=directory
+    owner={{ librenms_user }}
+    group={{ librenms_user }}
+    recurse=yes
+- name: include selinux tasks
+  include: selinux.yml
+  when: ansible_selinux.status is defined and ansible_selinux.status == 'permissive'
+
+- name: enable and start mariadb
+  service: name=mariadb enabled=yes state=started
+
+- name: create mysql database
+  mysql_db: >-
+    name={{ librenms_db_name }}
+    encoding=utf8
+    state=present
+- name: create mysql user
+  mysql_user:
+    name={{ librenms_db_user }}
+    host={{ item }}
+    password={{ librenms_db_pass }}
+    priv={{ librenms_db_name }}.*:ALL
+    state=present
+  with_items:
+    - 127.0.0.1
+    - localhost
+
+- name: create my.cnf for librenms
+  template: >-
+    src=my.cnf.j2
+    dest={{ librenms_path }}/.my.cnf
+    owner={{ librenms_user }}
+    group={{ librenms_user }}
+    backup=yes
+- name: template librenms configuration
+  template: >-
+    src=config.php.j2
+    dest={{ librenms_path }}/config.php
+    owner={{ librenms_user }}
+    group={{ librenms_user }}
+    backup=yes
+- name: create librenms directories
+  file: >-
+    path={{ item.path }}
+    state=directory
+    owner={{ item.owner }}
+    group={{ item.group }}
+    mode={{ item.mode }}
+  with_items: "{{ librenms_directories }}"
+  register: librenms_dirs
+
+- name: create librenms apache logs
+  when: librenms_dirs.changed
+  file: >-
+    path={{ item }}
+    state=touch
+    owner=librenms
+    group=apache
+    setype=httpd_log_t
+    mode=0644
+  with_items:
+    - "{{ librenms_path }}/logs/access_log"
+    - "{{ librenms_path }}/logs/error_log"
+
+- name: template rrdcached service unit
+  template: >-
+    src=rrdcached.service.j2
+    dest=/etc/systemd/system/rrdcached.service
+    owner=root
+    group=root
+    mode=0644
+  notify: restart rrdcached
+
+- name: enable and start rrdcached
+  service: name=rrdcached enabled=yes state=started
+
+- name: insert mysql database schema
+  shell: >-
+    chdir={{ librenms_path }}
+    creates={{ librenms_path }}/logs/schema.log
+    php {{ librenms_path }}/build-base.php > {{ librenms_path }}/logs/schema.log 2>&1
+
+- name: template librenms crontab
+  template: >-
+    src=librenms.cron.j2
+    dest=/etc/cron.d/librenms
+    owner=root
+    group=root
+    mode=0644
+    backup=yes
+- include: devices.yml
