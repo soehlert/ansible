@@ -3,6 +3,10 @@
   user: "{{ usernm }}"
   become: true
   become_user: root
+  tasks:
+    - name: install python 2
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+    when: ansible_distribution == 'Ubuntu'
   roles:
     - { role: 'packages', tags: 'packages' }
     - { role: 'users', tags: 'users' }
