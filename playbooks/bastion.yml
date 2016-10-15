@@ -1,0 +1,8 @@
+---
+- hosts: bastion
+  user: "{{ usernm }}"
+  become: true
+  become_user: root
+  roles:
+    - { role: 'duo', tags: 'duo' }
+    - { role: 'backup-media', tags: 'backup-media' }
