@@ -1,2 +1,47 @@
 ---
 # tasks file for auto-updates
+- block:
+  - name: Add package
+    package:
+      name: yum-cron
+      state: present
+
+  - name: Install conf file
+    template:
+      src: yum-cron.conf.j2
+      dest: /etc/yum/yum-cron.conf
+      owner: root
+      group: root
+      mode: 0644
+    notify: restart_yum_cron
+
+  - name: Yum Cron Service
+    service:
+      name: yum-cron
+      state: started
+      enable: yes
+
+  when: ansible_os_family == "RedHat"
+
+- block:
+  - name: Add package
+    package:
+      name: unattended-upgrades
+      state: present
+
+  - name: Configure debconf answer
+    debconf:
+      name: 'unattended-upgrades'
+      question: 'unattended-upgrades/enable_auto_updates'
+      vtype: 'boolean'
+      value: 'true'
+
+  - name: Install conf file
+    template:
+      src: unattended-upgrades.j2
+      dest: /etc/apt/apt.conf.d/50unattended-upgrades
+      owner: root
+      group: root
+      modes: 0644
+
+  when: ansible_os_family == "Debian"

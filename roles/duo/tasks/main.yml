@@ -1,27 +1,27 @@
 ---
 - block:
-    - name: Install Duo Prereqs
-      package:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - openssl-devel
-        - pam-devel
+  - name: Install Duo Prereqs
+    package:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - openssl-devel
+      - pam-devel
 
-    - name: Add Duo Repo
-      copy:
-        src: duosecurity.repo
-        dest: /etc/yum.repos.d/duosecurity.repo
+  - name: Add Duo Repo
+    copy:
+      src: duosecurity.repo
+      dest: /etc/yum.repos.d/duosecurity.repo
 
-    - name: Add Duo Key File
-      copy:
-        src: RPM-GPG-KEY-DUO
-        dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
+  - name: Add Duo Key File
+    copy:
+      src: RPM-GPG-KEY-DUO
+      dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
 
-    - name: Add Duo RPM Key
-      rpm_key:
-        state: present
-        key: /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
+  - name: Add Duo RPM Key
+    rpm_key:
+      state: present
+      key: /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO
 
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
   tags:
@@ -35,13 +35,6 @@
     name: duo_unix
     state: present
 
-- name: Check for Duo config
-  stat:
-    path: /etc/duo/login_duo.conf
-  register: duo_config
-  tags:
-    - config
-
 - name: Install Duo config
   template:
     src: login_duo.conf.j2
@@ -49,7 +42,6 @@
     owner: sshd
     group: root
     mode: 0600
-  when: duo_config.stat.exists == False
   tags:
     - config
 
