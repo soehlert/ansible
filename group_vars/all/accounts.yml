@@ -16,3 +16,4 @@ manage_ssh_keys:
     state: present
     keys:
       - files/ansible.pub
+      - files/mbp-work.pub
