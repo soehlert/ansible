@@ -42,6 +42,6 @@
       dest: /etc/apt/apt.conf.d/50unattended-upgrades
       owner: root
       group: root
-      modes: 0644
+      mode: 0644
 
   when: ansible_os_family == "Debian"
