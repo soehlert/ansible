@@ -19,7 +19,7 @@
     service:
       name: yum-cron
       state: started
-      enable: yes
+      enabled: yes
 
   when: ansible_os_family == "RedHat"
 
