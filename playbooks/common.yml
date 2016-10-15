@@ -6,4 +6,4 @@
   roles:
     - { role: 'packages', tags: 'packages' }
     - { role: 'netdata', tags: 'netdata' }
-    - { role: 'auto_updates', tags: 'auto_updates' }
+    - { role: 'auto-updates', tags: 'auto-updates' }
