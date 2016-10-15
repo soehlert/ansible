@@ -1,4 +1,10 @@
 ---
+- name: user | make sure sudo is installed
+  package:
+    name: sudo
+    state: present
+  when: ansible_os_family == 'Debian'
+
 - name: user | managing user account(s)
   user:
     name: "{{ item.user }}"
