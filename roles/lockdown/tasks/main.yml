@@ -1,6 +1,28 @@
 ---
 # tasks file for lockdown
-- name: See if I can figure out how to call my user
-  debug:
-    msg: "user name is {{ create_users.user }}"
-  when: create_users
+- name: Make SURE another user and key exists
+  stat:
+    path: "/home/{{ item.user }}/.ssh/authorized_keys"
+  when: "{{ create_users }}"
+  with_items:
+    - "{{ create_users }}"
+  register: user_exists
+
+- name: Make sure user has sudo or we're stuck without root
+  stat:
+    path: "/etc/sudoers.d/{{ item.user }}"
+  when: "{{ create_users }}"
+  with_items:
+    - "{{ create_users }}"
+  register: sudo_access
+
+- name: Cut off remote root ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  when: user_exists and sudo_access
+  with_items:
+    - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no' }
+    - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no' }
+  notify: restart_sshd
