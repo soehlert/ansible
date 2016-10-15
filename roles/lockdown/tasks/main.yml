@@ -1,0 +1,6 @@
+---
+# tasks file for lockdown
+- name: See if I can figure out how to call my user
+  debug:
+    msg: "user name is {{ create_users.user }}"
+  when: create_users
