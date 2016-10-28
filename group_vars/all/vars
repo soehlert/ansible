@@ -1,2 +1,3 @@
 ---
-ansible_secrets: "/Users/soehlert/projects/ansible-secrets/"
+usernm: soehlert
+ansible_secrets: "/Users/{{ usernm }}/projects/ansible-secrets/"
