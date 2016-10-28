@@ -1,5 +1,6 @@
 defaults:
   - git
+  - iperf3
   - screen
   - stow
   - sudo
