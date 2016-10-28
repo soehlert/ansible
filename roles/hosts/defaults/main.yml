@@ -1,0 +1,4 @@
+---
+# defaults file for hosts
+etc_hosts_static_ip: false
+etc_hosts_add_all_hosts: false

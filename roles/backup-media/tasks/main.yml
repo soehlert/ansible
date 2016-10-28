@@ -6,3 +6,11 @@
     owner: root
     group: root
     mode: 0775
+
+- name: Copy over cron file
+  template:
+    src: cron.j2
+    dest: /etc/cron.d/backup-media
+    owner: root
+    group: root
+    mode: 644

@@ -1,7 +1,0 @@
----
-- hosts: maas
-  user: soehlert
-  become: true
-  become_user: root
-  roles:
-    - { role: 'maas', tags: 'maas' }

@@ -1,6 +1,6 @@
 ---
 - hosts: bastion
-  user: "{{ usernm }}"
+  user: soehlert
   become: true
   become_user: root
   roles:

@@ -1,9 +1,10 @@
 ---
 - hosts: all
-  user: "{{ usernm }}"
+  user: soehlert
   become: true
   become_user: root
   roles:
     - { role: 'packages', tags: 'packages' }
     - { role: 'netdata', tags: 'netdata' }
     - { role: 'auto-updates', tags: 'auto-updates' }
+    - { role: 'hosts', tags: 'hosts' }

@@ -1,2 +1,4 @@
 ---
-ansible_secrets: "/Users/soehlert/projects/ansible-secrets/"
+usernm: soehlert
+pri_domain_name: internal.sjo
+ansible_secrets: "/Users/{{ usernm }}/projects/ansible-secrets/"

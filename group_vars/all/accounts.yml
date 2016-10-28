@@ -9,6 +9,14 @@ create_users:
     state: present
     sudo: true
     system_account: false
+  - user: deploy
+    comment: 'For running playbooks'
+    pass: ''
+    generate_keys: false
+    shell: '/bin/bash'
+    state: present
+    sudo: true
+    system_account: false
 
 enable_manage_ssh_keys: true
 manage_ssh_keys:
@@ -17,3 +25,7 @@ manage_ssh_keys:
     keys:
       - files/ansible.pub
       - files/mbp-work.pub
+  - remote_user: deploy
+    state: present
+    keys:
+      - files/deploy.pub
