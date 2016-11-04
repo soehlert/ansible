@@ -6,4 +6,4 @@
   roles:
     - { role: 'duo', tags: 'duo' }
     - { role: 'backup-media', tags: 'backup-media' }
-    - { role: 'cloudflare_ddns', tags: 'cf_ddns' }
+    - { role: 'cloudflare-ddns', tags: 'cf_ddns' }
