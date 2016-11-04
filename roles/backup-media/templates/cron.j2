@@ -7,6 +7,6 @@
 #| +---------- Hour              (range: 0-23)
 #+------------ Minute            (range: 0-59)
 
-0 5 * * * /usr/local/bin/backup-media -m tv
+*/30 * * * * /usr/local/bin/backup-media -m tv
 0 6 * * * /usr/local/bin/backup-media -m music
 0 7 * * * /usr/local/bin/backup-media -m movies
