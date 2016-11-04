@@ -35,7 +35,7 @@
 - name: Create template for my A record
   template:
     src: config.yml.j2
-    dest: "{{ cf_ddns_path }}/config.yml"
+    dest: "{{ cf_ddns_path }}/config.yaml"
     owner: "{{ cf_ddns_user }}"
     group: "{{ cf_ddns_user }}"
 
