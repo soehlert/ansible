@@ -7,10 +7,28 @@
     group: root
     mode: 0775
 
-- name: Copy over cron file
-  template:
-    src: cron.j2
-    dest: /etc/cron.d/backup-media
-    owner: root
-    group: root
-    mode: 644
+- name: Create tv cron job
+  cron:
+    name: "backup-media-tv"
+    minute: "*/15"
+    user: root
+    cron_file: backup-media-tv
+    job: "/usr/local/bin/backup-media -m tv"
+
+- name: Create movies cron job
+  cron:
+    name: "backup-media-movies"
+    minute: "13"
+    hour: "5"
+    user: root
+    cron_file: backup-media-movies
+    job: "/usr/local/bin/backup-media -m movies"
+
+- name: Create music cron job
+  cron:
+    name: "backup-media-music"
+    minute: "28"
+    hour: "6"
+    user: root
+    cron_file: backup-media-music
+    job: "/usr/local/bin/backup-media -m music"
