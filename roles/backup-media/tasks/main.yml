@@ -2,15 +2,19 @@
 - name: Copy over backup script
   template:
     src: backup-media.j2
-    dest: /usr/local/bin/backup-media
+    dest: "{{ script_path }}"
     owner: root
     group: root
     mode: 0775
 
-- name: Copy over cron file
-  template:
-    src: cron.j2
-    dest: /etc/cron.d/backup-media
-    owner: root
-    group: root
-    mode: 644
+- name: Create cron jobs
+  cron:
+    name: "backup-media"
+    minute: "{{ item.minute }}"
+    hour: "{{ item.hour }}"
+    user: root
+    job: "{{ item.job }}"
+  with_items:
+    - { minute: "*/15", hour: "*", job: "{{ script_path }} -m tv" }
+    - { minute: "13", hour: "5", job: "{{ script_path }} -m music" }
+    - { minute: "27", hour: "6", job: "{{ script_path }} -m movies" }
