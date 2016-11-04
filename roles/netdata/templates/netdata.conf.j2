@@ -65,7 +65,7 @@
   # apps = yes
 
 [registry]
-{% if netdata_registry %}
+{% if netdata_registry is defined %}
   enabled = yes
 {% endif %}
   enabled = no
