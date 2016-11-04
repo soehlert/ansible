@@ -1,2 +1,3 @@
 ---
 # vars file for roles/cloudflare-ddns
+cf_ddns_path: "/home/{{ usernm }}/projects/cloudflare-ddns"

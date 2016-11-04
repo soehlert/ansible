@@ -15,20 +15,27 @@
 
 - name: Check for clone
   stat:
-    path: "{{ cf_ddns_clone }}"
+    path: "{{ cf_ddns_path }}"
   register: clone
+
+- name: Create clone directory
+  file:
+    path: "{{ cf_ddns_path }}"
+    state: directory
+    owner: "{{ cf_ddns_user }}"
+    group: "{{ cf_ddns_user }}"
 
 - name: Clone repo
   git:
     repo: https://github.com/thatjpk/cloudflare-ddns.git
-    dest: "{{ cf_ddns_clone }}"
+    dest: "{{ cf_ddns_path }}"
     accept_hostkey: yes
   when: clone.stat.exists
 
 - name: Create template for my A record
   template:
     src: config.yml.j2
-    dest: "{{ cf_ddns_clone }}/config.yml"
+    dest: "{{ cf_ddns_path }}/config.yml"
     owner: "{{ cf_ddns_user }}"
     group: "{{ cf_ddns_user }}"
 
@@ -38,4 +45,4 @@
     minute: "*/15"
     user: "{{ cf_ddns_user }}"
     cron_file: cf_ddns
-    job: "{{ cf_ddns_clone }}/cloudflare-ddns.py {{ cf_ddns_clone }}/config.yaml >> /var/log/cloudflare_ddns.log"
+    job: "{{ cf_ddns_path }}/cloudflare-ddns.py {{ cf_ddns_path }}/config.yaml >> /var/log/cloudflare_ddns.log"
