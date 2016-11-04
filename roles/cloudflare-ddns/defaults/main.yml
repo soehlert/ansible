@@ -1,0 +1,8 @@
+---
+# defaults file for roles/cloudflare-ddns
+cf_key: "{{ lookup('ini', 'key section=credentials file={{ ansible_secrets }}/cloudflare_ddns') }}"
+cf_email: "{{ lookup('ini', 'email section=credentials file={{ ansible_secrets }}/cloudflare_ddns') }}"
+cf_domain: "{{ lookup('ini', 'domain section=domain file={{ ansible_secrets }}/cloudflare_ddns') }}"
+cf_subdomain: "{{ lookup('ini', 'subdomain section=domain file={{ ansible_secrets }}/cloudflare_ddns') }}"
+cf_quiet: false
+cf_user_ec2: false
