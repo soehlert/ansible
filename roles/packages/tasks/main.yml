@@ -12,10 +12,3 @@
     update_cache: yes
   with_items:
     - "{{ defaults }}"
-
-- name: packages | add pip packages
-  pip:
-    name: "{{ item }}"
-  when: "'media' in group_names"
-  with_items:
-    - "{{ pip_media }}"

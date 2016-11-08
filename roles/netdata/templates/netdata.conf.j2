@@ -65,10 +65,11 @@
   # apps = yes
 
 [registry]
-{% if netdata_registry is defined %}
+{% if netdata_registry is defined%}
   enabled = yes
-{% endif %}
+{% else %}
   enabled = no
+{% endif %}
   # registry db directory = /var/lib/netdata/registry
   # netdata unique id file = /var/lib/netdata/registry/netdata.public.unique.id
   # registry db file = /var/lib/netdata/registry/registry.db

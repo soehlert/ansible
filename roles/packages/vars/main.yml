@@ -7,6 +7,3 @@ defaults:
   - tree
   - wget
   - vim
-
-pip_media:
-  - moviemon
