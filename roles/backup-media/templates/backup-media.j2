@@ -96,19 +96,19 @@ fi
 
 if [[ "$media" == "movies" ]]
 then
-  rsync ${Options[@]}--log-file=$Log $LMOVIES $RMOVIES
+  rsync ${Options[@]}--log-file=$Log -q $LMOVIES $RMOVIES
 #  AdjustPerms $RMOVIES
 elif [[ "$media" == "homemov" ]]
 then
-  rsync ${Options[@]}--log-file=$Log $LHV $RHV
+  rsync ${Options[@]}--log-file=$Log -q --exclude="*.partial~" $LHV $RHV
 #  AdjustPerms $RHV
 elif [[ "$media" == "music" ]]
 then
-  rsync ${Options[@]}--log-file=$Log $LMUSIC $RMUSIC
+  rsync ${Options[@]}--log-file=$Log -q --exclude="*.partial~" $LMUSIC $RMUSIC
 #  AdjustPerms $RMUSIC
 elif [[ "$media" == "tv" ]]
 then
-  rsync ${Options[@]}--log-file=$Log $LTV $RTV
+  rsync ${Options[@]}--log-file=$Log -q --exclude="*.partial~ "$LTV $RTV
 #  AdjustPerms $RTV
 elif [[ "$media" == "other" ]]
 then
@@ -116,7 +116,7 @@ then
   read src
   echo -e "\nWhere would you like to back it up to? (Enter full path)\n"
   read dest
-  rsync ${Options[@]}--log-file="$Log" "$src" "$dest"
+  rsync ${Options[@]}--log-file="$Log" -q --exclude="*.partial~" "$src" "$dest"
 else
   Usage
 fi

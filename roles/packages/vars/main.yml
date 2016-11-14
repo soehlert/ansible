@@ -1,4 +1,5 @@
 defaults:
+  - curl
   - git
   - iperf3
   - screen
