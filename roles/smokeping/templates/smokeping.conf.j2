@@ -4,7 +4,7 @@ owner = {{ smokeping_owner }}
 contact = {{ smokeping_email }}
 mailhost = localhost
 # NOTE: do not put the Image Cache below cgi-bin
-cgiurl = http://{{ ansible_default_ipv4.address }}/cgi-bin/smokeping.cgi
+cgiurl = http://{{ ansible_hostname }}/cgi-bin/smokeping.cgi
 # specify this to get syslog logging
 syslogfacility = local0
 # concurrentprobes = no
