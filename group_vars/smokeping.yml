@@ -2,6 +2,6 @@
 smokeping_owner: soehlert
 smokeping_email: root@localhost
 smokeping_from_email: smokealert@samoehlert.com
-menu: Comcast
-title: Comcast First Hop DNS
-host: 75.75.75.75
+smokeping_menu: samoehlert.com
+smokeping_title: Sam Oehlert Website
+smokeping_host: samoehlert.com
