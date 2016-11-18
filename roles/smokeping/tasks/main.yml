@@ -33,8 +33,14 @@
     - { src: '/usr/share/smokeping/www', dest: '/var/www/smokeping' }
     - { src: '/usr/lib/cgi-bin/smokeping.cgi', dest: '/usr/share/smokeping/www/smokeping.cgi' }
 
+- name: Check if CGI is enabled
+  stat:
+    path: /etc/apache2/mods-enabled/cgi.load
+  register: cgi
+
 - name: Enable CGI
   apache2_module:
     name: cgi
     state: present
+  when: ( not cgi.stat.exists )
   notify: restart apache
