@@ -1,0 +1,37 @@
+---
+# tasks file for roles/gitlab
+- name: Install prereqs
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ca-certificates
+    - curl
+    - openssh-server
+    - postfix
+
+- name: Check for script
+  stat:
+    path: /tmp/script.deb.sh
+  register: script_path
+
+- name: Grab script
+  get_url:
+    url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
+    dest: /tmp/
+  when: ( not script_path.stat.exists )
+
+- name: Run script
+  command: bash /tmp/script.deb.sh
+  args:
+    creates: "/etc/gitlab"
+
+- name: Install gitlab-ce
+  package:
+    name: gitlab-ce
+    state: present
+
+- name: Reconfigure for first run
+  command: gitlab-ctl reconfigure
+  args:
+    creates: /var/opt/gitlab/logrotate
