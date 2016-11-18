@@ -2,6 +2,5 @@
 smokeping_owner: soehlert
 smokeping_email: root@localhost
 smokeping_from_email: smokealert@samoehlert.com
-smokeping_menu: samoehlert.com
-smokeping_title: Sam Oehlert Website
-smokeping_host: samoehlert.com
+smokeping_dns_host: cdns01.comcast.net
+smokeping_http_host: samoehlert.com

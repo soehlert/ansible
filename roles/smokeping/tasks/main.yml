@@ -19,10 +19,11 @@
     mode: 644
   notify: restart apache
   with_items:
-    - { src: 'templates/smokeping.conf.j2', dest: '/etc/smokeping/config.d/General' }
-    - { src: 'templates/pathnames.conf.j2', dest: '/etc/smokeping/config.d/pathnames' }
+    - { src: 'templates/probe.conf.j2', dest: '/etc/smokeping/config.d/Probes' }
     - { src: 'templates/alerts.conf.j2', dest: '/etc/smokeping/config.d/Alerts' }
     - { src: 'templates/targets.conf.j2', dest: '/etc/smokeping/config.d/Targets' }
+    - { src: 'templates/smokeping.conf.j2', dest: '/etc/smokeping/config.d/General' }
+    - { src: 'templates/pathnames.conf.j2', dest: '/etc/smokeping/config.d/pathnames' }
     - { src: 'templates/smokeping.cgi.j2', dest: '/etc/apache2/conf-available/serve-cgi-bin.conf' }
 
 - name: Create links

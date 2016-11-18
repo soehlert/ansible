@@ -16,11 +16,25 @@ title = Local Network
 ++ LocalMachine
 
 menu = Local Machine
-title = This host
+title = Smokeping Host
 host = localhost
 #alerts = someloss
 
-++ Web_Server_1
-menu = {{ smokeping_menu }}
-title = {{ smokeping_title }}
-host = {{ smokeping_host }}
++ services
+menu = Service latency
+title = Service latency (DNS, HTTP)
+
+++ DNS
+probe = DNS
+menu = DNS latency
+title = Service latency (DNS)
+
++++ dns1
+host = {{ smokeping_dns_host }}
+
+++ HTTP
+menu = HTTP latency
+title = Service latency (HTTP)
+
++++ www1
+host = {{ smokeping_http_host }}
