@@ -1,2 +1,12 @@
 ---
 # handlers file for roles/smokeping
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+  notify: restart smokeping
+
+- name: restart smokeping
+  service:
+    name: smokeping
+    state: restarted
