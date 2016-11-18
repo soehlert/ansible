@@ -1,0 +1,46 @@
+---
+# tasks file for roles/smokeping
+- name: Install prereqs
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install prereqs
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - nginx
+    - sendmail
+    - fcgiwrap
+
+- name: Install smokeping
+  package:
+    name: smokeping
+    state: present
+
+- name: Install configs
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    src: templates/fcgiwrap.conf.j2
+    dest: /etc/nginx/fcgiwrap.conf
+    owner: root
+    group: root
+    mode: 644
+  notify: restart nginx
+  with_items:
+    - { src: templates/fcgiwrap.conf.j2, dest: /etc/nginx/fcgiwrap.conf }
+    - { src: templates/smokeping.conf.j2, dest: /etc/smokeping/config.d/General }
+    - { src: templates/pathnames.conf.j2, dest: /etc/smokeping/config.d/pathnames }
+    - { src: templates/alerts.conf.j2, dest: /etc/smokeping/config.d/Alerts }
+
+- name: Create links
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - { src: /usr/share/smokeping/www, dest: /var/www/smokeping }
+    - { src: /usr/lib/cgi-bin/smokeping.cgi, dest: /usr/share/smokeping/www/smokeping.cgi }
+
