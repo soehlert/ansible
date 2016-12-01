@@ -1,0 +1,23 @@
+---
+dns_entries:
+  - { name: router, address: 192.168.1.1 }
+  - { name: wap, address: 192.168.1.2 }
+  - { name: probe, address: 192.168.1.3 }
+  - { name: tunnel, address: 192.168.1.4 }
+  - { name: bingbong-mgt, address: 192.168.1.5 }
+  - { name: freenas, address: 192.168.1.8 }
+  - { name: mini, address: 192.168.1.9 }
+  - { name: nas, address: 192.168.1.14 }
+  - { name: pi, address: 192.168.1.18 }
+  - { name: bingbong, address: 192.168.1.20 }
+  - { name: windows, address: 192.168.1.21 }
+  - { name: adblock, address: 192.168.1.22 }
+  - { name: seedbox, address: 192.168.1.23 }
+  - { name: bastion, address: 192.168.1.24 }
+  - { name: flows, address: 192.168.1.25 }
+  - { name: nms, address: 192.168.1.26 }
+  - { name: fantrax, address: 192.168.1.27 }
+  - { name: proxy, address: 192.168.1.28 }
+  - { name: vpn, address: 192.168.1.29 }
+  - { name: smokeping, address: 192.168.1.30 }
+  - { name: gitlab, address: 192.168.1.31 }
