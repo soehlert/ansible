@@ -1,0 +1,12 @@
+[Unit]
+Description=PlexPy - Stats for Plex Media Server usage
+
+[Service]
+ExecStart={{ plexpy_dir }}/PlexPy.py --quiet --daemon --nolaunch --config {{ plexpy_dir }}/plexpy.ini --datadir {{ plexpy_dir }}/plexpydata
+GuessMainPID=no
+Type=forking
+User={{ plexpy_user }}
+Group={{ plexpy_group }}
+
+[Install]
+WantedBy=multi-user.target

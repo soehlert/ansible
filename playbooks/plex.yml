@@ -1,0 +1,5 @@
+---
+- hosts: plex
+  become: true
+  roles:
+    - { role: 'plex', tags: 'plex' }

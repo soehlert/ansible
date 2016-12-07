@@ -1,0 +1,58 @@
+---
+# tasks file for roles/plexpy
+- name: Create plexypy group
+  group:
+    name: "{{ plexpy_group }}"
+    state: present
+
+- name: Create plexpy user
+  user:
+    name: "{{ plexpy_user }}"
+    group: plexpy
+    comment: "PlexPy User"
+    system: yes
+    shell: /sbin/nologin
+    state: present
+    home: "{{ plexpy_home }}"
+
+- name: git clone plexpy repo
+  git:
+    repo: "{{ plexpy_repo }}"
+    dest: "{{ plexpy_dir }}"
+
+- name: create plexpy data dir
+  file:
+    path: "{{ plexpy_dir }}/plexpydata"
+    state: directory
+    owner: "{{ plexpy_user }}"
+    group: "{{ plexpy_group }}"
+
+- name: Check plexpy permissions
+  stat:
+    path: "{{ plexpy_dir }}"
+  register: plexpy_perms
+
+- name: ensure permissions
+  file:
+    path: "{{ plexpy_dir }}"
+    owner: "{{ plexpy_user }}"
+    group: "{{ plexpy_group }}"
+    recurse: yes
+  when: ( plexpy_perms.stat.gr_name != "{{ plexpy_group }}" or plexpy_perms.stat.pw_name != "{{ plexpy_user }}" or plexpy_perms.stat.mode != "0755" )
+  tags:
+    - perms
+
+- name: Deploy systemd service file
+  template:
+    src: "plexpy.service.j2"
+    dest: "/lib/systemd/system/plexpy.service"
+    owner: root
+    group: root
+  register: service
+  notify: restart_plexpy
+
+- name: Systemd reload
+  systemd:
+    name: plexpy
+    daemon_reload: yes
+  when: service.changed

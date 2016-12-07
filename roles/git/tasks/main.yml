@@ -3,16 +3,6 @@
   package:
     name: "{{ item }}"
     state: present
-  when: ansible_os_family == "RedHat"
   with_items:
     - rsync
     - git
-
-- name: add git
-  package:
-    name: "{{ item }}"
-    state: present
-  when: ansible_os_family == "Debian"
-  with_items:
-    - rsync
-    - git-core

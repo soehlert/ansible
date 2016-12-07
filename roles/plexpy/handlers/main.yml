@@ -1,0 +1,7 @@
+---
+# handlers file for roles/plexpy
+- name: restart_plexpy
+  systemd:
+    name: plexpy
+    enabled: yes
+    state: restarted
