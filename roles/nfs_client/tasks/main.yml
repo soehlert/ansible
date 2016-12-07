@@ -25,17 +25,19 @@
 
 - name: Ensure mount dir exists
   file:
-    path: "{{ nfs_mount }}"
+    path: "{{ item.nfs_dir }}"
     state: directory
+  with_items: "{{ nfs_client }}"
   tags:
     - directory
 
 - name: Make the mount
   mount:
-    name: "{{ nfs_mount }}"
-    src: "{{ nfs_server }}:/{{ nfs_dir }}"
+    name: "{{ item.nfs_mount }}"
+    src: "{{ item.nfs_server }}:/{{ item.nfs_dir }}"
     fstype: nfs
     state: mounted
-    opts: "{{ nfs_options }}"
+    opts: "{{ item.nfs_options }}"
+  with_items: "{{ nfs_client }}"
   tags:
     - directory
