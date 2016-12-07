@@ -1,0 +1,6 @@
+---
+- hosts: plexpy
+  become: true
+  roles:
+    - { role: 'git', tags: 'git' }
+    - { role: 'plexpy', tags: 'plexpy' }

@@ -1,0 +1,35 @@
+---
+# tasks file for roles/plex
+- block:
+  - name: Add apt repo
+    apt_repository:
+      repo: deb https://downloads.plex.tv/repo/deb/ public main
+      state: present
+      filename: 'plex'
+
+  - name: Install prereqs
+    package:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - libavahi-common3
+      - libavahi-core7
+      - libdaemon0
+      - libnss-mdns
+      - libavahi-client3
+      - libavahi-common3
+      - avahi-daemon
+      - avahi-utils
+      - cifs-utils
+
+  - name: Install plex
+    apt:
+      deb: "{{ plex_dl_url }}"
+      state: "present"
+      force: yes
+    notify: restart_plex
+
+  when: ansible_os_family == "Debian"
+
+- rescue:
+  - debug: msg="This works only on Debian based systems"

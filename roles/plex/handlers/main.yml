@@ -1,0 +1,7 @@
+---
+# handlers file for roles/plex
+- name: restart_plex
+  systemd:
+    name: plexmediaserver
+    enabled: yes
+    state: restarted
