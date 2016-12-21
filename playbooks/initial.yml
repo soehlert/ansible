@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  user: root
   roles:
     - { role: 'users', tags: 'users' }
     - { role: 'lockdown', tags: 'lockdown' }
