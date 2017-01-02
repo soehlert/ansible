@@ -1,0 +1,13 @@
+docker run \
+--name plex \
+-p 32400:32400/tcp \
+-p 32410:32410/udp \
+-p 32412:32412/udp \
+-p 32413:32413/udp \
+-p 32414:32414/udp \
+-e TZ="America/Chicago" \
+-e PLEX_CLAIM="claim-tLJymrwPwfCqqRpBhGrC" \
+-e ADVERTISE_IP="http://192.168.1.100:32400/" \
+-h plex \
+-v /media/freenas_media/tv:/data/tvshows \
+plexinc/pms-docker
