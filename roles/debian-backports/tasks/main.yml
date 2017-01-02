@@ -1,0 +1,7 @@
+---
+# tasks file for docker
+- name: Add backports repository
+  apt_repository:
+    repo: 'deb {{ backports_uri }} {{ backports_components }}'
+    state: present
+    update_cache: yes
