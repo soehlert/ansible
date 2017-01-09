@@ -25,7 +25,7 @@
 
 - name: Ensure mount dir exists
   file:
-    path: "{{ item.nfs_dir }}"
+    path: "{{ item.nfs_mount }}"
     state: directory
   with_items: "{{ nfs_client }}"
   tags:
@@ -40,4 +40,4 @@
     opts: "{{ item.nfs_options }}"
   with_items: "{{ nfs_client }}"
   tags:
-    - directory
+    - mount
