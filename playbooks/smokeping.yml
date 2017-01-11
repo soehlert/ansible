@@ -1,7 +1,5 @@
 ---
 - hosts: smokeping
-  user: deploy
   become: true
-  become_user: root
   roles:
     - { role: 'smokeping', tags: 'smokeping' }

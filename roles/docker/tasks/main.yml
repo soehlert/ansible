@@ -1,0 +1,47 @@
+---
+# tasks file for roles/docker
+- name: Ensure that APT works with the https method
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+
+- name: Install docker GPG key
+  apt_key:
+    keyserver: "{{ docker_keyserver }}"
+    id: "{{ docker_keyserver_id }}"
+    state: present
+
+- name: Add docker apt repository
+  apt_repository:
+    repo: "deb https://apt.dockerproject.org/repo {{ ansible_distribution|lower }}-{{ ansible_distribution_release }} main"
+    state: present
+
+- name: Purge the old repo if it exists
+  apt:
+    name: "{{ item }}"
+    purge: yes
+  ignore_errors: yes
+  with_items:
+    - "lxc-docker*"
+    - "docker.io*"
+
+- name: Update cache
+  apt:
+    update_cache: yes
+
+- name: Install docker package
+  apt:
+    name: docker-engine
+    state: present
+  notify: Start Docker
+
+- name: Install docker pip
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - docker-py
+    - docker-compose

@@ -1,9 +1,8 @@
 ---
 - hosts: atomic
-  user: vagrant
   become: true
-  become_user: root
   roles:
     - { role: 'git', tags: 'git' }
     - { role: 'atomic', tags: 'atomic' }
     - { role: 'deluge', tags: 'deluge' }
+    - { role: 'jackett', tags: 'jackett' }

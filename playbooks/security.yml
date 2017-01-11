@@ -3,5 +3,3 @@
   roles:
     - { role: 'users', tags: 'users' }
     - { role: 'lockdown', tags: 'lockdown' }
-
-- include: common.yml

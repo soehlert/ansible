@@ -5,6 +5,5 @@
   become_user: root
   roles:
     - { role: 'duo', tags: 'duo' }
-    - { role: 'nfs_client', tags: 'nfs_client' }
     - { role: 'backup-media', tags: 'backup-media' }
     - { role: 'cloudflare-ddns', tags: 'cf_ddns' }

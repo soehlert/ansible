@@ -8,6 +8,7 @@ dns_entries:
   - { name: bastion, address: 192.168.1.6 }
   - { name: freenas, address: 192.168.1.8 }
   - { name: mini, address: 192.168.1.9 }
+  - { name: plex, address: 192.168.1.10 }
   - { name: nas, address: 192.168.1.14 }
   - { name: bingbong, address: 192.168.1.20 }
   - { name: windows, address: 192.168.1.21 }

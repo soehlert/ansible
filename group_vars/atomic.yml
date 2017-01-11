@@ -1,2 +1,4 @@
 ---
 vpn_deb: "expressvpn_1.1.0_amd64.deb"
+jackett_user: soehlert
+jackett_group: soehlert

@@ -1,4 +1,7 @@
 ---
+use_docker: True
+docker_keyserver: hkp://p80.pool.sks-keyservers.net:80
+docker_keyserver_id: 58118E89F3A912897C070ADBF76221572C52609D
 nfs_client:
   - nfs_mount: /new
     nfs_server: 192.168.1.8
@@ -7,6 +10,10 @@ nfs_client:
   - nfs_mount: /media/freenas_media
     nfs_server: 192.168.1.8
     nfs_dir: /mnt/tank/media
+    nfs_options: rw,sync
+  - nfs_mount: /media/data
+    nfs_server: 192.168.1.8
+    nfs_dir: /mnt/tank/data
     nfs_options: rw,sync
   - nfs_mount: /media/synology/home_movies
     nfs_server: 192.168.1.14
@@ -23,4 +30,8 @@ nfs_client:
   - nfs_mount: /media/synology/tv
     nfs_server: 192.168.1.14
     nfs_dir: /volume1/tv
+    nfs_options: rw,sync
+  - nfs_mount: /media/flows
+    nfs_server: 192.168.1.14
+    nfs_dir: /volume1/flows
     nfs_options: rw,sync
