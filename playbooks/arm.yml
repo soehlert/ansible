@@ -2,5 +2,4 @@
 - hosts: arm
   become: true
   roles:
-    - { role: 'nfs_client', tags: 'nfs_mount', nfs_mount: '/mnt/new', nfs_server: '192.168.1.8', nfs_dir: '/mnt/tank/new', nfs_options: 'rw,sync' }
     - { role: 'arm', tags: 'arm' }

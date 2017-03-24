@@ -1,0 +1,39 @@
+---
+# tasks file for roles/arm
+- name: Install apt-repos
+  apt_repository:
+    repo: "{{ item }}"
+  with_items:
+    - "{{ arm_repos }}"
+
+- name: Install prereqs
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - "{{ arm_prereqs }}"
+
+- name: Clone repo
+  git:
+    repo: "{{ repo_name }}"
+    dest: "{{ arm_path }}"
+
+- name: Pip requirements
+  pip:
+    requirements: "{{ arm_pip_reqs }}"
+    executable: pip3
+
+- name: Create symlinks
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - { src: '/opt/arm/51-automedia.rules', dest: '/lib/udev/rules.d/51-automedia.rules' }
+    - { src: '/opt/arm/.abcde.conf', dest: '/root/.abcde.conf' }
+
+- name: Copy config
+  template:
+    src: arm.conf.j2
+    dest: "{{ arm_conf }}"
