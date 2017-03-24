@@ -6,6 +6,7 @@ dns_entries:
   - { name: dns, address: 192.168.1.4 }
   - { name: bingbong-mgt, address: 192.168.1.5 }
   - { name: bastion, address: 192.168.1.6 }
+  - { name: smarthub, address: 192.168.1.7 }
   - { name: freenas, address: 192.168.1.8 }
   - { name: mini, address: 192.168.1.9 }
   - { name: plex, address: 192.168.1.10 }
