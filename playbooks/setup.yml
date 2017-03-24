@@ -1,6 +1,5 @@
 ---
 - hosts: setup
-  user: root
   gather_facts: false
   pre_tasks:
     - raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)

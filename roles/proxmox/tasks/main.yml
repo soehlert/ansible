@@ -1,0 +1,14 @@
+---
+# tasks file for roles/proxmox
+- name: Install proxmox containers with mounts
+  proxmox:
+    node: "{{ item.node }}"
+    api_user: "{{ item.api_user }}"
+    api_password: "{{ item.api_password }}"
+    api_host: "{{ item.host }}"
+    password: "{{ item.password }}"
+    hostname: "{{ item.hostname }}"
+    ostemplate: "{{ item.ostemplate }}"
+    netif: "{{ item.netif }}"
+    mounts: "{{ item.mount|default(omit) }}"
+  with_items: "{{ proxmox_containers }}"
