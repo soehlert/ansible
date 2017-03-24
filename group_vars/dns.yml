@@ -10,6 +10,7 @@ dns_entries:
   - { name: freenas, address: 192.168.1.8 }
   - { name: mini, address: 192.168.1.9 }
   - { name: plex, address: 192.168.1.10 }
+  - { name: arm, address: 192.168.1.11 }
   - { name: nas, address: 192.168.1.14 }
   - { name: bingbong, address: 192.168.1.20 }
   - { name: windows, address: 192.168.1.21 }
