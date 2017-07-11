@@ -1,0 +1,53 @@
+[setup]
+flows ansible_host=192.168.1.25
+arm ansible_host=192.168.1.11
+
+[centos7]
+bastion ansible_host=192.168.1.6
+
+[flows]
+flows ansible_host=192.168.1.25
+
+[smokeping]
+smokeping ansible_host=192.168.1.30
+
+[atomic]
+seedbox ansible_host=192.168.1.23
+
+[plex]
+plex ansible_host=192.168.1.10
+
+[bastion]
+bastion ansible_host=192.168.1.6
+
+[adblock]
+adblock ansible_host=192.168.1.4
+
+[dns:children]
+adblock
+
+[arm]
+arm ansible_host=192.168.1.11
+
+[proxmox]
+bingbong ansible_host=192.168.1.20
+
+[vubuntu1604]
+
+[vubuntu1404]
+
+[vcentos7]
+
+[vcentos6]
+
+[vubuntu:children]
+vubuntu1604
+vubuntu1404
+
+[vcentos:children]
+vcentos7
+vcentos6
+
+[vagrant:children]
+vubuntu
+vcentos
