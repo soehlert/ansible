@@ -8,6 +8,7 @@
     with_items:
       - apt-transport-https
       - ca-certificates
+
   - name: Add apt repo
     apt_repository:
       repo: deb https://downloads.plex.tv/repo/deb/ public main
