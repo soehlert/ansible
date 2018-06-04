@@ -11,4 +11,4 @@
     state: present
     update_cache: yes
   with_items:
-    - "{{ defaults }}"
+    - "{{ defaults_packages }}"

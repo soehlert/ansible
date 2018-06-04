@@ -1,7 +1,0 @@
----
-# defaults file for roles/plexpy
-plexpy_user: plexpy
-plexpy_group: plexpy
-plexpy_home: /home/plexpy
-plexpy_repo: https://github.com/drzoidberg33/plexpy.git
-plexpy_dir: /opt/plexpy

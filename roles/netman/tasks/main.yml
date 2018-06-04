@@ -1,6 +1,6 @@
 ---
 - name: Turn off network manager
-  service: 
+  service:
     name: NetworkManager
     state: stopped
 
