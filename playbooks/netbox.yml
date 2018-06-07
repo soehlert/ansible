@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: netbox
   become: yes
   roles:
     - geerlingguy.postgresql
