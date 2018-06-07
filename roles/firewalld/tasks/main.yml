@@ -41,16 +41,16 @@
   notify: restart_firewalld
 
 - name: security | remove firewalld rule by service
-  command: firewall-cmd --zone="{{ item.zone }}" --remove-service="{{ item.service }}" --permanent
+  command: 'firewall-cmd --zone="{{ item.zone }}" --remove-service="{{ item.service }}" --permanent'
   with_items: "{{ firewalld_remove_service }}"
   notify: restart_firewalld
 
 - name: security | remove firewalld rule by port
-  command: firewall-cmd --zone="{{ item.zone }}" --remove-port="{{ item.port }}" --permanent
+  command: 'firewall-cmd --zone="{{ item.zone }}" --remove-port="{{ item.port }}" --permanent'
   with_items: "{{ firewalld_remove_port }}"
   notify: restart_firewalld
 
 - name: security | remove firewalld zone source
-  command: firewall-cmd --remove-source="{{ item.source }}" --zone="{{ item.zone }}" --permanent
+  command: 'firewall-cmd --remove-source="{{ item.source }}" --zone="{{ item.zone }}" --permanent'
   with_items: "{{ firewalld_remove_source }}"
   notify: restart_firewalld

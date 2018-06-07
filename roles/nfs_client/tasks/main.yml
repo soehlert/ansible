@@ -3,16 +3,12 @@
   package:
     name: nfs-utils
     state: present
-  tags:
-    - install
   when: ansible_distribution == 'CentOS'
 
 - name: Install NFS client
   package:
     name: nfs-common
     state: present
-  tags:
-    - install
   when: ansible_os_family == 'Debian'
 
 - name: Turn on NFS client
@@ -20,16 +16,12 @@
     name: rpcbind
     state: started
     enabled: yes
-  tags:
-    - install
 
 - name: Ensure mount dir exists
   file:
     path: "{{ item.nfs_mount }}"
     state: directory
   with_items: "{{ nfs_client }}"
-  tags:
-    - directory
 
 - name: Make the mount
   mount:
@@ -39,5 +31,3 @@
     state: mounted
     opts: "{{ item.nfs_options }}"
   with_items: "{{ nfs_client }}"
-  tags:
-    - mount

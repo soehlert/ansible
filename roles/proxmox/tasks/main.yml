@@ -1,14 +1,40 @@
 ---
 # tasks file for roles/proxmox
+- name: Install proxmox prereqs
+  pip:
+    name: "{{ item }}"
+    extra_args: --user
+  with_items:
+      - proxmoxer
+      - requests
+
+- name: Download template
+  delegate_to: proxmox
+  command: "/usr/bin/pveam donload local {{ container_template }}"
+  args:
+      creates: "/var/lib/vz/template/cache/{{ container_template }}"
+
 - name: Install proxmox containers with mounts
   proxmox:
-    node: "{{ item.node }}"
-    api_user: "{{ item.api_user }}"
-    api_password: "{{ item.api_password }}"
-    api_host: "{{ item.host }}"
-    password: "{{ item.password }}"
+    node: "{{ proxmox_node }}"
+    api_host: "{{ proxmox_api_host }}"
+    api_user: "{{ proxmox_user }}"
+    api_password: "{{ proxmox_password }}"
+    password: "{{ promox_root_password }}"
     hostname: "{{ item.hostname }}"
     ostemplate: "{{ item.ostemplate }}"
     netif: "{{ item.netif }}"
     mounts: "{{ item.mount|default(omit) }}"
   with_items: "{{ proxmox_containers }}"
+
+- name: Start containers
+  proxmox:
+    node: "{{ proxmox_node }}"
+    api_host: "{{ proxmox_api_host }}"
+    api_user: "{{ proxmox_user }}"
+    api_password: "{{ proxmox_password }}"
+    state: started
+    hostname: "{{ item.hostname }}"
+  retries: 10
+  delay: 2
+  ignore_errors: yes

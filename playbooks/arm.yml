@@ -1,5 +1,0 @@
----
-- hosts: arm
-  become: true
-  roles:
-    - { role: 'arm', tags: 'arm' }

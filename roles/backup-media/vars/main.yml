@@ -1,9 +1,0 @@
----
-perms: 775
-local_base: '/media/freenas_media'
-remote_base: '/media/synology'
-movies: 'movies'
-music: 'music'
-tv: 'tv'
-homemovs: 'home_movies'
-log_dir: '/home/{{ usernm }}/media-logs'

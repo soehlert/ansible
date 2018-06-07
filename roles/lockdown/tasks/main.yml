@@ -1,6 +1,6 @@
 ---
 # tasks file for lockdown
-- name: Make SURE another user and key exists
+- name: Make sure another user and key exists
   stat:
     path: "/home/{{ item.user }}/.ssh/authorized_keys"
   when: "{{ create_users }}"

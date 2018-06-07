@@ -8,11 +8,21 @@
     with_items:
       - apt-transport-https
       - ca-certificates
+
   - name: Add apt repo
     apt_repository:
       repo: deb https://downloads.plex.tv/repo/deb/ public main
       state: present
       filename: 'plex'
+
+  - name: Accept key
+    apt_key:
+        url: https://downloads.plex.tv/plex-keys/PlexSign.key
+        state: present
+
+  - name: Update apt cache
+    apt:
+        update_cache: yes
 
   - name: Install prereqs
     package:
@@ -30,11 +40,26 @@
       - cifs-utils
 
   - name: Install plex
-    apt:
-      deb: "{{ plex_dl_url }}"
-      state: "present"
-      force: yes
-    notify: restart_plex
+    package:
+        name: plexmediaserver
+        state: present
+
+        #  - name: Install plex
+        #apt:
+        #deb: "{{ plex_dl_url }}"
+        #state: "present"
+        #force: yes
+        #notify: restart_plex
+        #
+  - name: Daemon reload
+    systemd:
+        daemon_reload: yes
+
+  - name: Start plex
+    systemd:
+        name: plexmediaserver
+        state: started
+        enabled: yes
 
   when: ansible_os_family == "Debian"
 

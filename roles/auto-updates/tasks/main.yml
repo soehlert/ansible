@@ -16,7 +16,7 @@
     notify: restart_yum_cron
 
   - name: Yum Cron Service
-    service:
+    systemd:
       name: yum-cron
       state: started
       enabled: yes

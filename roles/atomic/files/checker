@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if ! ip addr | grep tun0 > /dev/null 2>&1
-then
-  dw_pid=`ps -ef | grep transmission-daemon | grep -v grep | awk '{print $2}'`
-  kill -9 $dw_pid
-fi

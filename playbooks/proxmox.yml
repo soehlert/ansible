@@ -2,4 +2,5 @@
 - hosts: proxmox
   become: true
   roles:
+    - { role: 'proxmox', tags: 'proxmox' }
     - { role: 'nfs_client', tags: 'nfs', when: nfs_client is defined }

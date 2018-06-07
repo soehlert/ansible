@@ -3,4 +3,3 @@
   become: true
   roles:
     - { role: 'plex', tags: 'plex' }
-    - { role: 'plexpy', tags: 'plexpy' }
