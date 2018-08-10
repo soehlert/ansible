@@ -1,0 +1,22 @@
+# {{ ansible_managed }}
+DATABASE = {
+    'NAME': '{{ netbox_database }}',
+    'USER': '{{ netbox_database_user }}',
+{% if netbox_database_host is defined %}
+    'PASSWORD': '{{ netbox_database_password }}',
+    'HOST':  '{{ netbox_database_host }}',
+    'PORT': '{{ netbox_database_port }}',
+{% else %}
+    'HOST': '{{ netbox_database_socket }}',
+{% endif %}
+}
+
+{% for setting, value in netbox_config.iteritems() %}
+{% if value in [True, False] %}
+{{ setting }} = {{ 'True' if value else 'False' }}
+{% else %}
+{{ setting }} = {{ value | to_nice_json }}
+{% endif %}
+{% endfor %}
+
+# vim: ft=python

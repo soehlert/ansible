@@ -4,5 +4,3 @@
   roles:
     - { role: 'git', tags: 'git' }
     - { role: 'atomic', tags: 'atomic' }
-    - { role: 'deluge', tags: 'deluge' }
-    - { role: 'jackett', tags: 'jackett' }
