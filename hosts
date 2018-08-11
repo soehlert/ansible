@@ -1,0 +1,22 @@
+[setup]
+bingbong ansible_host=192.168.2.137
+
+[proxmox]
+bingbong ansible_host=192.168.2.137
+192.168.2.10
+
+[dns]
+192.168.2.9
+192.168.2.11
+
+[netbox]
+192.168.2.12
+
+[atomic]
+192.168.2.13
+
+[plex]
+192.168.2.14
+
+[gitlab]
+192.168.2.15
