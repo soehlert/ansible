@@ -1,4 +1,5 @@
 [setup]
+<<<<<<< HEAD
 bingbong ansible_host=192.168.2.137
 
 [proxmox]
@@ -20,3 +21,7 @@ bingbong ansible_host=192.168.2.137
 
 [gitlab]
 192.168.2.15
+=======
+
+[plex]
+>>>>>>> 46c469a7c95cd6ca945f892056dd192933552d3b

@@ -1,1 +1,4 @@
-plex_version: 1.3.3.3148-b38628e
+plex_version: '1.13.5.5291-6fa5e50a8'
+plex_deb_file: 'plexmediaserver_{{ plex_version }}_amd64.deb'
+plex_deb_url: '{{ plex_dl_url }}/{{ plex_deb_file }}'
+plex_dl_url: 'https://downloads.plex.tv/plex-media-server/{{ plex_version }}'
