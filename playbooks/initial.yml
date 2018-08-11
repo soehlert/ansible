@@ -1,6 +1,7 @@
 ---
-- hosts: all
+- hosts: setup
   roles:
+    - { role: 'updates', tags: 'updates' }
     - { role: 'users', tags: 'users' }
     - { role: 'lockdown', tags: 'lockdown' }
 
