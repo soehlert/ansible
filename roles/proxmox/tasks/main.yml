@@ -8,19 +8,28 @@
 - name: Install no subscription repo file
   template:
     src: proxmox.repo.j2
-    dest: /etc/apt.sources.list.d/pve-no-sub.repo
+    dest: /etc/apt/sources.list.d/pve-no-sub.list
     owner: root
     group: root
     mode: 0644
 
 - name: Install dab and prereqs
-  package:
+  apt:
     name: "{{ item }}"
     state: present
+    update_cache: true
   with_items:
       - dab
       - git
       - make
+      - python-pip
+
+- name: Clone my dab repo
+  git:
+    repo: "{{ dab_repo }}"
+    dest: /opt/dab_templates
+    accept_hostkey: true
+  when: "{{ dab_repo }} is defined"
 
 - name: Install proxmox prereqs
   pip:
@@ -31,14 +40,14 @@
       - requests
 
 - name: Remove the license warning
-  lininefile:
+  replace:
     path: '/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js'
-    regexp: 'data.status !== Active'
-    line: 'data.status !== false'
+    regexp: "data.status !== 'Active'"
+    replace: "false"
 
 - name: Download templates
-  delegate_to: proxmox
-  command: "/usr/bin/pveam donload local {{ item }}"
+  delegate_to: "{{ inventory_hostname }}"
+  command: "/usr/bin/pveam download local {{ item }}"
   args:
       creates: "/var/lib/vz/template/cache/{{ item }}"
   with_items:
