@@ -1,22 +1,18 @@
 [setup]
-pi ansible_host=192.168.2.136
 
 [proxmox]
-bingbong ansible_host=192.168.2.137
-192.168.2.10
+bingbong ansible_host=192.168.2.10
 
 [dns]
-192.168.2.9
-192.168.2.11
+pi ansible_host=192.168.2.4
+
+[vpn]
+pi ansible_host=192.168.2.4
 
 [ipam]
-192.168.2.12
 
 [atomic]
-192.168.2.13
 
 [media]
-192.168.2.14
 
 [git]
-192.168.2.15
