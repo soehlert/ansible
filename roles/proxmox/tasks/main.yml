@@ -2,16 +2,25 @@
 # tasks file for roles/proxmox
 - name: Remove enterprise repo
   file:
-      path: /etc/apt/sources.list.d/pve-enterprise.list
-      state: absent
+    path: /etc/apt/sources.list.d/pve-enterprise.list
+    state: absent
 
 - name: Install no subscription repo file
   template:
-      src: proxmox.repo.j2
-      dest: /etc/apt.sources.list.d/pve-no-sub.repo
-      owner: root
-      group: root
-      mode: 0644
+    src: proxmox.repo.j2
+    dest: /etc/apt.sources.list.d/pve-no-sub.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install dab and prereqs
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+      - dab
+      - git
+      - make
 
 - name: Install proxmox prereqs
   pip:
@@ -23,9 +32,9 @@
 
 - name: Remove the license warning
   lininefile:
-      path: '/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js'
-      regexp: 'data.status !== Active'
-      line: 'data.status !== false'
+    path: '/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js'
+    regexp: 'data.status !== Active'
+    line: 'data.status !== false'
 
 - name: Download templates
   delegate_to: proxmox
