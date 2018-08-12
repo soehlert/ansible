@@ -1,8 +1,8 @@
 ---
+dab_repo: https://github.com/soehlert/dab_templates.git
 proxmox_node: bingbong
 proxmox_api_host: 192.168.2.10
 container_templates:
-    - ubuntu-18.04-standard_18.04-1_amd64.tar.gz
-    - ubuntu-16.10-standard_16.10-1_amd64.tar.gz
+    []
 proxmox_containers:
     []
