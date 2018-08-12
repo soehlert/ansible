@@ -45,6 +45,7 @@
     hostname: "{{ item.hostname }}"
     ostemplate: "{{ item.ostemplate }}"
     netif: "{{ item.netif }}"
+    vmid: "{{ item.vmid }}"
     mounts: "{{ item.mount|default(omit) }}"
   with_items: "{{ proxmox_containers }}"
 
