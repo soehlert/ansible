@@ -1,5 +1,18 @@
 ---
 # tasks file for roles/proxmox
+- name: Remove enterprise repo
+  file:
+      path: /etc/apt/sources.list.d/pve-enterprise.list
+      state: absent
+
+- name: Install no subscription repo file
+  template:
+      src: proxmox.repo.j2
+      dest: /etc/apt.sources.list.d/pve-no-sub.repo
+      owner: root
+      group: root
+      mode: 0644
+
 - name: Install proxmox prereqs
   pip:
     name: "{{ item }}"
@@ -8,11 +21,19 @@
       - proxmoxer
       - requests
 
-- name: Download template
+- name: Remove the license warning
+  lininefile:
+      path: '/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js'
+      regexp: 'data.status !== Active'
+      line: 'data.status !== false'
+
+- name: Download templates
   delegate_to: proxmox
-  command: "/usr/bin/pveam donload local {{ container_template }}"
+  command: "/usr/bin/pveam donload local {{ item }}"
   args:
-      creates: "/var/lib/vz/template/cache/{{ container_template }}"
+      creates: "/var/lib/vz/template/cache/{{ item }}"
+  with_items:
+      - "{{ container_templates }}"
 
 - name: Install proxmox containers with mounts
   proxmox:
@@ -38,3 +59,4 @@
   retries: 10
   delay: 2
   ignore_errors: yes
+  with_items: "{{ proxmox_containers }}"

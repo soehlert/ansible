@@ -3,7 +3,7 @@
 - name: Make sure another user and key exists
   stat:
     path: "/home/{{ item.user }}/.ssh/authorized_keys"
-  when: "{{ create_users }}"
+  when: create_users is defined
   with_items:
     - "{{ create_users }}"
   register: user_exists
@@ -11,7 +11,7 @@
 - name: Make sure user has sudo or we're stuck without root
   stat:
     path: "/etc/sudoers.d/{{ item.user }}"
-  when: "{{ create_users }}"
+  when: create_users is defined
   with_items:
     - "{{ create_users }}"
   register: sudo_access

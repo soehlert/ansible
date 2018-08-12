@@ -1,6 +1,5 @@
 [setup]
-<<<<<<< HEAD
-bingbong ansible_host=192.168.2.137
+pi ansible_host=192.168.2.136
 
 [proxmox]
 bingbong ansible_host=192.168.2.137
@@ -10,18 +9,14 @@ bingbong ansible_host=192.168.2.137
 192.168.2.9
 192.168.2.11
 
-[netbox]
+[ipam]
 192.168.2.12
 
 [atomic]
 192.168.2.13
 
-[plex]
+[media]
 192.168.2.14
 
-[gitlab]
+[git]
 192.168.2.15
-=======
-
-[plex]
->>>>>>> 46c469a7c95cd6ca945f892056dd192933552d3b
