@@ -1,10 +1,4 @@
 [setup]
-plex ansible_host=192.168.2.20
-atomic ansible_host=192.168.2.25
-netbox ansible_host=192.168.2.6
-cockpit ansible_host=192.168.2.8
-gitlab ansible_host=192.168.2.15
-dns ansible_host=192.168.2.5
 
 [proxmox]
 bingbong ansible_host=192.168.2.10
@@ -27,6 +21,3 @@ plex ansible_host=192.168.2.20
 
 [git]
 gitlab ansible_host=192.168.2.15
-
-[manager]
-cockpit ansible_host=192.168.2.8

@@ -1,0 +1,12 @@
+---
+# tasks file for roles/cockpit
+- name: Install Cockpit
+  package:
+    name: cockpit
+    state: present
+
+- name: Enable Cockpit
+  systemd:
+    name: cockpit.socket
+    daemon_reload: true
+    enabled: true

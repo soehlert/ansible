@@ -1,0 +1,6 @@
+---
+# handlers file for roles/cockpit
+- name: start_cockpit
+  systemd:
+    name: cockpit
+    state: started
