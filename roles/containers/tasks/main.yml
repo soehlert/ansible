@@ -20,7 +20,6 @@
     storage: "{{ item.storage }}"
     vmid: "{{ item.vmid|default(omit) }}"
   with_items: "{{ proxmox_containers }}"
-  notify: start_containers
 
 # Can't start containers when creating them as it
 # tries to start it before it creates the container
