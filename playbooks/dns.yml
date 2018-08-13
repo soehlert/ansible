@@ -1,6 +1,5 @@
 ---
-- hosts: dns
+- hosts: nameservers
   become: true
-  become_user: root
   roles:
     - { role: 'hosts', tags: 'hosts' }

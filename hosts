@@ -3,7 +3,7 @@
 [proxmox]
 bingbong ansible_host=192.168.2.10
 
-[dns]
+[nameservers]
 pi ansible_host=192.168.2.4
 dns ansible_host=192.168.2.5
 

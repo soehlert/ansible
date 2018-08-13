@@ -4,14 +4,14 @@
   template:
     src: lan.conf.j2
     dest: /etc/dnsmasq.d/02-lan.conf
-    mode: root
+    owner: root
     group: root
     mode: 0644
 
-- name: Updating /etc/hosts
+- name: Updating hosts list
   template:
-    src: "hosts.j2"
-    dest: "/etc/pihole/lan.list"
+    src: hosts.j2
+    dest: /etc/pihole/lan.list
     owner: root
     group: root
     mode: 0644
