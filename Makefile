@@ -12,3 +12,5 @@ plex:
 	ansible-playbook playbooks/plex.yml -K
 proxmox:
 	ansible-playbook playbooks/proxmox.yml
+security:
+	ansible-playbook playbooks/security.yml
