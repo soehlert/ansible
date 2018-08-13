@@ -2,15 +2,25 @@
 dab_repo: https://github.com/soehlert/dab_templates.git
 proxmox_node: bingbong
 proxmox_api_host: 192.168.2.10
-proxmox_user: root@pam
 dab_template: ubuntu18.04-template_amd64.tar.gz
+
 container_templates:
     []
-# Default is 20GB drive, 1cpu, 4 cores, 2GB of RAM
-# Either set ip_address or netif, probably not both
+
+# Either set ip_address or netif, not both
+# Optional things:
+#   onboot: defaults to true
+#   cores: defaults to 4
+#   cpus: defaults to 1
+#   disk: defaults to 20GB
+#   ip_address/netif
+#   memory: defaults to 512MB
+#   mounts: defaults to none
+#   vmid: defaults to next available
 proxmox_containers:
     - hostname: netbox
       ostemplate: "local:vztmpl/{{ dab_template }}"
+      memory: 2048
       netif: '{"net0":"name=eth0,gw=192.168.2.1,ip=192.168.2.11/24,ip6=dhcp,bridge=vmbr0"}'
       mounts: '{"mp0":"netbox:20,mp=/mnt/test/"}'
       storage: vms
