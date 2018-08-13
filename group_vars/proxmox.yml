@@ -39,13 +39,13 @@ proxmox_containers:
     #   netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.7/24,ip6=dhcp,bridge=vmbr0"}'
     #   storage: "{{ default_storage }}"
     #   vmid: 107
-    # - hostname: gitlab
-    #   ostemplate: "{{ default_template }}"
-    #   memory: 4096
-    #   netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.15/24,ip6=dhcp,bridge=vmbr0"}'
-    #   mounts: '{"mp0":"gitlab:40,mp=/data/gitlab/"}'
-    #   storage: "{{ default_storage }}"
-    #   vmid: 116
+    - hostname: git
+      ostemplate: "{{ default_template }}"
+      memory: 4096
+      netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.15/24,ip6=dhcp,bridge=vmbr0"}'
+      mounts: '{"mp0":"gitlab:40,mp=/data/gitlab/"}'
+      storage: "{{ default_storage }}"
+      vmid: 115
     - hostname: plex
       ostemplate: "{{ default_template }}"
       memory: 4096
