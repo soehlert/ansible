@@ -1,5 +1,0 @@
----
-- hosts: manager
-  become: true
-  roles:
-    - { role: 'cockpit', tags: 'cockpit' }
