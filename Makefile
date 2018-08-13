@@ -2,6 +2,8 @@
 
 containers:
 	ansible-playbook playbooks/proxmox.yml -t containers
+dns:
+	ansible-playbook playbooks/dns.yml
 dump_facts:
 	ansible all -m setup --tree /tmp/facts --connection=local -i hosts 
 init:

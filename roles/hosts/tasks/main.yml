@@ -1,9 +1,17 @@
 ---
 # tasks file for hosts
-- name: main | updating /etc/hosts
+- name: Tell dnsmasq to look at our dns list
+  template:
+    src: lan.conf.j2
+    dest: /etc/dnsmasq.d/02-lan.conf
+    mode: root
+    group: root
+    mode: 0644
+
+- name: Updating /etc/hosts
   template:
     src: "hosts.j2"
-    dest: "/etc/hosts"
+    dest: "/etc/pihole/lan.list"
     owner: root
     group: root
     mode: 0644
