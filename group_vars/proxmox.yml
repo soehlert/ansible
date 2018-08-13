@@ -3,6 +3,8 @@ dab_repo: https://github.com/soehlert/dab_templates.git
 proxmox_node: bingbong
 proxmox_api_host: 192.168.2.10
 dab_template: ubuntu18.04-template_amd64.tar.gz
+default_template: "local:vztmpl/{{ dab_template }}"
+default_storage: vms
 
 container_templates:
     []
@@ -15,12 +17,17 @@ container_templates:
 #   disk: defaults to 20GB
 #   ip_address/netif
 #   memory: defaults to 512MB
-#   mounts: defaults to none
+#                                           mp# storage size mountpoint
+#   mounts: defaults to none (ex. mounts: '{"mp0":"netbox:20,mp=/mnt/test/"}')
 #   vmid: defaults to next available
 proxmox_containers:
     - hostname: netbox
-      ostemplate: "local:vztmpl/{{ dab_template }}"
+      ostemplate: "{{ default_template }}"
       memory: 2048
-      netif: '{"net0":"name=eth0,gw=192.168.2.1,ip=192.168.2.11/24,ip6=dhcp,bridge=vmbr0"}'
-      mounts: '{"mp0":"netbox:20,mp=/mnt/test/"}'
-      storage: vms
+      netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.11/24,ip6=dhcp,bridge=vmbr0"}'
+      storage: "{{ default_storage }}"
+    - hostname: gitlab
+      ostemplate: "{{ default_template }}"
+      memory: 4096
+      netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.12/24,ip6=dhcp,bridge=vmbr0"}'
+      mounts: '{"mp0":"gitlab:40,mp=/data/gitlab/"}'
