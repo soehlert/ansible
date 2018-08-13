@@ -10,6 +10,8 @@ init:
 	ansible-playbook playbooks/setup.yml -u root -l setup -k
 install:
 	ansible-playbook playbooks/common.yml 
+netbox:
+	ansible-playbook playbooks/netbox.yml
 plex:
 	ansible-playbook playbooks/plex.yml -K
 proxmox:
