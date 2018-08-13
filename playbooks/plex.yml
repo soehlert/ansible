@@ -1,5 +1,5 @@
 ---
-- hosts: plex
+- hosts: media
   become: true
   roles:
     - { role: 'plex', tags: 'plex' }

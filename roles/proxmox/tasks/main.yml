@@ -1,5 +1,36 @@
 ---
 # tasks file for roles/proxmox
+- name: Remove enterprise repo
+  file:
+    path: /etc/apt/sources.list.d/pve-enterprise.list
+    state: absent
+
+- name: Install no subscription repo file
+  template:
+    src: proxmox.repo.j2
+    dest: /etc/apt/sources.list.d/pve-no-sub.list
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install dab and prereqs
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+      - dab
+      - git
+      - make
+      - python-pip
+
+- name: Clone my dab repo
+  git:
+    repo: "{{ dab_repo }}"
+    dest: /opt/dab_templates
+    accept_hostkey: true
+  when: dab_repo is defined
+
 - name: Install proxmox prereqs
   pip:
     name: "{{ item }}"
@@ -8,33 +39,16 @@
       - proxmoxer
       - requests
 
-- name: Download template
-  delegate_to: proxmox
-  command: "/usr/bin/pveam donload local {{ container_template }}"
+- name: Remove the license warning
+  replace:
+    path: '/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js'
+    regexp: "data.status !== 'Active'"
+    replace: "false"
+
+- name: Download templates
+  delegate_to: "{{ inventory_hostname }}"
+  command: "/usr/bin/pveam download local {{ item }}"
   args:
-      creates: "/var/lib/vz/template/cache/{{ container_template }}"
-
-- name: Install proxmox containers with mounts
-  proxmox:
-    node: "{{ proxmox_node }}"
-    api_host: "{{ proxmox_api_host }}"
-    api_user: "{{ proxmox_user }}"
-    api_password: "{{ proxmox_password }}"
-    password: "{{ promox_root_password }}"
-    hostname: "{{ item.hostname }}"
-    ostemplate: "{{ item.ostemplate }}"
-    netif: "{{ item.netif }}"
-    mounts: "{{ item.mount|default(omit) }}"
-  with_items: "{{ proxmox_containers }}"
-
-- name: Start containers
-  proxmox:
-    node: "{{ proxmox_node }}"
-    api_host: "{{ proxmox_api_host }}"
-    api_user: "{{ proxmox_user }}"
-    api_password: "{{ proxmox_password }}"
-    state: started
-    hostname: "{{ item.hostname }}"
-  retries: 10
-  delay: 2
-  ignore_errors: yes
+      creates: "/var/lib/vz/template/cache/{{ item }}"
+  with_items:
+      - "{{ container_templates }}"

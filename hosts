@@ -1,27 +1,32 @@
 [setup]
-<<<<<<< HEAD
-bingbong ansible_host=192.168.2.137
+plex ansible_host=192.168.2.20
+atomic ansible_host=192.168.2.25
+netbox ansible_host=192.168.2.6
+cockpit ansible_host=192.168.2.8
+gitlab ansible_host=192.168.2.15
+dns ansible_host=192.168.2.5
 
 [proxmox]
-bingbong ansible_host=192.168.2.137
-192.168.2.10
+bingbong ansible_host=192.168.2.10
 
 [dns]
-192.168.2.9
-192.168.2.11
+pi ansible_host=192.168.2.4
+dns ansible_host=192.168.2.5
 
-[netbox]
-192.168.2.12
+[vpn]
+pi ansible_host=192.168.2.4
 
-[atomic]
-192.168.2.13
+[ipam]
+netbox ansible_host=192.168.2.6
 
-[plex]
-192.168.2.14
+[atomic_toolkit]
+atomic ansible_host=192.168.2.25
 
-[gitlab]
-192.168.2.15
-=======
+[media]
+plex ansible_host=192.168.2.20
 
-[plex]
->>>>>>> 46c469a7c95cd6ca945f892056dd192933552d3b
+[git]
+gitlab ansible_host=192.168.2.15
+
+[manager]
+cockpit ansible_host=192.168.2.8

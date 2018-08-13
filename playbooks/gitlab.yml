@@ -1,5 +1,5 @@
 ---
-- hosts: gitlab
+- hosts: git
   user: deploy
   become: true
   roles:

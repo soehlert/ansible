@@ -1,6 +1,6 @@
 ---
 # tasks file for roles/updates
-block:
+- block:
     - name: Update debian
       apt:
         upgrade: dist
@@ -25,6 +25,7 @@ block:
         delay: 30
         timeout: 300
         state: started
+      when: reboot_required.stat.exists
 
     - name: Remove useless packages from the cache
       apt:
@@ -34,4 +35,4 @@ block:
       apt:
         autoremove: yes
 
-when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian"
