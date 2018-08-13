@@ -1,6 +1,5 @@
 ---
-- hosts: all
-  user: soehlert
+- hosts: dns
   become: true
   become_user: root
   roles:
