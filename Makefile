@@ -9,6 +9,6 @@ init:
 install:
 	ansible-playbook playbooks/common.yml 
 plex:
-	ansible-playbook playbooks/plex.yml -K -i hosts
+	ansible-playbook playbooks/plex.yml -K
 proxmox:
 	ansible-playbook playbooks/proxmox.yml
