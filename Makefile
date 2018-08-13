@@ -1,5 +1,7 @@
 .DEFAULT_GOAL := install
 
+cockpit:
+	ansible-playbook playbooks/cockpit.yml
 containers:
 	ansible-playbook playbooks/proxmox.yml -t containers
 dump_facts:
