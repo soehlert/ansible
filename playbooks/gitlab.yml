@@ -1,6 +1,5 @@
 ---
 - hosts: git
-  user: deploy
   become: true
   roles:
     - { role: 'gitlab', tags: 'gitlab' }
