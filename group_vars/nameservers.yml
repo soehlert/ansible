@@ -7,6 +7,7 @@ dns_entries:
   - { name: dns, address: 192.168.2.5 }
   - { name: netbox, address: 192.168.2.6 }
   - { name: unifi, address: 192.168.2.7 }
+  - { name: bingbong-mgt, address: 192.168.2.8}
   - { name: bingbong, address: 192.168.2.9 }
   - { name: gitlab, address: 192.168.2.15 }
   - { name: plex, address: 192.168.2.20 }

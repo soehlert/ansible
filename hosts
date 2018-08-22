@@ -1,5 +1,4 @@
 [setup]
-gitlab ansible_host=192.168.2.15
 
 [proxmox]
 bingbong ansible_host=192.168.2.10
@@ -14,11 +13,18 @@ pi ansible_host=192.168.2.4
 [ipam]
 netbox ansible_host=192.168.2.6
 
-[atomic_toolkit]
-atomic ansible_host=192.168.2.25
+[git]
+gitlab ansible_host=192.168.2.15
 
 [media]
 plex ansible_host=192.168.2.20
 
-[git]
+[atomic_toolkit]
+atomic ansible_host=192.168.2.25
+
+[containers]
+dns ansible_host=192.168.2.5
+netbox ansible_host=192.168.2.6
 gitlab ansible_host=192.168.2.15
+plex ansible_host=192.168.2.20
+atomic ansible_host=192.168.2.25
