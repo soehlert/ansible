@@ -1,0 +1,37 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Create container
+    import_role:
+      name: container
+    when: container
+    register: containers_info
+
+  - name: Wait for the network to be setup in the containers
+    when: containers_info is changed
+    pause: seconds=10
+
+  - name: Get containers info now that IPs are available
+    lxc_container:
+      name: "{{ item.name }}"
+    with_items: "{{ containers }}"
+    register: containers_info
+
+  - name: Register the hosts in the inventory
+    add_host:
+      name: "{{ item.lxc_container.ips.0 }}"
+      group: media
+    with_items: "{{ containers_info.results }}"
+
+- name: Import initial playbook
+  import_playbook:
+    name: setup.yml
+  tags:
+    - setup
+
+- hosts: media
+  become: true
+  remote_user: "{{ ansible_user }}"
+  roles:
+    - { role: 'plex', tags: 'plex' }
