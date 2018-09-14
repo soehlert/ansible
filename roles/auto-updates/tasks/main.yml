@@ -19,29 +19,29 @@
     systemd:
       name: yum-cron
       state: started
-      enabled: yes
+      enabled: true
 
   when: ansible_os_family == "RedHat"
 
 - block:
-  - name: Add package
-    package:
-      name: unattended-upgrades
-      state: present
+    - name: Add package
+      package:
+        name: unattended-upgrades
+        state: present
 
-  - name: Configure debconf answer
-    debconf:
-      name: 'unattended-upgrades'
-      question: 'unattended-upgrades/enable_auto_updates'
-      vtype: 'boolean'
-      value: 'true'
+    - name: Configure debconf answer
+      debconf:
+        name: 'unattended-upgrades'
+        question: 'unattended-upgrades/enable_auto_updates'
+        vtype: 'boolean'
+        value: 'true'
 
-  - name: Install conf file
-    template:
-      src: unattended-upgrades.j2
-      dest: /etc/apt/apt.conf.d/50unattended-upgrades
-      owner: root
-      group: root
-      mode: 0644
+    - name: Install conf file
+      template:
+        src: unattended-upgrades.j2
+        dest: /etc/apt/apt.conf.d/50unattended-upgrades
+        owner: root
+        group: root
+        mode: 0644
 
   when: ansible_os_family == "Debian"
