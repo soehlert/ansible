@@ -1,7 +1,9 @@
 ---
+pve_release_key: proxmox-ve-release-5.x.asc
+pve_release_key_id: 0D9A1950E2EF0603
 dab_repo: https://github.com/soehlert/dab_templates.git
 proxmox_node: bingbong
-proxmox_api_host: 192.168.2.10
+proxmox_api_host: 192.168.2.9
 dab_template: ubuntu18.04-template_amd64.tar.gz
 default_template: "local:vztmpl/{{ dab_template }}"
 default_storage: vms

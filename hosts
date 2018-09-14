@@ -3,7 +3,6 @@ poseidon ansible_host=178.128.2.25
 
 [proxmox]
 bingbong ansible_host=192.168.2.9
-zoidberg ansible_host=172.16.1.18
 
 [nameservers]
 pi ansible_host=192.168.2.4
@@ -33,6 +32,3 @@ atomic ansible_host=192.168.2.25
 
 [vps]
 poseidon ansible_host=178.128.2.25
-
-[office]
-zoidberg ansible_host=172.16.1.18

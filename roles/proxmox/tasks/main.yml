@@ -1,17 +1,25 @@
 ---
-# tasks file for roles/proxmox
-- name: Remove enterprise repo
-  file:
-    path: /etc/apt/sources.list.d/pve-enterprise.list
-    state: absent
+- name: Trust Proxmox' packaging key
+  apt_key:
+    data: "{{ lookup('file', pve_release_key) }}"
+    id: "{{ pve_release_key_id }}"
+    state: present
 
-- name: Install no subscription repo file
-  template:
-    src: proxmox.repo.j2
-    dest: /etc/apt/sources.list.d/pve-no-sub.list
-    owner: root
-    group: root
-    mode: 0644
+- name: Remove Enterprise repo
+  apt_repository:
+    repo: deb https://enterprise.proxmox.com/debian jessie pve-enterprise
+    state: absent
+    filename: pve-enterprise
+
+- name: Enable proxmox no-subscription repo
+  apt_repository:
+    repo: deb http://download.proxmox.com/debian jessie pve-no-subscription
+    state: present
+    filename: pve-no-subscription
+
+- name: Update apt cache
+  apt:
+    update_cache: true
 
 - name: Install dab and prereqs
   apt:
@@ -19,10 +27,10 @@
     state: present
     update_cache: true
   with_items:
-      - dab
-      - git
-      - make
-      - python-pip
+    - dab
+    - git
+    - make
+    - python-pip
 
 - name: Clone my dab repo
   git:
@@ -36,8 +44,8 @@
     name: "{{ item }}"
     extra_args: --user
   with_items:
-      - proxmoxer
-      - requests
+    - proxmoxer
+    - requests
 
 - name: Remove the license warning
   replace:
@@ -49,6 +57,6 @@
   delegate_to: "{{ inventory_hostname }}"
   command: "/usr/bin/pveam download local {{ item }}"
   args:
-      creates: "/var/lib/vz/template/cache/{{ item }}"
+    creates: "/var/lib/vz/template/cache/{{ item }}"
   with_items:
-      - "{{ container_templates }}"
+    - "{{ container_templates }}"

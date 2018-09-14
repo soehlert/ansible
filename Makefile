@@ -15,7 +15,7 @@ install:
 netbox:
 	ansible-playbook playbooks/netbox.yml
 plex:
-	ansible-playbook playbooks/plex.yml -K
+	ansible-playbook playbooks/plex.yml
 proxmox:
 	ansible-playbook playbooks/proxmox.yml
 security:
