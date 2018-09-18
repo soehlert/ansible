@@ -2,4 +2,5 @@
 - hosts: media
   become: true
   roles:
-    - { role: 'plex', tags: 'plex' }
+    - {role: 'plex', tags: 'plex'}
+    - {role: 'plexupdate', tags: 'plexupdate', when: plexupdate}
