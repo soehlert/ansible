@@ -5,6 +5,11 @@ beets_plugin_prereqs:
   - pylast
   - requests
 
+beets_preqreqs_apt:
+  - imagemagick
+  - mp3gain
+  - mp3va
+
 beets_gstreamer:
   - libgstreamer1.0-0
   - gstreamer1.0-plugins-base
