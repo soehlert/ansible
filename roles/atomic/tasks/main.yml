@@ -1,15 +1,16 @@
 ---
-- name: stat | atomic
+- name: atomic
   stat:
     path: /opt/Atomic-Toolkit
   register: atomic
 
-- name: pre | grab atomic
+- name: grab atomic
   git:
     repo: https://github.com/htpcBeginner/AtoMiC-ToolKit
     dest: /opt/AtoMiC-ToolKit
+    version: master
   when: ( atomic.stat.exists == False )
 
-- name: vpn | install vpn
+- name: install vpn
   apt:
     deb: "https://download.expressvpn.xyz/clients/linux/{{ vpn_deb }}"

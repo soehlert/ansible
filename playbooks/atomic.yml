@@ -2,5 +2,5 @@
 - hosts: atomic_toolkit
   become: true
   roles:
-    - { role: 'git', tags: 'git' }
-    - { role: 'atomic', tags: 'atomic' }
+    - {role: 'git', tags: 'git'}
+    - {role: 'atomic', tags: 'atomic'}
