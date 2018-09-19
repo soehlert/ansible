@@ -8,6 +8,8 @@ dump_facts:
 	ansible all -m setup --tree /tmp/facts --connection=local -i hosts 
 gitlab:
 	ansible-playbook playbooks/gitlab.yml
+gmusic:
+	ansible-playbook playbooks/gmusicdl.yml
 init:
 	ansible-playbook playbooks/setup.yml -u root -l setup -k
 install:
