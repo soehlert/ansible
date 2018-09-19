@@ -1,0 +1,76 @@
+---
+directory: /data/incoming/music
+library: /usr/local/beets/etc/musiclibrary.db
+
+ignore: [".*", "*~", "System Volume Information", "lost+found"]
+ignore_hidden: yes
+
+replace:
+    '[\\/]':
+    '^\.':
+    '[\x00-\x1f]':
+    '[<>:"\?\*\|]':
+    '\.$':
+    '\s+$': ''
+    '^\s+': ''
+    '^-':
+
+asciify_paths: yes
+timeout: 5.0
+per_disc_numbering: no
+
+match:
+    ignored: missing_tracks
+
+paths:
+    default: $albumartist/$album%aunique{}/$track - $title
+    singleton: Non-Album/$artist/$title
+    comp: Compilations/$album%aunique{}/$track - $title
+
+import:
+    move: yes
+    write: yes
+    resume: yes
+    none_rec_action: ask
+    duplicate_action: ask
+    quiet_fallback: asis
+    log: beetslog.txt
+
+plugins: [
+    badfiles,
+    bucket,
+    duplicates,
+    edit,
+    embedart,
+    export,
+    fetchart,
+    fromfilename,
+    fuzzy,
+    gmusic,
+    info,
+    lastimport,
+    lastgenre,
+    lyrics,
+    mbsubmit,
+    mbsync,
+    missing,
+    replaygain,
+    scrub
+]
+
+bucket:
+    extrapolate: true
+    bucket_alpha: ['A - D', 'E - L', 'M - R', 'S - Z']
+    bucket_alpha_regex:
+        'A - D': ^[0-9a-dA-D…äÄ]
+    bucket_year: ['1950s', '1960s', '1970s', '1980s', '1990s', '2000s', '2010s']
+embedart:
+    ifempty: yes
+    remove_art_file: yes
+gmusic:
+    email: {{ beets_google_email }}
+    password: {{ beets_google_password }}
+lyrics:
+    fallback: ''
+replaygain:
+    backend: command

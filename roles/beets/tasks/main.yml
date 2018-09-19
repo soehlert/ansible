@@ -1,5 +1,7 @@
 ---
 # tasks file for roles/gmusicdl
+- includ_vars: vault.yml
+
 - name: Install beets
   pip:
     name: beets
@@ -7,13 +9,13 @@
 - name: Install some beets plugins prereqs
   pip:
     name: "{{ item }}"
-  loop: {{ beets_plugin_prereqs }}
+  loop: "{{ beets_plugin_prereqs }}"
 
 - name: Install gstreamer for beets
   apt:
     name: "{{ item }}"
     state: present
-  loop: {{ beets_gstreamer }}
+  loop: "{{ beets_gstreamer }}"
 
 - name: Create Dirs
   file:
