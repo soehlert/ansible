@@ -1,2 +1,19 @@
 ---
 # tasks file for roles/gmusicdl
+- name: Install gmusicapi
+  pip:
+    name: gmusicapi
+
+- name: Create Dirs
+  file:
+    path: "/usr/local/gmpydl/{{ item }}"
+    state: directory
+  loop:
+    - bin
+    - etc
+
+- name: Clone gmpydl
+  git:
+    repo: https://github.com/stevenewbs/gmpydl.git
+    dest: "/usr/local/gmpydl"
+    version: master
