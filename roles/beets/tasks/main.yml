@@ -27,6 +27,13 @@
     - bin
     - etc
 
+- name: Copy beets config
+  template:
+    src: config.yaml.j2
+    dest: "{{ beets_dir }}/etc/config.yml"
+    owner: "{{ ansible_user }}"
+    group: users
+
 - name: Add another bin dir to system-wide $PATH.
   copy:
     dest: /etc/profile.d/custom-path.sh
