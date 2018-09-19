@@ -1,5 +1,7 @@
 .DEFAULT_GOAL := install
 
+atomic:
+	ansible-playbook playbooks/atomic.yml
 containers:
 	ansible-playbook playbooks/proxmox.yml -t containers
 dns:
