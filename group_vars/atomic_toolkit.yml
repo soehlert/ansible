@@ -3,3 +3,25 @@ vpn_deb: "expressvpn_1.1.0_amd64.deb"
 jackett_user: "{{ ansible_user }}"
 jackett_group: "{{ ansible_user }}"
 gmpydl_dir: "/usr/local/gmpydl"
+beets_dir: "/usr/local/beets"
+beets_plugins:
+  - badfiles
+  - bucket
+  - convert
+  - duplicates
+  - edit
+  - embedart
+  - export
+  - fetchart
+  - fromfilename
+  - fuzzy
+  - gmusic
+  - info
+  - lastimport
+  - lastgenre
+  - lyrics
+  - mbsubmit
+  - mbsync
+  - missing
+  - replaygain
+  - scrub

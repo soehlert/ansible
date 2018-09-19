@@ -1,0 +1,31 @@
+---
+# tasks file for roles/gmusicdl
+- name: Install beets
+  pip:
+    name: beets
+
+- name: Install some beets plugins prereqs
+  pip:
+    name: "{{ item }}"
+  loop: {{ beets_plugin_prereqs }}
+
+- name: Install gstreamer for beets
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: {{ beets_gstreamer }}
+
+- name: Create Dirs
+  file:
+    path: "{{ beets_dir }}/{{ item }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: users
+  loop:
+    - bin
+    - etc
+
+- name: Add another bin dir to system-wide $PATH.
+  copy:
+    dest: /etc/profile.d/custom-path.sh
+    content: 'PATH=$PATH:{{ beets_dir }}/bin'
