@@ -8,6 +8,7 @@
   git:
     repo: https://github.com/htpcBeginner/AtoMiC-ToolKit
     dest: /opt/AtoMiC-ToolKit
+    version: master
   when: ( atomic.stat.exists == False )
 
 - name: vpn | install vpn
