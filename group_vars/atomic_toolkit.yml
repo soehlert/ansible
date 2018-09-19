@@ -1,4 +1,5 @@
 ---
 vpn_deb: "expressvpn_1.1.0_amd64.deb"
-jackett_user: soehlert
-jackett_group: soehlert
+jackett_user: "{{ ansible_user }}"
+jackett_group: "{{ ansible_user }}"
+gmpydl_dir: "/usr/local/gmpydl"

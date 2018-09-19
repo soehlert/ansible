@@ -3,17 +3,24 @@
 - name: Install gmusicapi
   pip:
     name: gmusicapi
+  become: true
 
 - name: Create Dirs
   file:
-    path: "/usr/local/gmpydl/{{ item }}"
+    path: "{{ gmpydl_dir }}/{{ item }}"
     state: directory
   loop:
     - bin
     - etc
 
+- name: Add another bin dir to system-wide $PATH.
+  copy:
+    dest: /etc/profile.d/custom-path.sh
+    content: 'PATH=$PATH:{{ gmpydl_dir }}/bin'
+  become: true
+
 - name: Clone gmpydl
   git:
     repo: https://github.com/stevenewbs/gmpydl.git
-    dest: "/usr/local/gmpydl"
+    dest: "{{ gmpydl_dir }}/bin"
     version: master
