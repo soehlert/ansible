@@ -2,5 +2,5 @@
 - hosts: all
   become: true
   roles:
-    - { role: 'users', tags: 'users' }
-    - { role: 'lockdown', tags: 'lockdown' }
+    - {role: 'users', tags: 'users'}
+    - {role: 'lockdown', tags: 'lockdown'}
