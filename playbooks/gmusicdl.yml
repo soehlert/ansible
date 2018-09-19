@@ -1,0 +1,4 @@
+---
+- hosts: atomic_toolkit
+  roles:
+    - {role: 'gmusicdl', tags: 'gmusicdl'}
