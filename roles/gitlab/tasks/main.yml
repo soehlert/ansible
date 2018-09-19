@@ -17,6 +17,7 @@
 
 - name: Grab script
   get_url:
+    # yamllint disable-line rule:line-length
     url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
     dest: /tmp/
   when: ( not script_path.stat.exists )

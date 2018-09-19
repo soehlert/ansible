@@ -1,8 +1,8 @@
 ---
-- hosts: setup
+- hosts: all
   roles:
-    - { role: 'updates', tags: 'updates' }
-    - { role: 'users', tags: 'users' }
-    - { role: 'lockdown', tags: 'lockdown' }
+    - {role: 'updates', tags: 'updates'}
+    - {role: 'users', tags: 'users'}
+    - {role: 'lockdown', tags: 'lockdown'}
 
 - import_playbook: common.yml
