@@ -1,5 +1,5 @@
 [setup]
-poseidon ansible_host=178.128.2.25
+gitlab.soehlert.com
 
 [proxmox]
 bingbong ansible_host=192.168.2.9
@@ -16,6 +16,7 @@ netbox ansible_host=192.168.2.6
 
 [git]
 gitlab ansible_host=192.168.2.15
+gitlab.soehlert.com
 
 [media]
 plex ansible_host=192.168.2.20
