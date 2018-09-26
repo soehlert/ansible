@@ -15,7 +15,7 @@ netbox ansible_host=192.168.2.6
 unifi ansible_host=192.168.2.7
 
 [git]
-gitlab ansible_host=192.168.2.15
+gitlab-runner ansible_host=192.168.2.15
 
 [media]
 plex ansible_host=192.168.2.20
