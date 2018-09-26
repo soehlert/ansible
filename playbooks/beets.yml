@@ -1,0 +1,5 @@
+---
+- hosts: atomic_toolkit
+  become: true
+  roles:
+    - {role: 'beets', tags: 'beets'}
