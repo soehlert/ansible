@@ -12,6 +12,7 @@
     ostemplate: "{{ item.ostemplate }}"
     cores: "{{ item.cores|default(2)}}"
     cpus: "{{ item.cpus|default(1)}}"
+    cpuunits: "{{ item.cpuunits|defualt(2400)}}"
     disk: "{{ item.disk|default(20)}}"
     ip_address: "{{ item.ip_address|default(omit) }}"
     memory: "{{ item.memory|default(2048)}}"
