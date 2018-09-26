@@ -1,6 +1,6 @@
 ---
-# tasks file for roles/gmusicdl
-- includ_vars: vault.yml
+# tasks file for roles/beets
+- include_vars: vault.yml
 
 - name: Install beets
   pip:
@@ -17,24 +17,16 @@
     state: present
   loop: "{{ beets_gstreamer }}"
 
-- name: Create Dirs
+- name: Create etc dirs
   file:
-    path: "{{ beets_dir }}/{{ item }}"
+    path: "{{ beets_dir }}/etc"
     state: directory
-    owner: "{{ ansible_user }}"
+    owner: "{{ usernm }}"
     group: users
-  loop:
-    - bin
-    - etc
 
 - name: Copy beets config
   template:
     src: config.yaml.j2
     dest: "{{ beets_dir }}/etc/config.yml"
-    owner: "{{ ansible_user }}"
+    owner: "{{ usernm }}"
     group: users
-
-- name: Add another bin dir to system-wide $PATH.
-  copy:
-    dest: /etc/profile.d/custom-path.sh
-    content: 'PATH=$PATH:{{ beets_dir }}/bin'

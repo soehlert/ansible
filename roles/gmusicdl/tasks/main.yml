@@ -15,7 +15,7 @@
 
 - name: Add another bin dir to system-wide $PATH.
   copy:
-    dest: /etc/profile.d/custom-path.sh
+    dest: /etc/profile.d/gmpydl-path.sh
     content: 'PATH=$PATH:{{ gmpydl_dir }}/bin'
   become: true
 

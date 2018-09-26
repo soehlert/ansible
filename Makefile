@@ -2,6 +2,8 @@
 
 atomic:
 	ansible-playbook playbooks/atomic.yml
+beets:
+	ansible-playbook playbooks/beets.yml
 containers:
 	ansible-playbook playbooks/proxmox.yml -t containers
 dns:
