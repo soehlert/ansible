@@ -1,0 +1,7 @@
+---
+# defaults file for roles/mongodb
+mongodb_major_version: 4.0
+mongodb_version: "{{ mongodb_major_version }}.1"
+mongodb_repo: "deb https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/{{ mongodb_major_version }} multiverse"
+mongodb_apt_keyserver: keyserver.ubuntu.com
+mongodb_apt_key: 9DA31620334BD75D9DCB49F368818C72E52529D4 

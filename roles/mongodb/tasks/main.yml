@@ -1,0 +1,29 @@
+---
+# tasks file for roles/unifi
+- name: Add apt key
+  apt_key:
+    keyserver: "{{ mongodb_apt_keyserver }}"
+    id: "{{ mongodb_apt_key }}"
+
+- name: Add MongoDB Repo
+  apt_repository:
+    repo: "{{ mongodb_repo }}"
+    state: present
+
+- name: Add MongoDB packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  notify: enable_mongod
+  loop:
+    - "mongodb-org={{ mongodb_version }}"
+    - "mongodb-org-server={{ mongodb_version }}"
+    - "mongodb-org-shell={{ mongodb_version }}"
+    - "mongodb-org-mongos={{ mongodb_version }}"
+    - "mongodb-org-tools={{ mongodb_version }}"
+
+- name: Start mongod
+  systemd:
+    name: mongod
+    state: started
