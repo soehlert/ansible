@@ -24,3 +24,5 @@ proxmox:
 	ansible-playbook playbooks/proxmox.yml
 security:
 	ansible-playbook playbooks/security.yml
+unifi:
+	ansible-playbook playbooks/unifi.yml

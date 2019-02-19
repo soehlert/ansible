@@ -1,5 +1,5 @@
 ---
-- hosts: unifi
+- hosts: ubiquiti
   become: true
   roles:
     - { role: 'mongodb', tags: 'mongodb' }
