@@ -1,0 +1,6 @@
+---
+# handlers file for roles/unifi
+- name: enable_unifi
+  systemd:
+    name: unifi
+    enabled: yes

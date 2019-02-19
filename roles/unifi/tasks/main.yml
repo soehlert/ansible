@@ -1,0 +1,23 @@
+---
+# tasks file for roles/unifi
+- name: Add apt key
+  apt_key:
+    keyserver: "{{ unifi_apt_keyserver }}"
+    id: "{{ unifi_apt_key }}"
+
+- name: Add Unifi Repo
+  apt_repository:
+    repo: "{{ unifi_repo }}"
+    state: present
+
+- name: Add Unifi package
+  apt:
+    name: unifi
+    state: present
+    update_cache: yes
+  notify: enable_unifi
+
+- name: Start unifi
+  systemd:
+    name: unifi
+    state: started
