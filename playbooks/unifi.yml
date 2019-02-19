@@ -1,0 +1,6 @@
+---
+- hosts: unifi
+  become: true
+  roles:
+    - { role: 'mongodb', tags: 'mongodb' }
+    - { role: 'unifi', tags: 'unifi' }
