@@ -8,6 +8,9 @@ dns ansible_host=192.168.2.5
 [vpn]
 pi ansible_host=192.168.2.4
 
+[cups]
+print ansible_host=192.168.2.30
+
 [ipam]
 netbox ansible_host=192.168.2.6
 
