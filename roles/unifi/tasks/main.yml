@@ -14,7 +14,7 @@
   apt:
     name: unifi
     state: present
-    update_cache: yes
+    update_cache: true
   notify: enable_unifi
 
 - name: Start unifi

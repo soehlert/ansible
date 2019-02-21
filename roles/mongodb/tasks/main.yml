@@ -12,16 +12,23 @@
 
 - name: Add MongoDB packages
   apt:
-    name: "{{ item }}"
+    name: "mongodb-org={{ mongodb_version }}"
     state: present
-    update_cache: yes
+    update_cache: true
+    force: true
   notify: enable_mongod
-  loop:
-    - "mongodb-org={{ mongodb_version }}"
-    - "mongodb-org-server={{ mongodb_version }}"
-    - "mongodb-org-shell={{ mongodb_version }}"
-    - "mongodb-org-mongos={{ mongodb_version }}"
-    - "mongodb-org-tools={{ mongodb_version }}"
+
+- name: Install service file
+  template:
+    src: service.j2
+    dest: '/etc/systemd/system/mongod.service'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: true
 
 - name: Start mongod
   systemd:
