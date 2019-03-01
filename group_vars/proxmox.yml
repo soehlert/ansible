@@ -6,7 +6,7 @@ proxmox_node: bingbong
 proxmox_api_host: 192.168.2.9
 dab_template: ubuntu18.04-template_amd64.tar.gz
 default_template: "local:vztmpl/{{ dab_template }}"
-default_storage: vms
+default_storage: containers
 
 container_templates:
     []
