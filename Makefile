@@ -7,7 +7,7 @@ containers:
 dns:
 	ansible-playbook playbooks/dns.yml
 dump_facts:
-	ansible all -m setup --tree /tmp/facts --connection=local -i hosts 
+	ansible $(TARGET) -m setup --tree /tmp/facts --connection=local -i hosts 
 gitlab:
 	ansible-playbook playbooks/gitlab.yml
 gmusic:
