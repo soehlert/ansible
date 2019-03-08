@@ -7,6 +7,8 @@ proxmox_api_host: 192.168.2.9
 dab_template: ubuntu18.04-template_amd64.tar.gz
 default_template: "local:vztmpl/{{ dab_template }}"
 default_storage: containers
+# yamllint disable-line rule:line-length
+ssh_pubkey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6a7z8hmbCr7+pWFnxizRs9QMk6Uz7VOVp+5ux615fhCwtayD9oVGneI84C2TxblWDz0RAgTBx0f80fC0q0MEJZZT8o1j384OJ0KQl3ScF/4tVo1qSCufpzQt4PtSiwprJmPgIjb5G4ANVz/zgiEkOrrWFeuIeFG9ZrS+boJ9bRCiqE0Dq1m/K/aFfdb23G9+2GFtDWU66V4t/41H3nGff7SyTZd6pJMdbO71LUFh0X36kIB4/wMjt8IihkCyaEWNuHPheoPVU0t4Eltl6Q6YFTfytTtFoWIpBIrOKuJGAopmneyAvIbd6kddPMFvY6L+NT8j3ry0g4Qp8NSbTSSJb soehlert@mbpro"
 
 container_templates:
     []
@@ -57,6 +59,6 @@ proxmox_containers:
       # yamllint disable-line rule:line-length
       netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.20/24,ip6=dhcp,bridge=vmbr0"}'
       # yamllint disable-line rule:line-length
-      mounts: '{"mp0":"/tank/media/,mp=/data/"}'
+      mounts: '{"mp0":"/tank/media/music,mp=/data/music", "mp1":"/tank/media/movies,mp=/data/movies", "mp2":"/tank/media/tv,mp=/data/tv"}'
       storage: "{{ default_storage }}"
       vmid: 120

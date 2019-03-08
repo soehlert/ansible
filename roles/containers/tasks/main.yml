@@ -18,9 +18,17 @@
     memory: "{{ item.memory|default(2048)}}"
     mounts: "{{ item.mounts|default(omit) }}"
     netif: "{{ item.netif|default(omit) }}"
+    pubkey: "{{ ssh_pubkey | default(omit) }}"
     storage: "{{ item.storage }}"
     vmid: "{{ item.vmid|default(omit) }}"
-  with_items: "{{ proxmox_containers }}"
+  loop: "{{ proxmox_containers }}"
+  register: out
+
+
+# Pause the playbook to give proxmox some time to think...  
+- pause:
+    seconds: 7
+  when: out.changed
 
 # Can't start containers when creating them as it
 # tries to start it before it creates the container
@@ -31,6 +39,4 @@
     api_password: "{{ proxmox_root_password }}"
     hostname: "{{ item.hostname }}"
     state: started
-  retries: 10
-  delay: 2
-  with_items: "{{ proxmox_containers }}"
+  loop: "{{ proxmox_containers }}"
