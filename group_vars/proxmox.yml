@@ -8,6 +8,8 @@ dab_template: ubuntu18.04-template_amd64.tar.gz
 default_template: "local:vztmpl/{{ dab_template }}"
 default_storage: vms
 
+backup_rbase: /media/synology/
+
 container_templates:
     []
 

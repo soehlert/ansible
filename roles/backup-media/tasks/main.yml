@@ -1,0 +1,16 @@
+---
+# tasks file for roles/backup-media
+- name: Grab backup-media script from github
+  get_url:
+    url: "{{ backup_script_url }}"
+    dest: /tmp/backup-media.j2
+  delegate_to: localhost
+
+- name: Copy script over
+  template:
+    src: /tmp/backup-media.j2
+    dest: "{{ backup_script_dest }}/backup-media"
+    mode: '0755'
+    owner: root
+    group: root
+  become: true

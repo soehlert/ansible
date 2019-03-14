@@ -1,0 +1,18 @@
+---
+# defaults file for roles/backup-media
+# yamllint disable-line rule:line-length
+backup_script_url: https://raw.githubusercontent.com/soehlert/backup-media/master/backup-media
+backup_script_dest: /usr/local/bin/
+backup_user: "{{ usernm }}"
+backup_group: staff
+backup_permissions: "0755"
+backup_lbase: /data/
+backup_rbase: /backups/
+backup_lmovies: movies
+backup_rmovies: movies
+backup_lmusic: music
+backup_rmusic: music
+backup_ltv: tv
+backup_rtv: tv
+backup_lhv: home_videos
+backup_rhv: home_videos

@@ -2,6 +2,8 @@
 
 atomic:
 	ansible-playbook playbooks/atomic.yml
+backups:
+	ansible-playbook playbooks/backups.yml
 containers:
 	ansible-playbook playbooks/proxmox.yml -t containers
 dns:
