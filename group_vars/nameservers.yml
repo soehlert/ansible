@@ -1,4 +1,5 @@
 ---
+# yamllint disable rule:braces
 dns_entries:
   - { name: router, address: 192.168.2.1 }
   - { name: switch, address: 192.168.2.2 }
@@ -11,4 +12,9 @@ dns_entries:
   - { name: bingbong, address: 192.168.2.9 }
   - { name: gitlab, address: 192.168.2.15 }
   - { name: plex, address: 192.168.2.20 }
-  - { name: atomic, address: 192.168.2.25 }
+  - { name: hubitat, address: 192.168.2.25 }
+  - { name: lutron, address: 192.168.2.26 }
+  - { name: harmony, address: 192.168.2.27 }
+  - { name: hue, address: 192.168.2.28 }
+  - { name: print, address: 192.168.2.30 }
+  - { name: nas, address: 192.168.2.50 }
