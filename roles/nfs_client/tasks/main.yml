@@ -15,13 +15,13 @@
   service:
     name: rpcbind
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Ensure mount dir exists
   file:
     path: "{{ item.nfs_mount }}"
     state: directory
-  with_items: "{{ nfs_client }}"
+  loop: "{{ nfs_client }}"
 
 - name: Make the mount
   mount:
@@ -29,5 +29,5 @@
     src: "{{ item.nfs_server }}:/{{ item.nfs_dir }}"
     fstype: nfs
     state: mounted
-    opts: "{{ item.nfs_options }}"
-  with_items: "{{ nfs_client }}"
+    opts: "{{ item.nfs_options | default(omit)}}"
+  loop: "{{ nfs_client }}"

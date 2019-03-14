@@ -23,14 +23,13 @@
 
 - name: Install dab and prereqs
   apt:
-    name: "{{ item }}"
+    pkg:
+      - dab
+      - git
+      - make
+      - python-pip
     state: present
     update_cache: true
-  with_items:
-    - dab
-    - git
-    - make
-    - python-pip
 
 - name: Clone my dab repo
   git:
@@ -41,11 +40,10 @@
 
 - name: Install proxmox prereqs
   pip:
-    name: "{{ item }}"
+    name: 
+      - proxmoxer
+      - requests
     extra_args: --user
-  with_items:
-    - proxmoxer
-    - requests
 
 - name: Remove the license warning
   replace:

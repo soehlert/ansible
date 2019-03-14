@@ -16,6 +16,8 @@ init:
 	ansible-playbook playbooks/setup.yml -u root -l setup -k
 install:
 	ansible-playbook playbooks/common.yml 
+nfs_client:
+	ansible-playbook playbooks/proxmox.yml -t nfs
 netbox:
 	ansible-playbook playbooks/netbox.yml
 plex:

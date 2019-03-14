@@ -59,11 +59,22 @@ proxmox_containers:
       mounts: '{"mp0":"/tank/media,mp=/data"}'
       storage: "{{ default_storage }}"
       vmid: 120
-    - hostname: atomic
-      ostemplate: "{{ default_template }}"
-      memory: 4096
-      # yamllint disable-line rule:line-length
-      netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.25/24,ip6=dhcp,bridge=vmbr0"}'
-      mounts: '{"mp0":"/tank/media,mp=/data"}'
-      storage: "{{ default_storage }}"
-      vmid: 125
+
+nfs_serv: 192.168.2.50
+nfs_client:
+    - nfs_mount: /media/synology/movies
+      nfs_server: "{{ nfs_serv }}"
+      nfs_dir: /volume1/movies
+      nfs_options: rw,sync
+    - nfs_mount: /media/synology/music
+      nfs_server: "{{ nfs_serv }}"
+      nfs_dir: /volume1/music
+      nfs_options: rw,sync
+    - nfs_mount: /media/synology/tv
+      nfs_server: "{{ nfs_serv }}"
+      nfs_dir: /volume1/tv
+      nfs_options: rw,sync
+    - nfs_mount: /media/synology/metadata
+      nfs_server: "{{ nfs_serv }}"
+      nfs_dir: /volume1/metadata
+      nfs_options: rw,sync
