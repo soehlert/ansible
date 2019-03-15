@@ -1,4 +1,5 @@
 ---
+# yamllint disable rule:line-length
 pve_release_key: proxmox-ve-release-5.x.asc
 pve_release_key_id: 0D9A1950E2EF0603
 dab_repo: https://github.com/soehlert/dab_templates.git
@@ -7,7 +8,6 @@ proxmox_api_host: 192.168.2.9
 dab_template: ubuntu18.04-template_amd64.tar.gz
 default_template: "local:vztmpl/{{ dab_template }}"
 default_storage: containers
-# yamllint disable-line rule:line-length
 ssh_pubkey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6a7z8hmbCr7+pWFnxizRs9QMk6Uz7VOVp+5ux615fhCwtayD9oVGneI84C2TxblWDz0RAgTBx0f80fC0q0MEJZZT8o1j384OJ0KQl3ScF/4tVo1qSCufpzQt4PtSiwprJmPgIjb5G4ANVz/zgiEkOrrWFeuIeFG9ZrS+boJ9bRCiqE0Dq1m/K/aFfdb23G9+2GFtDWU66V4t/41H3nGff7SyTZd6pJMdbO71LUFh0X36kIB4/wMjt8IihkCyaEWNuHPheoPVU0t4Eltl6Q6YFTfytTtFoWIpBIrOKuJGAopmneyAvIbd6kddPMFvY6L+NT8j3ry0g4Qp8NSbTSSJb soehlert@mbpro"
 
 container_templates:
