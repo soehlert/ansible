@@ -1,0 +1,36 @@
+---
+# tasks file for roles/unifi
+- name: Add apt key
+  apt_key:
+    keyserver: "{{ mongodb_apt_keyserver }}"
+    id: "{{ mongodb_apt_key }}"
+
+- name: Add MongoDB Repo
+  apt_repository:
+    repo: "{{ mongodb_repo }}"
+    state: present
+
+- name: Add MongoDB packages
+  apt:
+    name: "mongodb-org={{ mongodb_version }}"
+    state: present
+    update_cache: true
+    force: true
+  notify: enable_mongod
+
+- name: Install service file
+  template:
+    src: service.j2
+    dest: '/etc/systemd/system/mongod.service'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: true
+
+- name: Start mongod
+  systemd:
+    name: mongod
+    state: started

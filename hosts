@@ -4,9 +4,13 @@ bingbong ansible_host=192.168.2.9
 [nameservers]
 pi ansible_host=192.168.2.4
 dns ansible_host=192.168.2.5
+print ansible_host=192.168.2.30
 
 [vpn]
 pi ansible_host=192.168.2.4
+
+[cups]
+print ansible_host=192.168.2.30
 
 [ipam]
 netbox ansible_host=192.168.2.6
