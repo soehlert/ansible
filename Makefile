@@ -7,13 +7,13 @@ containers:
 dns:
 	ansible-playbook playbooks/dns.yml
 dump_facts:
-	ansible all -m setup --tree /tmp/facts --connection=local -i hosts 
+	ansible $(TARGET) -m setup --tree /tmp/facts --connection=local -i hosts 
 gitlab:
 	ansible-playbook playbooks/gitlab.yml
 gmusic:
 	ansible-playbook playbooks/gmusicdl.yml
 init:
-	ansible-playbook playbooks/setup.yml -u root -l setup -k
+	ansible-playbook playbooks/setup.yml -u root -l $(TARGET)
 install:
 	ansible-playbook playbooks/common.yml 
 netbox:
@@ -24,3 +24,5 @@ proxmox:
 	ansible-playbook playbooks/proxmox.yml
 security:
 	ansible-playbook playbooks/security.yml
+unifi:
+	ansible-playbook playbooks/unifi.yml

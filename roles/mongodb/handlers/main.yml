@@ -1,0 +1,6 @@
+---
+# handlers file for roles/mongodb
+- name: enable_mongod
+  systemd:
+    name: mongod
+    enabled: yes

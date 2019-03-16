@@ -1,0 +1,5 @@
+---
+# defaults file for roles/unifi
+unifi_repo: deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti
+unifi_apt_keyserver: keyserver.ubuntu.com
+unifi_apt_key: 06E85760C0A52C50
