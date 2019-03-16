@@ -13,7 +13,7 @@ gitlab:
 gmusic:
 	ansible-playbook playbooks/gmusicdl.yml
 init:
-	ansible-playbook playbooks/setup.yml -u root -l $(TARGET)
+	ansible-playbook playbooks/setup.yml -u root -l ${TARGET}
 install:
 	ansible-playbook playbooks/common.yml 
 netbox:
