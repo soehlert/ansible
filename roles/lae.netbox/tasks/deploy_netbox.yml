@@ -1,0 +1,152 @@
+---
+- name: Create NetBox application directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ netbox_user }}"
+    group: "{{ netbox_group }}"
+  loop:
+    - "{{ netbox_releases_path }}"
+    - "{{ netbox_shared_path }}"
+    - "{{ netbox_shared_path }}/media/image-attachments"
+    - "{{ netbox_shared_path }}/reports"
+
+- include_tasks: "install_via_{{ 'git' if netbox_git else 'stable' }}.yml"
+
+- import_tasks: generate_secret_key.yml
+  when:
+    - netbox_config.SECRET_KEY is not defined
+
+- name: Drop pip constraints file
+  template:
+    src: pip_constraints.j2
+    dest: "{{ netbox_current_path }}/constraints.txt"
+    owner: "{{ netbox_user }}"
+    group: "{{ netbox_group }}"
+
+- name: Create NetBox virtualenv and install needed Python dependencies
+  pip:
+    requirements: "{{ netbox_current_path }}/requirements.txt"
+    extra_args: "-c {{ netbox_current_path }}/constraints.txt"
+    virtualenv: "{{ netbox_virtualenv_path }}"
+    virtualenv_command: "{{ netbox_python_binary }} -m venv"
+  become: True
+  become_user: "{{ netbox_user }}"
+  retries: 2
+  register: _netbox_virtualenv_setup
+  until: _netbox_virtualenv_setup is succeeded
+
+- name: Install django-rq if webhooks enabled
+  pip:
+    name: "django-rq"
+    virtualenv: "{{ netbox_virtualenv_path }}"
+  become: True
+  become_user: "{{ netbox_user }}"
+  when:
+    - netbox_webhooks_enabled
+  retries: 2
+  register: _netbox_django_rq_install
+  until: _netbox_django_rq_install is succeeded
+
+
+- name: Generate NetBox configuration file
+  template:
+    src: templates/configuration.py.j2
+    dest: "{{ netbox_shared_path }}/configuration.py"
+    owner: "{{ netbox_user }}"
+    group: "{{ netbox_group }}"
+    mode: 0640
+    validate: "{{ netbox_virtualenv_path }}/bin/python -c \"import py_compile,os; f=r'%s';\
+               c='/tmp/' + os.path.basename(os.path.dirname(f)) + '-' + os.path.basename(f) + 'c';\
+               py_compile.compile(f, c); os.remove(c)\""
+  notify:
+    - reload netbox.service
+
+- block:
+  - name: Install django-auth-ldap if LDAP is enabled
+    pip:
+      name: django-auth-ldap
+      virtualenv: "{{ netbox_virtualenv_path }}"
+    become: True
+    become_user: "{{ netbox_user }}"
+    retries: 2
+    register: _netbox_django_auth_ldap_install
+    until: _netbox_django_auth_ldap_install is succeeded
+
+  - name: Generate LDAP configuration for NetBox if enabled
+    template:
+      src: "{{ netbox_ldap_config_template }}"
+      dest: "{{ netbox_shared_path }}/ldap_config.py"
+      owner: "{{ netbox_user }}"
+      group: "{{ netbox_group }}"
+      mode: 0640
+      validate: "{{ netbox_virtualenv_path }}/bin/python -c \"import py_compile,os; f=r'%s';\
+                 c='/tmp/' + os.path.basename(os.path.dirname(f)) + '-' + os.path.basename(f) + 'c';\
+                 py_compile.compile(f, c); os.remove(c)\""
+    notify:
+      - reload netbox.service
+  when:
+    - netbox_ldap_enabled
+
+- name: Install napalm if NAPALM integration is enabled
+  pip:
+    name: napalm
+    virtualenv: "{{ netbox_virtualenv_path }}"
+  when:
+    - netbox_napalm_enabled
+  become: True
+  become_user: "{{ netbox_user }}"
+  retries: 2
+  register: _netbox_napalm_install
+  until: _netbox_napalm_install is succeeded
+
+- name: Symlink NetBox configuration file into the active NetBox release
+  file:
+    src: "{{ netbox_shared_path }}/configuration.py"
+    dest: "{{ netbox_config_path }}/configuration.py"
+    owner: "{{ netbox_user }}"
+    group: "{{ netbox_group }}"
+    state: link
+
+- name: Symlink/Remove NetBox LDAP configuration file into/from the active NetBox release
+  file:
+    src: "{{ netbox_shared_path + '/ldap_config.py' if netbox_ldap_enabled else omit }}"
+    dest: "{{ netbox_config_path }}/ldap_config.py"
+    owner: "{{ netbox_user }}"
+    group: "{{ netbox_group }}"
+    state: "{{ 'link' if netbox_ldap_enabled else 'absent' }}"
+  notify:
+    - reload netbox.service
+
+- block:
+  - name: Run database migrations for NetBox
+    django_manage:
+      command: migrate
+      app_path: "{{ netbox_current_path }}/netbox"
+      virtualenv: "{{ netbox_virtualenv_path }}"
+
+  - name: Create a super user for NetBox
+    shell: "printf '{{ netbox_superuser_script }}' |\
+            {{ netbox_virtualenv_path }}/bin/python {{ netbox_current_path }}/netbox/manage.py shell"
+    register: _netbox_superuser_result
+    changed_when: "'changed' in _netbox_superuser_result.stdout"
+    when:
+      - not netbox_ldap_enabled
+
+  - name: Generate static assets for NetBox
+    django_manage:
+      command: collectstatic
+      app_path: "{{ netbox_current_path }}/netbox"
+      virtualenv: "{{ netbox_virtualenv_path }}"
+
+  - name: Populate NetBox with initial data
+    django_manage:
+      command: loaddata
+      fixtures: initial_data
+      app_path: "{{ netbox_current_path }}/netbox"
+      virtualenv: "{{ netbox_virtualenv_path }}"
+    when:
+      - netbox_load_initial_data
+
+  become: True
+  become_user: "{{ netbox_user }}"
