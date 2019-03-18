@@ -20,10 +20,12 @@
     netif: "{{ item.netif|default(omit) }}"
     storage: "{{ item.storage }}"
     vmid: "{{ item.vmid|default(omit) }}"
-  with_items: "{{ proxmox_containers }}"
+  loop: "{{ proxmox_containers }}"
 
-# Can't start containers when creating them as it
-# tries to start it before it creates the container
+- name: Pause to let containers be fully created
+  pause:
+    seconds: 15
+
 - name: start_containers
   proxmox:
     api_host: "{{ proxmox_api_host }}"
@@ -31,6 +33,4 @@
     api_password: "{{ proxmox_root_password }}"
     hostname: "{{ item.hostname }}"
     state: started
-  retries: 10
-  delay: 2
-  with_items: "{{ proxmox_containers }}"
+  loop: "{{ proxmox_containers }}"

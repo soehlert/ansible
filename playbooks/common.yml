@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   roles:
+    - { role: 'known_hosts', tags: 'known_hosts' }
     - { role: 'packages', tags: 'packages' }
     - { role: 'netdata', tags: 'netdata' }
     - { role: 'auto-updates', tags: 'auto-updates' }
-    - { role: 'cockpit', tags: 'cockpit' }

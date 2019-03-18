@@ -1,0 +1,14 @@
+---
+# tasks file for roles/known_hosts
+- name: Scan ssh keys
+  command: "ssh-keyscan {{ item }}"
+  loop: "{{ groups.all }}"
+  changed_when: false
+  register: "host_keys"
+  delegate_to: localhost
+
+- debug: var=host_keys
+
+# - name: Add ssh host keys
+#   known_hosts:
+#     name: host_keys.
