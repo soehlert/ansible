@@ -1,4 +1,5 @@
 ---
+postgresql_data_dir: /usr/local/netbox/database/
 netbox_home: /usr/local/netbox
 netbox_stable: true
 netbox_socket: "0.0.0.0:80"
