@@ -1,0 +1,24 @@
+---
+# handlers file for lae.netbox
+- name: restart netbox.socket
+  systemd:
+    name: netbox.socket
+    state: restarted
+    daemon_reload: yes
+
+- name: restart netbox.service
+  systemd:
+    name: netbox.service
+    state: restarted
+    daemon_reload: yes
+
+- name: reload netbox.service
+  systemd:
+    name: netbox.service
+    state: reloaded
+
+- name: restart netbox-rqworker.service
+  systemd:
+    name: netbox-rqworker.service
+    state: restarted
+    daemon_reload: yes

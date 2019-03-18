@@ -1,0 +1,106 @@
+---
+# tasks file for lae.netbox
+- import_tasks: validate_variables.yml
+
+- import_tasks: load_variables.yml
+
+- include_tasks: "install_packages_{{ ansible_pkg_mgr }}.yml"
+
+- name: Switch Ansible's Python interpreter to Python 3
+  set_fact:
+    ansible_python_interpreter: "{{ netbox_python_binary }}"
+
+- name: Create NetBox user group
+  group:
+    name: "{{ netbox_group }}"
+
+- name: Create NetBox user and home directory
+  user:
+    name: "{{ netbox_user }}"
+    group: "{{ netbox_group }}"
+    home: "{{ netbox_home }}"
+
+- name: Ensure Postgres database exists (via socket)
+  postgresql_db:
+    name: "{{ netbox_database }}"
+    login_user: "{{ netbox_database_user }}"
+    login_unix_socket: "{{ netbox_database_socket }}"
+  become: True
+  become_user: "{{ netbox_database_user }}"
+  when:
+    - netbox_database_socket is defined
+    - netbox_database_host is not defined
+
+- name: Ensure Postgres database exists (via TCP)
+  postgresql_db:
+    name: "{{ netbox_database }}"
+    login_host: "{{ netbox_database_host }}"
+    port: "{{ netbox_database_port }}"
+    login_user: "{{ netbox_database_user }}"
+    login_password: "{{ netbox_database_password }}"
+  when:
+    - netbox_database_socket is not defined
+    - netbox_database_host is defined
+
+- import_tasks: deploy_netbox.yml
+
+- name: Install uWSGI via pip
+  pip:
+    name: uwsgi
+    state: "{{ 'latest' if netbox_keep_uwsgi_updated else 'present' }}"
+  environment:
+    PATH: "/usr/local/bin:{{ _path }}"
+  notify:
+    - reload netbox.service
+  retries: 2
+  register: _netbox_uwsgi_install
+  until: _netbox_uwsgi_install is succeeded
+
+- name: Configure uWSGI NetBox application
+  template:
+    src: uwsgi.ini.j2
+    dest: "{{ netbox_shared_path }}/uwsgi.ini"
+    owner: "{{ netbox_user }}"
+    group: "{{ netbox_group }}"
+  notify:
+    - reload netbox.service
+
+- name: Install NetBox socket unit file
+  template:
+    src: netbox.socket.j2
+    dest: /lib/systemd/system/netbox.socket
+  notify:
+    - restart netbox.socket
+
+- name: Install NetBox service unit file
+  template:
+    src: netbox.service.j2
+    dest: /lib/systemd/system/netbox.service
+  notify:
+    - restart netbox.service
+
+- name: Install NetBox-rqworker service unit file
+  template:
+    src: netbox-rqworker.service.j2
+    dest: /lib/systemd/system/netbox-rqworker.service
+  notify:
+    - restart netbox-rqworker.service
+  when:
+    - netbox_webhooks_enabled
+
+- name: Start and enable NetBox' socket and service
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - netbox.socket
+    - netbox.service
+
+- name: Start and enable netbox-rqworker.service
+  systemd:
+    name: netbox-rqworker.service
+    state: started
+    enabled: yes
+  when:
+    - netbox_webhooks_enabled
