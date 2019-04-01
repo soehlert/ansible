@@ -24,9 +24,6 @@ gitlab-runner ansible_host=192.168.2.15
 [media]
 plex ansible_host=192.168.2.20
 
-[atomic_toolkit]
-atomic ansible_host=192.168.2.25
-
 [containers]
 dns ansible_host=192.168.2.5
 netbox ansible_host=192.168.2.6
