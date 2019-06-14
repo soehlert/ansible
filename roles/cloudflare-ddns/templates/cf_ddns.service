@@ -1,0 +1,6 @@
+[Unit]
+Description=Update DNS entry for this host to current IP
+
+[Service]
+Type=oneshot
+ExecStart=python {{ cf_ddns_path }}/pyflare.py

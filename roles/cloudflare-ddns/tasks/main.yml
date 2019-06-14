@@ -11,7 +11,15 @@
     state: present
   with_items:
     - requests
-    - pyyaml
+    - json
+
+- name: Create "{{ cf_ddns_user }}" user
+  user:
+    name: "{{ cf_ddns_user }}"
+    comment: "Cloudflare DDNS"
+    create_home: false
+    password_lock: true
+    system: true
 
 - name: Check for clone
   stat:
@@ -24,25 +32,41 @@
     state: directory
     owner: "{{ cf_ddns_user }}"
     group: "{{ cf_ddns_user }}"
+  when: not clone.stat.exists
 
 - name: Clone repo
   git:
-    repo: https://github.com/thatjpk/cloudflare-ddns.git
+    repo: "{{ cf_ddns_repo }}"
     dest: "{{ cf_ddns_path }}"
-    accept_hostkey: yes
-  when: clone.stat.exists
+    accept_hostkey: true
+    when: clone.stat.exists
 
-- name: Create template for my A record
+- name: Create config file
   template:
-    src: config.yml.j2
-    dest: "{{ cf_ddns_path }}/config.yaml"
+    src: config.json.j2
+    dest: "{{ cf_ddns_path }}/config.json"
     owner: "{{ cf_ddns_user }}"
     group: "{{ cf_ddns_user }}"
 
-- name: Add cron job
-  cron:
-    name: "cf_ddns"
-    minute: "*/15"
-    user: "{{ cf_ddns_user }}"
-    cron_file: cf_ddns
-    job: "{{ cf_ddns_path }}/cloudflare-ddns.py {{ cf_ddns_path }}/config.yaml >> /var/log/cloudflare_ddns.log"
+- name: Create systemd files to run this
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}"
+    owner: root
+    group: root
+  loop:
+    - cf_ddns.service
+    - cf_ddns.timer
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: true
+
+- name: Enable service and timer
+  systemd:
+    name: "cf_ddns.{{ item }}"
+    enabled: true
+  notify: Start_cf_ddns
+  loop:
+    - service
+    - timer

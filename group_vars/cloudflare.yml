@@ -1,0 +1,4 @@
+---
+cf_ddns_path: "/usr/local/cloudflare/"
+cf_ddns_user: cloudflare
+cf_ddns_repo: "https://github.com/simonpainter/pyflare"
