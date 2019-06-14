@@ -15,7 +15,7 @@ gmusic:
 init:
 	ansible-playbook playbooks/setup.yml -u root -l ${TARGET}
 install:
-	ansible-playbook playbooks/common.yml 
+	ansible-playbook playbooks/common.yml -b
 netbox:
 	ansible-playbook playbooks/netbox.yml
 plex:
