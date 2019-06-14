@@ -4,6 +4,8 @@ atomic:
 	ansible-playbook playbooks/atomic.yml
 containers:
 	ansible-playbook playbooks/proxmox.yml -t containers
+cloudflare:
+	ansible-playbook playbooks/cloudflare.yml
 dns:
 	ansible-playbook playbooks/dns.yml
 dump_facts:
