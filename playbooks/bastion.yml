@@ -1,9 +1,0 @@
----
-- hosts: bastion
-  user: soehlert
-  become: true
-  become_user: root
-  roles:
-    - { role: 'duo', tags: 'duo' }
-    - { role: 'backup-media', tags: 'backup-media' }
-    - { role: 'cloudflare-ddns', tags: 'cf_ddns' }

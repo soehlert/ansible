@@ -1,0 +1,6 @@
+---
+- hosts: cloudflare
+  become: true
+  become_user: root
+  roles:
+    - {role: 'cloudflare-ddns', tags: 'cf_ddns'}
