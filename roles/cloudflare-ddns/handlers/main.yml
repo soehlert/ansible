@@ -1,2 +1,6 @@
 ---
 # handlers file for roles/cloudflare-ddns
+- name: Start_cf_ddns
+  systemd:
+    name: cf_ddns.service
+    state: started
