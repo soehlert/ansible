@@ -3,4 +3,4 @@ Description=Update DNS entry for this host to current IP
 
 [Service]
 Type=oneshot
-ExecStart=python {{ cf_ddns_path }}/pyflare.py
+ExecStart=/usr/bin/python3 {{ cf_ddns_path }}/pyflare.py

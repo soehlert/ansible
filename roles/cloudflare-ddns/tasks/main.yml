@@ -1,19 +1,17 @@
 ---
 # tasks file for roles/cloudflare-ddns
-- name: Install pip
+- name: Install pip3
   package:
-    name: python-pip
+    name: python3-pip
     state: present
 
-- name: Install dependencies
+- name: Install requests
   pip:
-    name: "{{ item }}"
+    name: requests
     state: present
-  with_items:
-    - requests
-    - json
+    executable: pip3
 
-- name: Create "{{ cf_ddns_user }}" user
+- name: Create {{ cf_ddns_user }} user
   user:
     name: "{{ cf_ddns_user }}"
     comment: "Cloudflare DDNS"
@@ -21,12 +19,12 @@
     password_lock: true
     system: true
 
-- name: Check for clone
+- name: Check for clone at {{ cf_ddns_path }}
   stat:
     path: "{{ cf_ddns_path }}"
   register: clone
 
-- name: Create clone directory
+- name: Create clone directory at {{ cf_ddns_path }}
   file:
     path: "{{ cf_ddns_path }}"
     state: directory
@@ -34,14 +32,14 @@
     group: "{{ cf_ddns_user }}"
   when: not clone.stat.exists
 
-- name: Clone repo
+- name: Clone repo from {{ cf_ddns_repo }}
   git:
     repo: "{{ cf_ddns_repo }}"
     dest: "{{ cf_ddns_path }}"
     accept_hostkey: true
-    when: clone.stat.exists
+  when: clone.stat.exists
 
-- name: Create config file
+- name: Create config file in {{ cf_ddns_path }}
   template:
     src: config.json.j2
     dest: "{{ cf_ddns_path }}/config.json"
@@ -61,12 +59,12 @@
 - name: Reload systemd
   systemd:
     daemon_reload: true
+  notify: Start_cf_ddns
 
 - name: Enable service and timer
   systemd:
-    name: "cf_ddns.{{ item }}"
+    name: "{{ item }}"
     enabled: true
-  notify: Start_cf_ddns
   loop:
-    - service
-    - timer
+    - cf_ddns.service
+    - cf_ddns.timer

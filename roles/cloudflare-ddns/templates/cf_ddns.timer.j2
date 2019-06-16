@@ -4,7 +4,7 @@ Description=Update DNS entry in cloudflare every 2 minutes
 [Timer]
 OnBootSec=1min
 OnCalendar=*:0/2
-Unit=cloudflare-ddns.service
+Unit=cf_ddns.service
 
 [Install]
 WantedBy=basic.target

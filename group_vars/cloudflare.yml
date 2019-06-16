@@ -1,7 +1,7 @@
 ---
 cf_ddns_path: "/usr/local/cloudflare/"
 cf_ddns_user: cloudflare
-cf_ddns_repo: "https://github.com/simonpainter/pyflare"
+cf_ddns_repo: "https://github.com/soehlert/pyflare"
 cf_api_key: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           36356236303334316232303637656366363331343462643661353466336662313433356639366166
