@@ -12,4 +12,4 @@ cf_api_key: !vault |
           3730663730366565326464313566303833346230396364666436
 cf_email: "sam.oehlert@gmail.com"
 cf_zone: "soehlert.com"
-cf_record: "home"
+cf_record: "home.soehlert.com"

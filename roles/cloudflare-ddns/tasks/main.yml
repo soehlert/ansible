@@ -32,12 +32,17 @@
     group: "{{ cf_ddns_user }}"
   when: not clone.stat.exists
 
+- name: Check for repo existing
+  stat:
+    path: "{{ cf_ddns_path }}/pyflare"
+  register: pyflare
+
 - name: Clone repo from {{ cf_ddns_repo }}
   git:
     repo: "{{ cf_ddns_repo }}"
     dest: "{{ cf_ddns_path }}"
     accept_hostkey: true
-  when: clone.stat.exists
+  when: not pyflare.stat.exists
 
 - name: Create config file in {{ cf_ddns_path }}
   template:
