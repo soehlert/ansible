@@ -1,0 +1,3 @@
+---
+pihole_primary: false
+pihole_secondary: true
