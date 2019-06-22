@@ -1,0 +1,5 @@
+---
+- name: restart_pihole
+  systemd:
+    name: pihole-FTL
+    state: restarted

@@ -1,0 +1,9 @@
+---
+pihole_files:
+  - adlists.list
+  - black.list
+  - blacklist.txt
+  - gravity.list
+  - lan.list
+  - regex.list
+  - whitelist.txt

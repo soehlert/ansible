@@ -1,0 +1,30 @@
+---
+# tasks file for roles/pihole-sync
+
+- block:
+  # Copying empty files is fine, but we don't
+  # want to fail if files don't exist on the fetch
+  - name: Touch files if they don't exist
+    file:
+      path: "/etc/pihole/{{ item }}"
+      state: touch
+    loop: "{{ pihole_files }}"
+
+  - name: Fetch files from main pihole
+    fetch:
+      src: "/etc/pihole/{{ item }}"
+      dest: "/tmp/{{ item }}"
+    loop: "{{ pihole_files }}"
+
+  when: pihole_primary
+
+- name: Synchronize files to backup
+  synchronize:
+    src: "tmp/{{ item }}"
+    dest: "/etc/pihole/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ pihole_files }}"
+  notify: restart_pihole
+  when: pihole_secondary
