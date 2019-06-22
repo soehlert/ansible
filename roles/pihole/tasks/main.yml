@@ -18,34 +18,34 @@
     comment: "Pihole"
 
 - name: Create pihole directory
-	file:
-		path: /etc/pihole
-		state: directory
+  file:
+    path: /etc/pihole
+    state: directory
     owner: "{{ pihole_user }}"
     group: "{{ pihole_group }}"
     mode: 0755
 
 - name: Copy pihole conf
-	template:
-		src: setupVars.conf.j2
-		dest: /etc/pihole/setupVars.conf
+  template:
+    src: setupVars.conf.j2
+    dest: /etc/pihole/setupVars.conf
     owner: root
     group: root
     mode: 0644
-	register: pihole_config
+  register: pihole_config
 
 - name: Check for pihole binary
   stat:
-		path: /usr/local/bin/pihole
-	register: pihole_binary
+    path: /usr/local/bin/pihole
+  register: pihole_binary
 
 - name: Download install script
-	get_url:
-		url: https://raw.githubusercontent.com/pi-hole/pi-hole/master/automated%20install/basic-install.sh
-		dest: /tmp/pihole-install.sh
-		mode: u+rwx
-	when: not pihole_binary
+  get_url:
+    url: https://raw.githubusercontent.com/pi-hole/pi-hole/master/automated%20install/basic-install.sh
+    dest: /tmp/pihole-install.sh
+    mode: u+rwx
+  when: not pihole_binary
 
 - name: run install script
-	shell: /tmp/pihole-install.sh --unattended
-	when: not pihole_binary
+  shell: /tmp/pihole-install.sh --unattended
+  when: not pihole_binary
