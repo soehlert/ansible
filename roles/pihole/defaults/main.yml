@@ -1,0 +1,23 @@
+---
+pihole_blocking: true
+pihole_bogus_priv: true
+pihole_conditional_forwarding: false
+pihole_conditional_forwarding_domain:
+pihole_conditional_forwarding_ip:
+pihole_conditional_forwarding_reverse:
+pihole_dns_1: 8.8.8.8
+pihole_dns_2: 8.8.4.4
+pihole_dns_3: 9.9.9.9
+pihole_dns_4: 149.112.112.112
+pihole_dns_5: 1.1.1.1
+pihole_dns_6: 1.0.0.1
+pihole_dnsmasq: local
+pihole_dnssec: true
+pihole_forwarding_reverse:
+pihole_fqdn_required: true
+pihole_lighttpd: true
+pihole_query_logging: true
+pihole_user: pihole
+pihole_web_interface: true
+pihole_web_server: true
+pihole_webpassword:

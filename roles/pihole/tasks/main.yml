@@ -1,2 +1,51 @@
 ---
-# tasks file for roles/pihole
+- name: Set v4 address
+  set_fact:
+    pihole_ipv4: "{{ ipv4 | ipaddr('prefix') }}"
+  vars:
+    ipv4: "{{ ansible_default_ipv4.address }}/{{ ansible_default_ipv4.netmask }}"
+
+- name: Set v6 address
+  set_fact:
+    pihole_ipv6: "{{ ipv6 | ipaddr('prefix') }}"
+  vars:
+    ipv6: "{{ ansible_default_ipv6.address }}/{{ ansible_default_ipv6.netmask }}"
+  when: ansible_default_ipv6.address is defined
+
+- name: Create {{ pihole_user }} user
+  user:
+    name: "{{ pihole_user }}"
+    comment: "Pihole"
+
+- name: Create pihole directory
+	file:
+		path: /etc/pihole
+		state: directory
+    owner: "{{ pihole_user }}"
+    group: "{{ pihole_group }}"
+    mode: 0755
+
+- name: Copy pihole conf
+	template:
+		src: setupVars.conf.j2
+		dest: /etc/pihole/setupVars.conf
+    owner: root
+    group: root
+    mode: 0644
+	register: pihole_config
+
+- name: Check for pihole binary
+  stat:
+		path: /usr/local/bin/pihole
+	register: pihole_binary
+
+- name: Download install script
+	get_url:
+		url: https://raw.githubusercontent.com/pi-hole/pi-hole/master/automated%20install/basic-install.sh
+		dest: /tmp/pihole-install.sh
+		mode: u+rwx
+	when: not pihole_binary
+
+- name: run install script
+	shell: /tmp/pihole-install.sh --unattended
+	when: not pihole_binary
