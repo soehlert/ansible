@@ -1,8 +1,6 @@
 ---
 - hosts: all
-  become: true
   roles:
-    - { role: 'packages', tags: 'packages' }
-    - { role: 'netdata', tags: 'netdata' }
-    - { role: 'auto-updates', tags: 'auto-updates' }
-    - { role: 'cockpit', tags: 'cockpit' }
+    - {role: 'packages', tags: 'packages'}
+    - {role: 'netdata', tags: 'netdata'}
+    - {role: 'auto-updates', tags: 'auto-updates'}
