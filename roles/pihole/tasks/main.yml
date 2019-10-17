@@ -5,13 +5,6 @@
   vars:
     ipv4: "{{ ansible_default_ipv4.address }}/{{ ansible_default_ipv4.netmask }}"
 
-- name: Set v6 address
-  set_fact:
-    pihole_ipv6: "{{ ipv6 | ipaddr('prefix') }}"
-  vars:
-    ipv6: "{{ ansible_default_ipv6.address }}/{{ ansible_default_ipv6.netmask }}"
-  when: ansible_default_ipv6.address is defined
-
 - name: Create {{ pihole_user }} user
   user:
     name: "{{ pihole_user }}"
@@ -22,7 +15,7 @@
     path: /etc/pihole
     state: directory
     owner: "{{ pihole_user }}"
-    group: "{{ pihole_group }}"
+    group: "{{ pihole_user }}"
     mode: 0755
 
 - name: Copy pihole conf
@@ -32,6 +25,7 @@
     owner: root
     group: root
     mode: 0644
+  notify: restart_pihole
   register: pihole_config
 
 - name: Check for pihole binary
@@ -44,8 +38,8 @@
     url: https://raw.githubusercontent.com/pi-hole/pi-hole/master/automated%20install/basic-install.sh
     dest: /tmp/pihole-install.sh
     mode: u+rwx
-  when: not pihole_binary
+  when: not pihole_binary.stat.exists
 
-- name: run install script
+- name: Run install script
   shell: /tmp/pihole-install.sh --unattended
-  when: not pihole_binary
+  when: not pihole_binary.stat.exists

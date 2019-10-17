@@ -1,4 +1,5 @@
 WEBPASSWORD={% if pihole_webpassword %}{{ pihole_webpassword }}{% endif %}
+
 DNSMASQ_LISTENING={{ pihole_dnsmasq }}
 PIHOLE_DNS_1={{ pihole_dns_1 }}
 PIHOLE_DNS_2={{ pihole_dns_2 }}
@@ -11,11 +12,14 @@ DNS_BOGUS_PRIV={{ pihole_bogus_priv }}
 DNSSEC={{ pihole_dnssec }}
 CONDITIONAL_FORWARDING={{ pihole_conditional_forwarding }}
 CONDITIONAL_FORWARDING_IP={% if pihole_conditional_forwarding %}{{ pihole_conditional_forwarding_ip }}{% endif %}
+
 CONDITIONAL_FORWARDING_DOMAIN={% if pihole_conditional_forwarding %}{{ pihole_conditional_forwarding_domain }}{% endif %}
+
 CONDITIONAL_FORWARDING_REVERSE={% if pihole_conditional_forwarding %}{{ pihole_conditional_forwarding_reverse }}{% endif %}
+
 BLOCKING_ENABLED={{ pihole_blocking }}
-PIHOLE_INTERFACE= {{ ansible_default_ipv4.alias }}
-IPV4_ADDRESS={{ pihole_ipv4 }}
+PIHOLE_INTERFACE={{ ansible_default_ipv4.alias }}
+IPV4_ADDRESS={{ ansible_default_ipv4.address }}/{{ pihole_ipv4 }}
 IPV6_ADDRESS={% if pihole_ipv6 %}{{ pihole_ipv6 }}{% endif %}
 QUERY_LOGGING={{ pihole_query_logging }}
 INSTALL_WEB_SERVER={{ pihole_web_server }}

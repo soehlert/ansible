@@ -13,8 +13,8 @@ pihole_dns_5: 1.1.1.1
 pihole_dns_6: 1.0.0.1
 pihole_dnsmasq: local
 pihole_dnssec: true
-pihole_forwarding_reverse:
 pihole_fqdn_required: true
+pihole_ipv6:
 pihole_lighttpd: true
 pihole_query_logging: true
 pihole_user: pihole

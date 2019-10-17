@@ -33,4 +33,4 @@ plex ansible_host=192.168.2.20
 atomic ansible_host=192.168.2.25
 
 [vps]
-poseidon ansible_host=178.128.2.25
+165.22.140.97

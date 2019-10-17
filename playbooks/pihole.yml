@@ -1,5 +1,5 @@
 ---
-- hosts: nameservers
+- hosts: dns
   become: true
   roles:
     - {role: 'pihole', tags: 'pihole'}

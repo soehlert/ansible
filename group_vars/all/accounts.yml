@@ -23,8 +23,7 @@ manage_ssh_keys:
   - remote_user: soehlert
     state: present
     keys:
-      - files/ansible.pub
-      - files/mbp.pub
+      - files/id_rsa.pub
   - remote_user: deploy
     state: present
     keys:
