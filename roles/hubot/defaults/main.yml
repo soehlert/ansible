@@ -1,0 +1,8 @@
+---
+# defaults file for roles/hubot
+hubot_user: hubot
+hubot_name: hubot
+hubot_path: /home/{{ hubot_user }}/{{ hubot_name }}
+hubot_owner: soehlert
+hubot_description: "A delightfully sentient bot"
+hubot_adapter: slack

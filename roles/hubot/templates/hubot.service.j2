@@ -1,0 +1,19 @@
+[Unit]
+Description=Hubot
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory={{ hubot_path }}
+User={{ hubot_user }}
+
+Restart=always
+RestartSec=10
+
+EnvironmentFile=/etc/{{ hubot_name }}.env
+
+ExecStart={{ hubot_path }}/bin/hubot --adapter {{ hubot_adapter }}
+
+[Install]
+WantedBy=multi-user.target

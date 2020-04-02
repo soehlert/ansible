@@ -1,0 +1,5 @@
+---
+- hosts: chatbot
+  become: true
+  roles:
+    - {role: 'hubot', tags: 'hubot'}

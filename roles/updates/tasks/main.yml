@@ -4,7 +4,7 @@
     - name: Update debian
       apt:
         upgrade: dist
-        update_cache: yes
+        update_cache: true
 
     - name: Check if we need to reboot
       stat:
@@ -18,7 +18,7 @@
       when: reboot_required.stat.exists
 
     - name: waiting for server booting up
-      local_action: wait_for
+      local_action: wait_for 
       args:
         host: '{{ inventory_hostname }}'
         port: 22
@@ -29,10 +29,10 @@
 
     - name: Remove useless packages from the cache
       apt:
-        autoclean: yes
+        autoclean: true
 
     - name: Remove dependencies that are no longer required
       apt:
-        autoremove: yes
+        autoremove: true
 
   when: ansible_os_family == "Debian"

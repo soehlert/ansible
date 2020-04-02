@@ -1,0 +1,6 @@
+---
+# handlers file for roles/hubot
+- name: start_hubot
+  systemd:
+    state: started
+    name: "{{ hubot_name }}"

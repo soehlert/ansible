@@ -1,0 +1,69 @@
+---
+# tasks file for roles/hubot
+- name: Install prereqs
+  package:
+    name:
+      - nodejs
+      - npm
+      - redis
+    state: present
+
+- name: Create directory
+  file:
+    path: "{{ hubot_path }}"
+    state: directory
+    owner: "{{ hubot_user }}"
+    group: "{{ hubot_user }}"
+    mode: 0755
+
+- name: Install hubot and npm deps
+  npm:
+    name: "{{ item }}"
+    global: true
+  loop:
+    - coffee-script
+    - generator-hubot
+    - hubot
+    - yo
+  become: true
+  become_user: root
+
+- name: Create hubot instance
+  # yamllint disable-line rule:line-length
+  shell: "cd {{ hubot_path }}; yo hubot --owner={{ hubot_owner }} --name={{ hubot_name }} --description={{ hubot_description }} --adapter={{ hubot_adapter }} --defaults"  # noqa 204
+  args:
+    creates: "{{ hubot_path }}/bin/hubot"
+  become: true
+  become_user: "{{ hubot_user }}"
+
+# - name: Install hubot scripts
+#   npm:
+#   name: "{{ hubot_scripts }}"
+
+# - name: Add hubot scripts to package.json
+#   lineinfile:
+#     path: "{{ hubot_path }}/"
+
+- name: Create {{ hubot_name }} environment file
+  template:
+    src: hubot.env.j2
+    dest: "/etc/{{ hubot_name }}.env"
+    owner: "{{ hubot_user }}"
+    group: "{{ hubot_user }}"
+
+- name: Create {{ hubot_name }} systemd file
+  template:
+    src: hubot.service.j2
+    dest: "/etc/systemd/system/{{ hubot_name }}.service"
+    owner: "{{ hubot_user }}"
+    group: "{{ hubot_user }}"
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: true
+
+- name: Enable {{ hubot_name }}
+  systemd:
+    name: "{{ hubot_name }}"
+    enabled: true
+  notify: start_hubot
