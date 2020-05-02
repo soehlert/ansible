@@ -1,14 +1,14 @@
 ---
 dns_entries:
-  - { name: router, address: 192.168.2.1 }
-  - { name: switch, address: 192.168.2.2 }
-  - { name: wap, address: 192.168.2.3 }
-  - { name: pi, address: 192.168.2.4 }
-  - { name: dns, address: 192.168.2.5 }
-  - { name: netbox, address: 192.168.2.6 }
-  - { name: unifi, address: 192.168.2.7 }
-  - { name: bingbong-mgt, address: 192.168.2.8}
-  - { name: bingbong, address: 192.168.2.9 }
-  - { name: gitlab, address: 192.168.2.15 }
-  - { name: plex, address: 192.168.2.20 }
-  - { name: atomic, address: 192.168.2.25 }
+  - {name: router, address: 192.168.2.1}
+  - {name: switch, address: 192.168.2.2}
+  - {name: wap, address: 192.168.2.3}
+  - {name: pi, address: 192.168.2.4}
+  - {name: dns, address: 192.168.2.5}
+  - {name: netbox, address: 192.168.2.6}
+  - {name: unifi, address: 192.168.2.7}
+  - {name: bingbong-mgt, address: 192.168.2.8}
+  - {name: bingbong, address: 192.168.2.9}
+  - {name: gitlab, address: 192.168.2.15}
+  - {name: plex, address: 192.168.2.20}
+  - {name: print, address: 192.168.2.30}

@@ -2,4 +2,4 @@
 # handlers file for hosts
 - name: restart_dnsmasq
   command: pihole restartdns
-  when: "'dns' in group_names"
+  when: "'nameservers' in group_names"

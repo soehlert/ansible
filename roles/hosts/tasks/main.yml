@@ -11,7 +11,7 @@
 - name: Updating hosts list
   template:
     src: hosts.j2
-    dest: /etc/pihole/lan.list
+    dest: /etc/pihole/local.list
     owner: root
     group: root
     mode: 0644
