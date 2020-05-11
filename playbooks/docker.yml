@@ -1,5 +1,6 @@
 ---
 - hosts: docker
+  become: true
   roles:
-    - { role: 'debian-backports', tags: 'debian-backports' }
-    - { role: 'docker', tags: 'docker' }
+    - {role: 'debian-backports', tags: 'debian-backports'}
+    - {role: 'docker', tags: 'docker'}
