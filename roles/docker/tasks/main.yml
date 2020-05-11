@@ -22,29 +22,22 @@
     repo: "{{ docker_apt_repo }}"
     state: present
 
-- name: Purge the old repo if it exists
-  apt:
-    name: "{{ item }}"
-    purge: true
-  ignore_errors: true
-  loop:
-    - "lxc-docker*"
-    - "docker.io*"
-
 - name: Update cache
   apt:
     update_cache: true
 
 - name: Install docker package
   apt:
-    name: docker-engine
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
     state: present
   notify: Start Docker
 
 - name: Install docker pip
   pip:
-    name: "{{ item }}"
+    name:
+      - docker-py
+      - docker-compose
     state: present
-  with_items:
-    - docker-py
-    - docker-compose
