@@ -9,6 +9,7 @@
     - ca-certificates
     - curl
     - gnupg-agent
+    - python3-pip
     - software-properties-common
 
 - name: Install docker GPG key
@@ -37,6 +38,6 @@
 
 - name: Install docker pip
   pip:
-    name:
-      - docker-compose
+    name: docker-compose
+    executable: /usr/bin/pip3
     state: present
