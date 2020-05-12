@@ -38,6 +38,5 @@
 - name: Install docker pip
   pip:
     name:
-      - docker-py
       - docker-compose
     state: present
