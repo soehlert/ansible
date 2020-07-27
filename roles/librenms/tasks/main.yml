@@ -1,11 +1,19 @@
 ---
-- name: Install prereqs
+# tasks file for hosts-build-librenms
+- name: update and upgrade apt packages
+  become: true
   apt:
-    name: "{{ item }}"
-    state: present
+    upgrade: yes
     update_cache: yes
-  with_items:
+    cache_valid_time: 86400 #24 Hours
+- name: install prereqs
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
     - fping
+    - composer
+    - curl
     - git
     - graphviz
     - imagemagick
@@ -14,14 +22,14 @@
     - mtr-tiny
     - nginx-full
     - nmap
-    - php7.0-cli
-    - php7.0-curl
-    - php7.0-fpm
-    - php7.0-gd
-    - php7.0-json
-    - php7.0-mcrypt
-    - php7.0-mysql
-    - php7.0-snmp
+    - php7.3-cli
+    - php7.3-curl
+    - php7.3-fpm
+    - php7.3-gd
+    - php7.3-json
+    - php7.3-mbstring
+    - php7.3-mysql
+    - php7.3-snmp
     - php-net-ipv4
     - php-net-ipv6
     - php-pear
@@ -30,6 +38,10 @@
     - snmp
     - snmpd
     - whois
+    - php7.3-xml
+    - php7.3-zip
+    - python-memcache
+    - python-mysqldb
 
 - name: Create DB
   mysql_db:
