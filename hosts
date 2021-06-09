@@ -2,11 +2,10 @@
 bingbong ansible_host=192.168.2.9
 
 [nameservers]
-pi ansible_host=192.168.2.4
-dns ansible_host=192.168.2.5
+netmon ansible_host=192.168.2.7
 
 [cloudflare]
-pi ansible_host=192.168.2.4
+netmon ansible_host=192.168.2.7
 
 [vpn]
 
@@ -17,7 +16,6 @@ print ansible_host=192.168.2.30
 netbox ansible_host=192.168.2.6
 
 [ubiquiti]
-unifi ansible_host=192.168.2.7
 
 [git]
 gitlab-runner ansible_host=192.168.2.15
@@ -29,18 +27,15 @@ bingbong ansible_host=192.168.2.9
 plex ansible_host=192.168.2.20
 
 [containers]
-dns ansible_host=192.168.2.5
-netbox ansible_host=192.168.2.6
 gitlab ansible_host=192.168.2.15
 plex ansible_host=192.168.2.20
 atomic ansible_host=192.168.2.25
 
 [django]
-webapps ansible_host=165.227.2.213
 
 [chatbot]
 bots  ansible_host=159.65.69.102
 
 [vps]
-webapps ansible_host=165.227.2.213
 bots  ansible_host=159.65.69.102
+dock ansible_host=144.126.219.19
