@@ -2,5 +2,4 @@
 - hosts: all
   roles:
     - {role: 'packages', tags: 'packages'}
-    - {role: 'netdata', tags: 'netdata'}
     - {role: 'auto-updates', tags: 'auto-updates'}
