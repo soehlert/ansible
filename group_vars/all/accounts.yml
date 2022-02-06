@@ -5,7 +5,7 @@ create_users:
     comment: 'Sam Oehlert'
     pass: ''
     generate_keys: false
-    shell: '/bin/bash'
+    shell: '/bin/zsh'
     state: present
     sudo: true
     system_account: false
@@ -17,15 +17,5 @@ create_users:
     state: present
     sudo: true
     system_account: false
-
-enable_manage_ssh_keys: true
-manage_ssh_keys:
-  - remote_user: soehlert
-    state: present
-    keys:
-      - files/ansible.pub
-      - files/mbp.pub
-  - remote_user: deploy
-    state: present
-    keys:
-      - files/deploy.pub
+github_users:
+  - name: soehlert

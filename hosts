@@ -1,5 +1,5 @@
 [proxmox]
-bingbong ansible_host=192.168.2.9
+prox ansible_host=192.168.2.21
 
 [nameservers]
 netmon ansible_host=192.168.2.7
@@ -10,26 +10,18 @@ netmon ansible_host=192.168.2.7
 [vpn]
 
 [cups]
-print ansible_host=192.168.2.30
 
 [ipam]
-netbox ansible_host=192.168.2.6
 
 [ubiquiti]
 
 [git]
-gitlab-runner ansible_host=192.168.2.15
 
 [docker]
-bingbong ansible_host=192.168.2.9
 
 [media]
-plex ansible_host=192.168.2.20
 
 [containers]
-gitlab ansible_host=192.168.2.15
-plex ansible_host=192.168.2.20
-atomic ansible_host=192.168.2.25
 
 [django]
 

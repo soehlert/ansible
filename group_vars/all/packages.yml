@@ -4,3 +4,4 @@ default_packages:
     - stow
     - iotop
     - htop
+    - zsh

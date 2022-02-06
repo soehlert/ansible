@@ -1,15 +1,43 @@
 ---
-- include: users.yml
-  tags:
-    - setup_users
-    - users
-  when: >
-        create_local_users and
-        create_users is defined
+- name: Make sure sudo is installed
+  package:
+    name: sudo
+    state: present
 
-- include: manage_ssh_keys.yml
-  tags:
-    - manage_ssh_keys
-  when: >
-        enable_manage_ssh_keys is defined and
-        enable_manage_ssh_keys
+- name: Managing user account(s)
+  user:
+    name: "{{ item.user }}"
+    shell: "{{ item.shell|default (omit) }}"
+    comment: "{{ item.comment|default (omit) }}"
+    generate_ssh_key: "{{ item.generate_keys|default (omit) }}"
+    system: "{{ item.system_account|default (omit) }}"
+    state: "{{ item.state }}"
+    groups: "{{ item.groups|default (omit) }}"
+    append: true
+  loop: '{{ create_users }}'
+
+- name: Adding authorized keys files
+  authorized_key:
+    user: "{{ item.name | default(item) }}"
+    key: "{{ github_url }}/{{ item.name | default(item) }}.keys"
+    manage_dir: true
+    exclusive: "{{ github_users_authorized_keys_exclusive }}"
+  loop: "{{ github_users }}"
+
+- name: Add sudoers file
+  template:
+    src: sudoers
+    dest: /etc/sudoers.d/{{ item.user }}
+    owner: root
+    group: root
+    mode: 0440
+    validate: '/usr/sbin/visudo -cf %s'
+  loop: '{{ create_users }}'
+  when: item.state == "present" and item.sudo
+
+- name: Removing users from sudoers
+  file:
+    path: "/etc/sudoers.d/{{ item.user }}"
+    state: absent
+  loop: '{{ create_users }}'
+  when: (item.state == "present" and not item.sudo) or item.state == "absent"
