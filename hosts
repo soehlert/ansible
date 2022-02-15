@@ -20,6 +20,7 @@ netmon ansible_host=192.168.2.7
 [docker]
 
 [media]
+plex ansible_host=192.168.2.40
 
 [containers]
 

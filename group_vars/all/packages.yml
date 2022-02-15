@@ -1,7 +1,9 @@
+---
 default_packages:
-    - vim
-    - tree
-    - stow
-    - iotop
-    - htop
-    - zsh
+  - gnupg2
+  - htop
+  - iotop
+  - stow
+  - tree
+  - vim
+  - zsh
