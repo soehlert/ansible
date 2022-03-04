@@ -3,17 +3,21 @@ prox ansible_host=192.168.2.21
 
 [nameservers]
 netmon ansible_host=192.168.2.7
+pihole ansible_host=192.168.2.42
 
 [cloudflare]
 netmon ansible_host=192.168.2.7
+pihole ansible_host=192.168.2.42
 
 [vpn]
 
 [cups]
 
 [ipam]
+netbox ansible_host=192.168.2.44
 
 [ubiquiti]
+unifi ansible_host=192.168.2.43
 
 [git]
 
