@@ -29,5 +29,4 @@
     src: "{{ item.nfs_server }}:/{{ item.nfs_dir }}"
     fstype: nfs
     state: mounted
-    opts: "{{ item.nfs_options }}"
   with_items: "{{ nfs_client }}"

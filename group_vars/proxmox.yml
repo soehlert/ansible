@@ -1,64 +1,17 @@
 ---
-# yamllint disable rule:line-length
-pve_release_key: proxmox-ve-release-5.x.asc
-pve_release_key_id: 0D9A1950E2EF0603
-dab_repo: https://github.com/soehlert/dab_templates.git
-proxmox_node: bingbong
-proxmox_api_host: 192.168.2.9
-dab_template: ubuntu18.04-template_amd64.tar.gz
-default_template: "local:vztmpl/{{ dab_template }}"
-default_storage: containers
-ssh_pubkey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6a7z8hmbCr7+pWFnxizRs9QMk6Uz7VOVp+5ux615fhCwtayD9oVGneI84C2TxblWDz0RAgTBx0f80fC0q0MEJZZT8o1j384OJ0KQl3ScF/4tVo1qSCufpzQt4PtSiwprJmPgIjb5G4ANVz/zgiEkOrrWFeuIeFG9ZrS+boJ9bRCiqE0Dq1m/K/aFfdb23G9+2GFtDWU66V4t/41H3nGff7SyTZd6pJMdbO71LUFh0X36kIB4/wMjt8IihkCyaEWNuHPheoPVU0t4Eltl6Q6YFTfytTtFoWIpBIrOKuJGAopmneyAvIbd6kddPMFvY6L+NT8j3ry0g4Qp8NSbTSSJb soehlert@mbpro"
-
-container_templates:
-    []
-
-# Either set ip_address or netif, not both
-# Optional things:
-#   onboot: defaults to true
-#   cores: defaults to 2
-#   cpus: defaults to 1
-#   disk: defaults to 20GB
-#   ip_address/netif
-#   memory: defaults to 2048MB
-#   leave off storage size for bind mount    mp#: storage:size,mp=mountpoint
-#   mounts: defaults to none (ex. mounts: '{"mp0":"netbox:20,mp=/mnt/test/"}')
-#   vmid: defaults to next available
-proxmox_containers:
-    - hostname: dns
-      ostemplate: "{{ default_template }}"
-      # yamllint disable-line rule:line-length
-      netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.5/24,ip6=dhcp,bridge=vmbr0"}'
-      storage: "{{ default_storage }}"
-      vmid: 105
-    - hostname: netbox
-      ostemplate: "{{ default_template }}"
-      # yamllint disable-line rule:line-length
-      netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.6/24,ip6=dhcp,bridge=vmbr0"}'
-      mounts: '{"mp0":"/tank/netbox,mp=/usr/local/netbox"}'
-      storage: "{{ default_storage }}"
-      vmid: 106
-    - hostname: unifi
-      ostemplate: "{{ default_template }}"
-      memory: 2048
-      # yamllint disable-line rule:line-length
-      netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.7/24,ip6=dhcp,bridge=vmbr0"}'
-      storage: "{{ default_storage }}"
-      vmid: 107
-    - hostname: gitlab-runner
-      ostemplate: "{{ default_template }}"
-      memory: 4096
-      # yamllint disable-line rule:line-length
-      netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.15/24,ip6=dhcp,bridge=vmbr0"}'
-      storage: "{{ default_storage }}"
-      vmid: 115
-    - hostname: plex
-      cores: 4
-      ostemplate: "{{ default_template }}"
-      memory: 8192
-      # yamllint disable-line rule:line-length
-      netif: '{"net0":"name=eth0,gw={{ default_gateway }},ip=192.168.2.20/24,ip6=dhcp,bridge=vmbr0"}'
-      # yamllint disable-line rule:line-length
-      mounts: '{"mp0":"/tank/media/music,mp=/data/music", "mp1":"/tank/media/movies,mp=/data/movies", "mp2":"/tank/media/tv,mp=/data/tv"}'
-      storage: "{{ default_storage }}"
-      vmid: 120
+nfs_client:
+  - nfs_mount: /media/synology/music
+    nfs_server: 192.168.2.50
+    nfs_dir: /volume1/music
+  - nfs_mount: /media/synology/tv
+    nfs_server: 192.168.2.50
+    nfs_dir: /volume1/tv
+  - nfs_mount: /media/synology/roms
+    nfs_server: 192.168.2.50
+    nfs_dir: /volume1/roms
+  - nfs_mount: /media/synology/plex_metadata
+    nfs_server: 192.168.2.50
+    nfs_dir: /volume1/plex_metadata
+  - nfs_mount: /media/synology/homes
+    nfs_server: 192.168.2.50
+    nfs_dir: /volume1/homes
