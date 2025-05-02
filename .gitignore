@@ -3,3 +3,4 @@ node_modules
 .DS_Store*
 .hubot_history
 group_vars/dns
+.env
