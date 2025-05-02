@@ -22,6 +22,8 @@ unifi ansible_host=192.168.2.43
 [git]
 
 [docker]
+redbrickranch ansible_host=192.168.2.234
+portainer ansible_host=192.168.2.35
 
 [media]
 plex ansible_host=192.168.2.40
