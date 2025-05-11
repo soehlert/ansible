@@ -1,0 +1,8 @@
+---
+- name: Tailscale
+  hosts: all
+  roles:
+    - role: artis3n.tailscale.machine
+      vars:
+        tailscale_authkey: "{{ lookup('env', 'TAILSCALE_KEY') }}"
+        tailscale_args: "--ssh"

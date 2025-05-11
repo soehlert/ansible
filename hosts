@@ -9,6 +9,9 @@ pihole ansible_host=192.168.2.42
 netmon ansible_host=192.168.2.7
 pihole ansible_host=192.168.2.42
 
+[landing]
+homepage ansible_host=192.168.2.31
+
 [vpn]
 
 [cups]
@@ -22,19 +25,7 @@ unifi ansible_host=192.168.2.43
 [git]
 
 [docker]
-redbrickranch ansible_host=192.168.2.234
 portainer ansible_host=192.168.2.35
 
 [media]
 plex ansible_host=192.168.2.40
-
-[containers]
-
-[django]
-
-[chatbot]
-bots  ansible_host=159.65.69.102
-
-[vps]
-bots  ansible_host=159.65.69.102
-dock ansible_host=144.126.219.19

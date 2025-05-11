@@ -4,3 +4,4 @@ node_modules
 .hubot_history
 group_vars/dns
 .env
+.idea

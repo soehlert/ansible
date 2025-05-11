@@ -1,5 +1,12 @@
 ---
 - hosts: all
+  gather_facts: true
   roles:
     - {role: 'packages', tags: 'packages'}
     - {role: 'auto-updates', tags: 'auto-updates'}
+
+- name: Import Tailscale playbook except on containers
+  ansible.builtin.import_playbook: tailscale.yml
+  when:
+    - ansible_facts['virtualization_type'] | default('') != "docker"
+    - ansible_facts['virtualization_type'] | default('') != "lxc"

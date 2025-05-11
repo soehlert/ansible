@@ -29,5 +29,7 @@ proxmox:
 	ansible-playbook playbooks/proxmox.yml
 security:
 	ansible-playbook playbooks/security.yml
+tailscale:
+	ansible-playbook playbooks/tailscale.yml
 unifi:
 	ansible-playbook playbooks/unifi.yml
